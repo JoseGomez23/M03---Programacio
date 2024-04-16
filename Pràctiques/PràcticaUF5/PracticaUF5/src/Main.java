@@ -10,7 +10,8 @@ public class Main {
 
     public static void menu(){
 
-        int opcio;
+        int opcio = 0;
+
 
         System.out.println("Que vols fer: ");
         System.out.println("1 - Introduir producte");

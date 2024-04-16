@@ -1,7 +1,10 @@
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 public class Main {
-
     static Scanner scan = new Scanner(System.in);
+    static ArrayList<Producte> productes= new ArrayList<>(100);
     public static void main(String[] args) {
 
         menu();
@@ -10,7 +13,7 @@ public class Main {
 
     public static void menu(){
 
-        int opcio = 0;
+        String opcio;
 
         System.out.println("----------------------------");
         System.out.println("-------- Benvingut! --------");
@@ -20,21 +23,21 @@ public class Main {
         System.out.println("3 - Mostrar carro: ");
         System.out.println("0 - Sortir");
         System.out.print("Opcio: ");
-        opcio = scan.nextInt();
-        scan.nextLine();
+        opcio = scan.nextLine();
+
 
         switch (opcio){
 
-            case 1:
+            case "1":
                 afegirProducte();
                 break;
-            case 2:
+            case "2":
                 cobrarCaixa();
                 break;
-            case 3:
+            case "3":
                 mostrarCarro();
                 break;
-            case 0:
+            case "0":
                 System.exit(0);
                 break;
             default:
@@ -85,20 +88,114 @@ public class Main {
 
     }
     public static void afegirProducteAlimentacio(){
+        try {
+
+            String nom;
+            float preu;
+            String codiBarres;
+            String dataCad;
+            Date dataCaducitat;
+
+            System.out.println("Introdueix les dades per un producte d'Alimentacio: ");
+            System.out.print("Nom: ");
+            nom = scan.nextLine();
+
+            System.out.print("Preu: ");
+            preu = scan.nextInt();
+            scan.nextLine();
+
+            System.out.print("Codi de barres: ");
+            codiBarres = scan.nextLine();
+
+            System.out.print("Data de caducitat: ");
+            dataCad = scan.nextLine();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            dataCaducitat = sdf.parse(dataCad);
+
+            productes.add(new Alimentacio(preu,nom,codiBarres,dataCaducitat));
+
+        } catch (Exception e){
+
+            System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
+            afegirProducteAlimentacio();
+
+        }
+
 
     }
 
     public static void afegirProducteElectronica(){
 
+        try {
+
+            String nom;
+            float preu;
+            String codiBarres;
+            int diesGarantia;
+
+            System.out.println("Introdueix les dades per un producte d'Electronica: ");
+            System.out.print("Nom: ");
+            nom = scan.nextLine();
+
+            System.out.print("Preu: ");
+            preu = scan.nextInt();
+            scan.nextLine();
+
+            System.out.print("Codi de barres: ");
+            codiBarres = scan.nextLine();
+
+            System.out.print("Dies de garantia: ");
+            diesGarantia = scan.nextInt();
+
+            productes.add(new Electronica(preu,nom,codiBarres,diesGarantia));
+
+
+        } catch (Exception e){
+
+            System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
+            afegirProducteElectronica();
+
+        }
+
     }
 
     public static void afegirProducteTextil(){
+        try {
+
+            String nom;
+            float preu;
+            String codiBarres;
+            String composicioTextil;
+
+            System.out.println("Introdueix les dades per un producte d'Electronica: ");
+            System.out.print("Nom: ");
+            nom = scan.nextLine();
+
+            System.out.print("Preu: ");
+            preu = scan.nextInt();
+            scan.nextLine();
+
+            System.out.print("Codi de barres: ");
+            codiBarres = scan.nextLine();
+
+            System.out.print("Composicio textil: ");
+            composicioTextil = scan.nextLine();
+
+            productes.add(new Textil(preu,nom,codiBarres,composicioTextil));
+
+        } catch (Exception e){
+
+            System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
+            afegirProducteTextil();
+
+        }
+
 
     }
 
     // Metode per cobrar els productes que estan a la llista
     public static void cobrarCaixa(){
-
 
     }
 
@@ -106,8 +203,5 @@ public class Main {
 
 
     }
-
-
-
 
 }

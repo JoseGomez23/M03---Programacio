@@ -6,4 +6,10 @@ public class Electronica extends Producte{
         super(preu, nom, codiBarres);
         this.diesGarantia = diesGarantia;
     }
+
+    public void setDiesGarantia(int diesGarantia) {
+
+        diesGarantia = (int) (preu + preu*(diesGarantia/365)*0.1);
+        this.diesGarantia = diesGarantia;
+    }
 }

@@ -18,6 +18,5 @@ public class Alimentacio extends Producte{
         preuDataCad = (int) (preu - preu*(1/(dataCad.getTime()- dataActual.getTime()  +1)) + (preu * 0.1));
         System.out.println(preuDataCad);
 
-
     }
 }

@@ -29,9 +29,9 @@ public class Alimentacio extends Producte{
 
     @Override
     public String toString() {
-        return  "Nom: " + nom + "\n" +
-                "Preu: " + getPreu() + "\n" +
-                "Data caducitat: " + dataCad + "\n" +
+        return  "Nom: " + nom + "      " +
+                "Preu: " + getPreu() + "      " +
+                "Data caducitat: " + dataCad + "      " +
                 "Codi de barres: " + codiBarres;
     }
 

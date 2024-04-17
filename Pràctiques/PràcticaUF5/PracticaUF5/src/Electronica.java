@@ -7,9 +7,9 @@ public class Electronica extends Producte{
         this.diesGarantia = diesGarantia;
     }
 
-    public int setPreuDiesGarantia(int preuDiesGarantia) {
+    public float setPreuDiesGarantia(float preuDiesGarantia) {
 
-        preuDiesGarantia = (int) (preu + preu*(diesGarantia/365)*0.1);
+        preuDiesGarantia = (float) (preu + preu*(diesGarantia/365)*0.1);
         return preuDiesGarantia;
     }
 

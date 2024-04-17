@@ -205,17 +205,18 @@ public class Main {
     // Metode per cobrar els productes que estan a la llista
     public static void cobrarCaixa() {
 
+        System.out.println("-------------------");
+        System.out.println("---- PRODUCTES ----");
+        System.out.println("-------------------");
+
+
+
     }
 
     // Metode per mostrar els productes del carro
     public static void mostrarCarro() {
 
-        for (int i = 0; i < productes.size(); ++i) {
 
-            System.out.println(productes);
-
-        }
-        menu();
 
     }
 

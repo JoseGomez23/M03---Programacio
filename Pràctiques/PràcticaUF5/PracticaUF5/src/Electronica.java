@@ -7,17 +7,17 @@ public class Electronica extends Producte{
         this.diesGarantia = diesGarantia;
     }
 
-    public float setDiesGarantia(float diesGarantia) {
+    public int setPreuDiesGarantia(int preuDiesGarantia) {
 
-        diesGarantia = (float)(preu + preu*(diesGarantia/365)*0.1);
-        return diesGarantia;
+        preuDiesGarantia = (int) (preu + preu*(diesGarantia/365)*0.1);
+        return preuDiesGarantia;
     }
 
 
 
     @Override
     public float getPreu() {
-        return setDiesGarantia(diesGarantia);
+        return setPreuDiesGarantia(diesGarantia);
 
     }
 
@@ -27,5 +27,10 @@ public class Electronica extends Producte{
                 "Preu: " + getPreu() + "\n" +
                 "Dies de garantia: " + diesGarantia + "\n" +
                 "Codi de barres: " + codiBarres;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

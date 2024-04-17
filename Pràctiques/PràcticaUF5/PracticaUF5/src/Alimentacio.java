@@ -36,4 +36,8 @@ public class Alimentacio extends Producte{
     }
 
 
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }

@@ -19,4 +19,9 @@ public class Textil extends Producte {
                 "Composicio textil: " + composicioTextil + "\n" +
                 "Codi de barres: " + codiBarres;
     }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }

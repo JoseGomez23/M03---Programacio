@@ -2,16 +2,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+
 public class Main {
     static Scanner scan = new Scanner(System.in);
-    static ArrayList<Producte> productes= new ArrayList<>(100);
+    static ArrayList<Producte> productes = new ArrayList<>(100);
+
     public static void main(String[] args) {
 
         menu();
 
     }
 
-    public static void menu(){
+    public static void menu() {
 
         String opcio;
 
@@ -26,7 +28,7 @@ public class Main {
         opcio = scan.nextLine();
 
 
-        switch (opcio){
+        switch (opcio) {
 
             case "1":
                 afegirProducte();
@@ -50,7 +52,7 @@ public class Main {
     }
 
     // Metodes per afegir productes
-    public static void afegirProducte(){
+    public static void afegirProducte() {
 
         String opcio;
 
@@ -66,7 +68,7 @@ public class Main {
         opcio = scan.nextLine();
 
 
-        switch (opcio){
+        switch (opcio) {
 
             case "1":
                 afegirProducteAlimentacio();
@@ -78,16 +80,17 @@ public class Main {
                 afegirProducteElectronica();
                 break;
             case "4":
-                    menu();
+                menu();
                 break;
             default:
                 System.out.println("Opcio incorrecte, torna a introduir-ne una valida");
                 afegirProducte();
-            break;
+                break;
         }
 
     }
-    public static void afegirProducteAlimentacio(){
+
+    public static void afegirProducteAlimentacio() {
         try {
 
             String nom;
@@ -113,19 +116,22 @@ public class Main {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             dataCaducitat = sdf.parse(dataCad);
 
-            productes.add(new Alimentacio(preu,nom,codiBarres,dataCaducitat));
+            productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
 
-        } catch (Exception e){
+
+        } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
             afegirProducteAlimentacio();
 
+        } finally {
+            menu();
         }
 
 
     }
 
-    public static void afegirProducteElectronica(){
+    public static void afegirProducteElectronica() {
 
         try {
 
@@ -148,19 +154,21 @@ public class Main {
             System.out.print("Dies de garantia: ");
             diesGarantia = scan.nextInt();
 
-            productes.add(new Electronica(preu,nom,codiBarres,diesGarantia));
+            productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
 
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
             afegirProducteElectronica();
 
+        } finally {
+            menu();
         }
 
     }
 
-    public static void afegirProducteTextil(){
+    public static void afegirProducteTextil() {
         try {
 
             String nom;
@@ -182,9 +190,9 @@ public class Main {
             System.out.print("Composicio textil: ");
             composicioTextil = scan.nextLine();
 
-            productes.add(new Textil(preu,nom,codiBarres,composicioTextil));
+            productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
             afegirProducteTextil();
@@ -195,12 +203,19 @@ public class Main {
     }
 
     // Metode per cobrar els productes que estan a la llista
-    public static void cobrarCaixa(){
+    public static void cobrarCaixa() {
 
     }
 
-    public static void  mostrarCarro(){
+    // Metode per mostrar els productes del carro
+    public static void mostrarCarro() {
 
+        for (int i = 0; i < productes.size(); ++i) {
+
+            System.out.println(productes);
+
+        }
+        menu();
 
     }
 

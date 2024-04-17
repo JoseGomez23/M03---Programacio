@@ -1,4 +1,4 @@
-public class Producte {
+public abstract class Producte {
 
     float preu;
     String nom;
@@ -8,5 +8,14 @@ public class Producte {
         this.preu = preu;
         this.nom = nom;
         this.codiBarres = codiBarres;
+    }
+
+    public abstract float getPreu();
+
+    @Override
+    public String toString() {
+        return  "Preu: " + preu + "\n" +
+                "Nom: " + nom + "\n" +
+                "Codi de barres: " + codiBarres;
     }
 }

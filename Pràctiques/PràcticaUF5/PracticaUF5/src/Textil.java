@@ -6,4 +6,17 @@ public class Textil extends Producte {
         super(preu, nom, codiBarres);
         this.composicioTextil = composicioTextil;
     }
+
+    @Override
+    public float getPreu() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return  "Nom: " + nom + "\n" +
+                "Preu: " + preu + "\n" +
+                "Composicio textil: " + composicioTextil + "\n" +
+                "Codi de barres: " + codiBarres;
+    }
 }

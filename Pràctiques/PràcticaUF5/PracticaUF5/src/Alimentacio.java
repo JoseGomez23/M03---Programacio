@@ -7,17 +7,33 @@ public class Alimentacio extends Producte{
 
     public Alimentacio(float preu, String nom, String codiBarres, Date dataCad) {
         super(preu, nom, codiBarres);
-
         this.dataCad = dataCad;
+
     }
 
-    public void setDataCad() {
+
+    public float setPreuDataCad() {
+        // TODO: 17/04/2024 El calcul no esta ben fet 
 
         int preuDataCad;
         Date dataActual = new Date(System.currentTimeMillis());
         preuDataCad = (int) (preu - preu*(1/(dataCad.getTime()- dataActual.getTime()  +1)) + (preu * 0.1));
-        preu = preuDataCad;
-        System.out.println(preu);
-
+        super.preu = preuDataCad;
+        return super.preu;
     }
+
+    @Override
+    public float getPreu() {
+        return setPreuDataCad();
+    }
+
+    @Override
+    public String toString() {
+        return  "Nom: " + nom + "\n" +
+                "Preu: " + getPreu() + "\n" +
+                "Data caducitat: " + dataCad + "\n" +
+                "Codi de barres: " + codiBarres;
+    }
+
+
 }

@@ -15,9 +15,9 @@ public class Alimentacio extends Producte{
     public float setPreuDataCad() {
         // TODO: 17/04/2024 El calcul no esta ben fet 
 
-        int preuDataCad;
+        float preuDataCad;
         Date dataActual = new Date(System.currentTimeMillis());
-        preuDataCad = (int) (preu - preu*(1/(dataCad.getTime()- dataActual.getTime()  +1)) + (preu * 0.1));
+        preuDataCad = (float) (preu - preu*(1/(dataCad.getTime()- dataActual.getTime()  +1)) - (preu * 0.1));
         super.preu = preuDataCad;
         return super.preu;
     }

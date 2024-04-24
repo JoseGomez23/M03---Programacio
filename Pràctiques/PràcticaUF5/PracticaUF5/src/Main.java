@@ -1,11 +1,12 @@
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+
     static Scanner scan = new Scanner(System.in);
     static ArrayList<Producte> productes = new ArrayList<>(100);
+    static Map<String,String> carrito = new HashMap<>();
+    static int contadorProductes = 0;
 
     public static void main(String[] args) {
 
@@ -15,40 +16,47 @@ public class Main {
 
     public static void menu() {
 
-        String opcio;
+        if (contadorProductes <= 100) {
 
-        System.out.println("----------------------------");
-        System.out.println("-------- Benvingut! --------");
-        System.out.println("----------------------------");
-        System.out.println("1 - Introduir producte");
-        System.out.println("2 - Passar per caixa");
-        System.out.println("3 - Mostrar carro: ");
-        System.out.println("0 - Sortir");
-        System.out.print("Opcio: ");
-        opcio = scan.nextLine();
+            String opcio;
+
+            System.out.println("----------------------------");
+            System.out.println("-------- Benvingut! --------");
+            System.out.println("----------------------------");
+            System.out.println("1 - Introduir producte");
+            System.out.println("2 - Passar per caixa");
+            System.out.println("3 - Mostrar carro: ");
+            System.out.println("0 - Sortir");
+            System.out.print("Opcio: ");
+            opcio = scan.nextLine();
 
 
-        switch (opcio) {
+            switch (opcio) {
 
-            case "1":
-                afegirProducte();
-                break;
-            case "2":
-                cobrarCaixa();
-                break;
-            case "3":
-                mostrarCarro();
-                break;
-            case "0":
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Opcio incorrecte, torna a introduir-ne una de valida");
-                menu();
-                break;
+                case "1":
+                    afegirProducte();
+                    break;
+                case "2":
+                    cobrarCaixa();
+                    break;
+                case "3":
+                    mostrarCarro();
+                    break;
+                case "4":
+                    prova();
+                case "0":
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Opcio incorrecte, torna a introduir-ne una de valida");
+                    menu();
+                    break;
 
+            }
+        } else {
+            System.out.println("Has introduit el màxim de productes, passa per caixa!!!");
+            cobrarCaixa();
         }
-
     }
 
     // Metodes per afegir productes
@@ -93,11 +101,14 @@ public class Main {
     public static void afegirProducteAlimentacio() {
         try {
 
+
             String nom;
             float preu;
             String codiBarres;
             String dataCad;
             Date dataCaducitat;
+
+            ++contadorProductes;
 
             System.out.println("Introdueix les dades per un producte d'Alimentacio: ");
             System.out.print("Nom: ");
@@ -117,11 +128,14 @@ public class Main {
             dataCaducitat = sdf.parse(dataCad);
 
             productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
+            carrito.put(codiBarres,nom);
+
 
 
         } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
+            --contadorProductes;
             afegirProducteAlimentacio();
 
         } finally {
@@ -140,6 +154,8 @@ public class Main {
             String codiBarres;
             int diesGarantia;
 
+            ++contadorProductes;
+
             System.out.println("Introdueix les dades per un producte d'Electronica: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
@@ -155,11 +171,12 @@ public class Main {
             diesGarantia = scan.nextInt();
 
             productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
-
+            carrito.put(codiBarres,nom);
 
         } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
+            --contadorProductes;
             afegirProducteElectronica();
 
         } finally {
@@ -176,7 +193,9 @@ public class Main {
             String codiBarres;
             String composicioTextil;
 
-            System.out.println("Introdueix les dades per un producte d'Electronica: ");
+            ++contadorProductes;
+
+            System.out.println("Introdueix les dades per un producte d'Tèxtil: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
 
@@ -191,10 +210,11 @@ public class Main {
             composicioTextil = scan.nextLine();
 
             productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
-
+            carrito.put(codiBarres,nom);
         } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
+            --contadorProductes;
             afegirProducteTextil();
 
         }
@@ -205,9 +225,20 @@ public class Main {
     // Metode per cobrar els productes que estan a la llista
     public static void cobrarCaixa() {
 
-        System.out.println("-------------------");
-        System.out.println("---- PRODUCTES ----");
-        System.out.println("-------------------");
+        try {
+
+            System.out.println("-------------------");
+            System.out.println("---- PRODUCTES ----");
+            System.out.println("-------------------");
+
+
+
+        }catch (Exception e){
+
+            System.out.println("S'ha produit un error, reexecutant");
+            cobrarCaixa();
+
+        }
 
 
 
@@ -216,7 +247,17 @@ public class Main {
     // Metode per mostrar els productes del carro
     public static void mostrarCarro() {
 
+        System.out.println(productes.toString());
 
+        /*for (String producte:carrito.keySet()){
+            System.out.printf(producte,carrito.get(producte));
+        }*/
+
+    }
+
+    public static void prova(){
+
+        System.out.println(carrito.toString());
 
     }
 

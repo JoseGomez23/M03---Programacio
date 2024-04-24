@@ -13,7 +13,7 @@ public class Alimentacio extends Producte{
 
 
     public float setPreuDataCad() {
-        // TODO: 17/04/2024 El calcul no esta ben fet 
+
 
         float preuDataCad;
         Date dataActual = new Date(System.currentTimeMillis());
@@ -29,9 +29,9 @@ public class Alimentacio extends Producte{
 
     @Override
     public String toString() {
-        return  "Nom: " + nom + "      " +
-                "Preu: " + getPreu() + "      " +
-                "Data caducitat: " + dataCad + "      " +
+        return  "Nom: " + nom + "\n" +
+                "Preu: " + getPreu() + "\n" +
+                "Data caducitat: " + dataCad + "\n" +
                 "Codi de barres: " + codiBarres;
     }
 

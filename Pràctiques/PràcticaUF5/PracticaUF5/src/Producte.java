@@ -18,4 +18,7 @@ public abstract class Producte implements Comparable{
                 "Nom: " + nom + "\n" +
                 "Codi de barres: " + codiBarres;
     }
+
+
+
 }

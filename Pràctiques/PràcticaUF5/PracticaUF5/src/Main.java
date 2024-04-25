@@ -5,7 +5,8 @@ public class Main {
 
     static Scanner scan = new Scanner(System.in);
     static ArrayList<Producte> productes = new ArrayList<>(100);
-    static Map<String,String> carrito = new HashMap<>();
+    static Map<String, String> carrito = new HashMap<>();
+    static Map<String, Float> caixa = new HashMap<>();
     static int contadorProductes = 0;
 
     public static void main(String[] args) {
@@ -126,9 +127,8 @@ public class Main {
             dataCaducitat = sdf.parse(dataCad);
 
             productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
-            carrito.put(nom,codiBarres);
-
-
+            carrito.put(codiBarres, nom);
+            caixa.put(nom,preu);
 
         } catch (Exception e) {
 
@@ -169,7 +169,8 @@ public class Main {
             diesGarantia = scan.nextInt();
 
             productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
-            carrito.put(nom,codiBarres);
+            carrito.put(codiBarres, nom);
+            caixa.put(nom,preu);
 
         } catch (Exception e) {
 
@@ -208,7 +209,9 @@ public class Main {
             composicioTextil = scan.nextLine();
 
             productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
-            carrito.put(nom,codiBarres);
+            carrito.put(codiBarres, nom);
+            caixa.put(nom,preu);
+
         } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
@@ -227,33 +230,40 @@ public class Main {
     public static void cobrarCaixa() {
 
         try {
-            Date dataCaducitat;
-            String dataCad;
-            String nom = "------------------" + "\n"+
-                         "--- SAPAMERCAT ---" + "\n"+
-                         "------------------";
 
-            System.out.print("Introdueix el dia d'avui(dd/mm/yyyy): ");
-            dataCad = scan.nextLine();
+            if (productes.isEmpty()) {
 
+                System.out.println("No tens cap producte a la llista!");
+                afegirProducte();
+            } else {
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dataCaducitat = sdf.parse(dataCad);
+                Date dataCaducitat;
+                String dataCad;
+                String nom = "------------------" + "\n" +
+                             "--- SAPAMERCAT ---" + "\n" +
+                             "------------------";
 
-
-            System.out.println("TIQUET:");
-            System.out.println(nom);
-            System.out.println(dataCaducitat);
-            System.out.println("-------------------");
+                System.out.print("Introdueix el dia d'avui(dd/mm/yyyy): ");
+                dataCad = scan.nextLine();
 
 
-        }catch (Exception e){
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                dataCaducitat = sdf.parse(dataCad);
+
+
+                System.out.println("TIQUET:");
+                System.out.println(nom);
+                System.out.println(dataCaducitat);
+                System.out.println("-------------------");
+
+            }
+
+        } catch (Exception e) {
 
             System.out.println("S'ha produit un error, reexecutant");
             cobrarCaixa();
 
         }
-
 
 
     }
@@ -270,13 +280,12 @@ public class Main {
             codiDebarresC.put(codi, codiDebarresC.getOrDefault(codi, 0) + 1);
         }
 
-        System.out.println("Conteo por código de barras:");
+        System.out.println("Productes: ");
         for (String codiBarres : codiDebarresC.keySet()) {
             System.out.println("Codi de barres: " + codiBarres + " --> " + codiDebarresC.get(codiBarres));
         }
 
     }
-
 
 
 }

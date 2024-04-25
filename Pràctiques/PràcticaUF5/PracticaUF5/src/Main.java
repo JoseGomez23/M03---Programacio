@@ -42,8 +42,6 @@ public class Main {
                 case "3":
                     mostrarCarro();
                     break;
-                case "4":
-                    prova();
                 case "0":
                     System.exit(0);
                     break;
@@ -128,7 +126,7 @@ public class Main {
             dataCaducitat = sdf.parse(dataCad);
 
             productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
-            carrito.put(codiBarres,nom);
+            carrito.put(nom,codiBarres);
 
 
 
@@ -171,7 +169,7 @@ public class Main {
             diesGarantia = scan.nextInt();
 
             productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
-            carrito.put(codiBarres,nom);
+            carrito.put(nom,codiBarres);
 
         } catch (Exception e) {
 
@@ -210,13 +208,16 @@ public class Main {
             composicioTextil = scan.nextLine();
 
             productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
-            carrito.put(codiBarres,nom);
+            carrito.put(nom,codiBarres);
         } catch (Exception e) {
 
             System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
             --contadorProductes;
             afegirProducteTextil();
 
+        } finally {
+
+            menu();
         }
 
 
@@ -226,11 +227,24 @@ public class Main {
     public static void cobrarCaixa() {
 
         try {
+            Date dataCaducitat;
+            String dataCad;
+            String nom = "------------------" + "\n"+
+                         "--- SAPAMERCAT ---" + "\n"+
+                         "------------------";
 
-            System.out.println("-------------------");
-            System.out.println("---- PRODUCTES ----");
-            System.out.println("-------------------");
+            System.out.print("Introdueix el dia d'avui(dd/mm/yyyy): ");
+            dataCad = scan.nextLine();
 
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            dataCaducitat = sdf.parse(dataCad);
+
+
+            System.out.println("TIQUET:");
+            System.out.println(nom);
+            System.out.println(dataCaducitat);
+            System.out.println("-------------------");
 
 
         }catch (Exception e){
@@ -247,18 +261,22 @@ public class Main {
     // Metode per mostrar els productes del carro
     public static void mostrarCarro() {
 
-        System.out.println(productes.toString());
+        //TODO No funciona com hauria de fer-ho, els identifica pero no els compta si hi han repetits. (arreglar-ho)
 
-        /*for (String producte:carrito.keySet()){
-            System.out.printf(producte,carrito.get(producte));
-        }*/
+        HashMap<String, Integer> codiDebarresC = new HashMap<>();
+
+        for (String key : carrito.keySet()) {
+            String codi = carrito.get(key);
+            codiDebarresC.put(codi, codiDebarresC.getOrDefault(codi, 0) + 1);
+        }
+
+        System.out.println("Conteo por código de barras:");
+        for (String codiBarres : codiDebarresC.keySet()) {
+            System.out.println("Codi de barres: " + codiBarres + " --> " + codiDebarresC.get(codiBarres));
+        }
 
     }
 
-    public static void prova(){
 
-        System.out.println(carrito.toString());
-
-    }
 
 }

@@ -13,7 +13,7 @@ public class Main {
 
         productes.add(new Textil(12, "Camisa", "12", "Coto"));
         productes.add(new Electronica(1002, "Tv", "129567", 24));
-
+        productes.add(new Textil(12, "Camisa", "12", "Coto"));
         menu();
 
     }
@@ -126,7 +126,7 @@ public class Main {
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
-            if (preu > 100){
+            if (preu > 100) {
 
                 System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
                 afegirProducteAlimentacio();
@@ -183,7 +183,7 @@ public class Main {
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
-            if (preu > 1000000){
+            if (preu > 1000000) {
 
                 System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
                 afegirProducteAlimentacio();
@@ -235,7 +235,7 @@ public class Main {
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
-            if (preu > 10000){
+            if (preu > 10000) {
 
                 System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
                 afegirProducteAlimentacio();
@@ -336,19 +336,35 @@ public class Main {
     // Metode per mostrar els productes del carro
     public static void mostrarCarro() {
 
-        //TODO No funciona com hauria de fer-ho, els identifica pero no els compta si hi han repetits. (arreglar-ho)
+        LinkedHashMap<Integer,String> codis = new LinkedHashMap<>();
+        for (int i = 0; i < productes.size(); ++i){
 
-        HashMap<String, Integer> codiDebarresC = new HashMap<>();
+            int codiTmp;
+            int codidef;
 
-        for (String key : carrito.keySet()) {
-            String codi = carrito.get(key);
-            codiDebarresC.put(codi, codiDebarresC.getOrDefault(codi, 0) + 1);
+            String nomP = productes.get(i).toString().split("\\*")[0];
+            String codi = productes.get(i).toString().split("\\*")[3];
+
+            codidef = Integer.parseInt(codi.substring(17).trim());
+
+            codiTmp = codidef;
+
+            if (!codis.containsKey(codidef)){
+
+                //Si no existeix el registre, afegeix el primer amb quantitat 1
+                codis.put(codidef,nomP + "*1");
+                System.out.println();
+
+            } else {
+
+                //Si existeix el codi s'afegeix 1 registre mes!
+               codis.replace(codidef,nomP + "*" + (Integer.parseInt(codis.get(codidef).split("\\*")[1]) + 1));
+
+            }
+
         }
-
-        System.out.println("Productes: ");
-        for (String codiBarres : codiDebarresC.keySet()) {
-            System.out.println("Codi de barres: " + codiBarres + " --> " + codiDebarresC.get(codiBarres));
-        }
+        // utilitzem v.split en dos casos per treure el nom i separar la quantitat
+        codis.forEach((k,v) -> System.out.printf("%s %s %s \n", v.split("\\*")[0].substring(4).trim(),"-->",v.split("\\*")[1]));
 
     }
 

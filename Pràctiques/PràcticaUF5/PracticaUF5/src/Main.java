@@ -11,6 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        productes.add(new Textil(12,"Camisa","12","Coto"));
+        productes.add(new Electronica(1002,"Tv","129567",24));
+
         menu();
 
     }
@@ -237,6 +240,7 @@ public class Main {
                 afegirProducte();
             } else {
 
+                float preuF = 0;
                 Date dataCaducitat;
                 String dataCad;
                 String nom = "------------------" + "\n" +
@@ -256,10 +260,33 @@ public class Main {
                 System.out.println(dataCaducitat);
                 System.out.println("-------------------");
 
+
+                String format = "%-" + 15 + "s%" + 10 + "s\n";
+
+                for (int i = 0; i < productes.size(); i++) {
+
+                    float preuTmp;
+
+
+                    String nomP = productes.get(i).toString().split("\\*")[0];
+                    String preu = productes.get(i).toString().split("\\*")[1];
+
+                    System.out.printf(format, nomP, preu);
+
+                    preuTmp = Float.parseFloat(preu.substring(6).trim());
+
+                    preuF = preuTmp + preuF;
+
+                }
+
+                System.out.println(preuF);
+
+
             }
 
         } catch (Exception e) {
 
+            System.out.println(e.getMessage());
             System.out.println("S'ha produit un error, reexecutant");
             cobrarCaixa();
 

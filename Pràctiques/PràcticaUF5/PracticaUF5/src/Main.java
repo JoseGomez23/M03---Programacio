@@ -11,8 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        productes.add(new Textil(12,"Camisa","12","Coto"));
-        productes.add(new Electronica(1002,"Tv","129567",24));
+        productes.add(new Textil(12, "Camisa", "12", "Coto"));
+        productes.add(new Electronica(1002, "Tv", "129567", 24));
 
         menu();
 
@@ -116,9 +116,22 @@ public class Main {
             System.out.print("Nom: ");
             nom = scan.nextLine();
 
+            if (nom.length() > 15) {
+
+                System.out.println("Nom massa llarg, torna a introduir un mes curt.");
+                --contadorProductes;
+                afegirProducteAlimentacio();
+            }
+
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
+            if (preu > 100){
+
+                System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
+                afegirProducteAlimentacio();
+                --contadorProductes;
+            }
 
             System.out.print("Codi de barres: ");
             codiBarres = scan.nextLine();
@@ -131,7 +144,7 @@ public class Main {
 
             productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
             carrito.put(codiBarres, nom);
-            caixa.put(nom,preu);
+            caixa.put(nom, preu);
 
         } catch (Exception e) {
 
@@ -160,10 +173,22 @@ public class Main {
             System.out.println("Introdueix les dades per un producte d'Electronica: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
+            if (nom.length() > 15) {
+
+                System.out.println("Nom massa llarg, torna a introduir un mes curt.");
+                --contadorProductes;
+                afegirProducteElectronica();
+            }
 
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
+            if (preu > 1000000){
+
+                System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
+                afegirProducteAlimentacio();
+                --contadorProductes;
+            }
 
             System.out.print("Codi de barres: ");
             codiBarres = scan.nextLine();
@@ -173,7 +198,7 @@ public class Main {
 
             productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
             carrito.put(codiBarres, nom);
-            caixa.put(nom,preu);
+            caixa.put(nom, preu);
 
         } catch (Exception e) {
 
@@ -200,10 +225,22 @@ public class Main {
             System.out.println("Introdueix les dades per un producte d'Tèxtil: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
+            if (nom.length() > 15) {
+
+                System.out.println("Nom massa llarg, torna a introduir un mes curt.");
+                --contadorProductes;
+                afegirProducteTextil();
+            }
 
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
+            if (preu > 10000){
+
+                System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
+                afegirProducteAlimentacio();
+                --contadorProductes;
+            }
 
             System.out.print("Codi de barres: ");
             codiBarres = scan.nextLine();
@@ -213,7 +250,7 @@ public class Main {
 
             productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
             carrito.put(codiBarres, nom);
-            caixa.put(nom,preu);
+            caixa.put(nom, preu);
 
         } catch (Exception e) {
 
@@ -244,8 +281,8 @@ public class Main {
                 Date dataCaducitat;
                 String dataCad;
                 String nom = "------------------" + "\n" +
-                             "--- SAPAMERCAT ---" + "\n" +
-                             "------------------";
+                        "--- SAPAMERCAT ---" + "\n" +
+                        "------------------";
 
                 System.out.print("Introdueix el dia d'avui(dd/mm/yyyy): ");
                 dataCad = scan.nextLine();
@@ -279,9 +316,10 @@ public class Main {
 
                 }
 
-                System.out.println(preuF);
+                System.out.println("-------------------");
+                System.out.println("Total: " + preuF);
 
-
+                productes.clear();
             }
 
         } catch (Exception e) {

@@ -4,16 +4,17 @@ import java.util.*;
 public class Main {
 
     static Scanner scan = new Scanner(System.in);
-    static ArrayList<Producte> productes = new ArrayList<>(100);
+    static ArrayList<Producte> productes = new ArrayList<>();
     static Map<String, String> carrito = new HashMap<>();
     static Map<String, Float> caixa = new HashMap<>();
+    static ArrayList<String>codisBarresTextil = new ArrayList<>();
     static int contadorProductes = 0;
 
     public static void main(String[] args) {
 
-        productes.add(new Textil(12, "Camisa", "12", "Coto"));
+
         productes.add(new Electronica(1002, "Tv", "129567", 24));
-        productes.add(new Textil(12, "Camisa", "12", "Coto"));
+
         menu();
 
     }
@@ -219,6 +220,8 @@ public class Main {
             float preu;
             String codiBarres;
             String composicioTextil;
+            boolean condicioBucle;
+
 
             ++contadorProductes;
 
@@ -238,12 +241,32 @@ public class Main {
             if (preu > 10000) {
 
                 System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
-                afegirProducteAlimentacio();
+                afegirProducteTextil();
                 --contadorProductes;
             }
 
             System.out.print("Codi de barres: ");
             codiBarres = scan.nextLine();
+
+
+            condicioBucle = false;
+
+            do {
+
+                //TODO: Arreglar bug, cuan es mostra carro amb un producte textil torna a entrar a aquest metode.
+
+                if (codisBarresTextil.contains(codiBarres)){
+
+                    System.out.println("No pots tenir dos tipus productes de aquest tipus amb el mateix codi de barres! ");
+                    afegirProducteTextil();
+
+                } else {
+
+                    codisBarresTextil.add(codiBarres);
+                    condicioBucle = true;
+                }
+
+            } while (!condicioBucle);
 
             System.out.print("Composicio textil: ");
             composicioTextil = scan.nextLine();
@@ -300,6 +323,7 @@ public class Main {
 
                 String format = "%-" + 15 + "s%" + 10 + "s\n";
 
+
                 for (int i = 0; i < productes.size(); i++) {
 
                     float preuTmp;
@@ -313,8 +337,8 @@ public class Main {
                     preuTmp = Float.parseFloat(preu.substring(6).trim());
 
                     preuF = preuTmp + preuF;
-
                 }
+
 
                 System.out.println("-------------------");
                 System.out.println("Total: " + preuF);
@@ -336,10 +360,10 @@ public class Main {
     // Metode per mostrar els productes del carro
     public static void mostrarCarro() {
 
-        LinkedHashMap<Integer,String> codis = new LinkedHashMap<>();
-        for (int i = 0; i < productes.size(); ++i){
+        LinkedHashMap<Integer, String> codis = new LinkedHashMap<>();
+        for (int i = 0; i < productes.size(); ++i) {
 
-            int codiTmp;
+
             int codidef;
 
             String nomP = productes.get(i).toString().split("\\*")[0];
@@ -347,24 +371,22 @@ public class Main {
 
             codidef = Integer.parseInt(codi.substring(17).trim());
 
-            codiTmp = codidef;
 
-            if (!codis.containsKey(codidef)){
+            if (!codis.containsKey(codidef)) {
 
                 //Si no existeix el registre, afegeix el primer amb quantitat 1
-                codis.put(codidef,nomP + "*1");
+                codis.put(codidef, nomP + "*1");
                 System.out.println();
 
             } else {
 
                 //Si existeix el codi s'afegeix 1 registre mes!
-               codis.replace(codidef,nomP + "*" + (Integer.parseInt(codis.get(codidef).split("\\*")[1]) + 1));
-
+                codis.replace(codidef, nomP + "*" + (Integer.parseInt(codis.get(codidef).split("\\*")[1]) + 1));
             }
 
         }
         // utilitzem v.split en dos casos per treure el nom i separar la quantitat
-        codis.forEach((k,v) -> System.out.printf("%s %s %s \n", v.split("\\*")[0].substring(4).trim(),"-->",v.split("\\*")[1]));
+        codis.forEach((k, v) -> System.out.printf("%s %s %s \n", v.split("\\*")[0].substring(4).trim(), "-->", v.split("\\*")[1]));
 
     }
 

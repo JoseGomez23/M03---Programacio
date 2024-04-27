@@ -1,4 +1,4 @@
-public class Electronica extends Producte{
+public class Electronica extends Producte {
 
     int diesGarantia;
 
@@ -7,12 +7,11 @@ public class Electronica extends Producte{
         this.diesGarantia = diesGarantia;
     }
 
-    public float setPreuDiesGarantia( ) {
+    public float setPreuDiesGarantia() {
 
-        preu = (float) (preu + preu*(diesGarantia/365)*0.1);
+        preu = (float) (preu + preu * (diesGarantia / 365) * 0.1);
         return preu;
     }
-
 
 
     @Override
@@ -23,14 +22,10 @@ public class Electronica extends Producte{
 
     @Override
     public String toString() {
-        return  "Nom: " + nom + " * " +
+        return "Nom: " + nom + " * " +
                 "Preu: " + getPreu() + " * " +
                 "Dies de garantia: " + diesGarantia + " * " +
                 "Codi de barres: " + codiBarres;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
 }

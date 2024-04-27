@@ -14,14 +14,9 @@ public class Textil extends Producte {
 
     @Override
     public String toString() {
-        return  "Nom: " + nom + " * " +
+        return "Nom: " + nom + " * " +
                 "Preu: " + preu + " * " +
                 "Composicio textil: " + composicioTextil + " * " +
                 "Codi de barres: " + codiBarres;
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
     }
 }

@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Alimentacio extends Producte{
+public class Alimentacio extends Producte {
 
 
     Date dataCad;
@@ -14,10 +14,9 @@ public class Alimentacio extends Producte{
 
     public float setPreuDataCad() {
 
-
         float preuDataCad;
         Date dataActual = new Date(System.currentTimeMillis());
-        preuDataCad = (float) (preu - preu*(1/(dataCad.getTime()- dataActual.getTime()  +1)) - (preu * 0.1));
+        preuDataCad = (float) (preu - preu * (1 / (dataCad.getTime() - dataActual.getTime() + 1)) - (preu * 0.1));
         super.preu = preuDataCad;
         return super.preu;
     }
@@ -29,15 +28,9 @@ public class Alimentacio extends Producte{
 
     @Override
     public String toString() {
-        return  "Nom: " + nom + " * " +
+        return "Nom: " + nom + " * " +
                 "Preu: " + getPreu() + " * " +
                 "Data caducitat: " + dataCad + " * " +
                 "Codi de barres: " + codiBarres;
-    }
-
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
     }
 }

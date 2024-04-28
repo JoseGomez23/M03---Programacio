@@ -19,4 +19,13 @@ public class Textil extends Producte {
                 "Composicio textil: " + composicioTextil + " * " +
                 "Codi de barres: " + codiBarres;
     }
+
+    public String getComposicioTextil() {
+        return composicioTextil;
+    }
+
+    @Override
+    public int compareTo(Producte o){
+        return composicioTextil.length() - ((Textil)o).composicioTextil.length();
+    }
 }

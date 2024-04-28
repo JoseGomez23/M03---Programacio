@@ -27,5 +27,4 @@ public class Electronica extends Producte {
                 "Dies de garantia: " + diesGarantia + " * " +
                 "Codi de barres: " + codiBarres;
     }
-
 }

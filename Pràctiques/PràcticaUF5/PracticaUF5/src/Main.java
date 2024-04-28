@@ -1,11 +1,20 @@
+/**
+ * Importacio de les llibreries necessaries
+ */
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+/**
+ * Classe main, aqui s'executen la majoria de processos
+ */
 public class Main {
-
+    /**
+     * Variables globals, necessaries per la majoria dels processos
+     */
     static Scanner scan = new Scanner(System.in);
     static ArrayList<Producte> productes = new ArrayList<>();
     static Map<String, String> carrito = new HashMap<>();
@@ -14,14 +23,23 @@ public class Main {
     static ArrayList<String> codisBarresTextil = new ArrayList<>();
     static int contadorProductes = 0;
 
+    /**
+     * Metode main, metode qeu desencadena l'execucio dels altres metodes
+     *
+     * @param args Arguments del main
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     public static void main(String[] args) throws IOException {
 
-        productes.add(new Electronica(12, "Nom", "1234", 1));
-        carrito.put("1234", "Producte");
         menu();
 
     }
 
+    /**
+     * Menu principal, utilitzat per escollir l'opcio desitjada
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     public static void menu() throws IOException {
 
         if (contadorProductes <= 100) {
@@ -70,6 +88,11 @@ public class Main {
         }
     }
 
+    /**
+     * Metode per escollir quin tipus de producte es vol escollir
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     // Metodes per afegir productes
     public static void afegirProducte() throws IOException {
 
@@ -108,6 +131,11 @@ public class Main {
         }
     }
 
+    /**
+     * Metode per afegir productes del tipus alimentacio
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     public static void afegirProducteAlimentacio() throws IOException {
         try {
 
@@ -163,6 +191,11 @@ public class Main {
         }
     }
 
+    /**
+     * Metode per afegir productes de tipus electronica
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     public static void afegirProducteElectronica() throws IOException {
 
         try {
@@ -204,6 +237,7 @@ public class Main {
             carrito.put(codiBarres, nom);
             caixa.put(nom, String.valueOf(preu));
 
+
         } catch (Exception e) {
 
             exceptionsHandler(e);
@@ -212,6 +246,11 @@ public class Main {
         }
     }
 
+    /**
+     * Metode per afegir productes de tipus textil
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     public static void afegirProducteTextil() throws IOException {
         try {
 
@@ -283,6 +322,9 @@ public class Main {
         }
     }
 
+    /**
+     * @throws FileNotFoundException Excepcio que es llançara en cas de no haver trobat el fitxer
+     */
     // Metode per cobrar els productes que estan a la llista
     public static void cobrarCaixa() throws FileNotFoundException {
 
@@ -304,10 +346,8 @@ public class Main {
                 System.out.print("Introdueix el dia d'avui(dd/mm/yyyy): ");
                 dataCad = scan.nextLine();
 
-
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 dataCaducitat = sdf.parse(dataCad);
-
 
                 System.out.println("TIQUET:");
                 System.out.println(nom);
@@ -333,11 +373,13 @@ public class Main {
                     preuF = preuTmp + preuF;
                 }
 
-
                 System.out.println("-------------------");
                 System.out.println("Total: " + preuF);
 
                 productes.clear();
+                caixa.clear();
+                codisBarresTextil.clear();
+                carrito.clear();
             }
 
         } catch (Exception e) {
@@ -346,10 +388,13 @@ public class Main {
             cobrarCaixa();
 
         }
-
-
     }
 
+    /**
+     * Metode per mostrar els productes trobats al carro
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     // Metode per mostrar els productes del carro
     public static void mostrarCarro() throws IOException {
 
@@ -361,14 +406,12 @@ public class Main {
 
                 for (int i = 0; i < productes.size(); ++i) {
 
-
                     int codidef;
 
                     String nomP = productes.get(i).toString().split("\\*")[0];
                     String codi = productes.get(i).toString().split("\\*")[3];
 
                     codidef = Integer.parseInt(codi.substring(17).trim());
-
 
                     if (!codis.containsKey(codidef)) {
 
@@ -397,7 +440,12 @@ public class Main {
         }
     }
 
-
+    /**
+     * Metode per gestionar totes les excepcions que arribin
+     *
+     * @param e Variabel per les excepcions
+     * @throws FileNotFoundException Excepcio que es llançara en cas de no trobar el fitxer
+     */
     public static void exceptionsHandler(Exception e) throws FileNotFoundException {
 
         try {
@@ -406,7 +454,7 @@ public class Main {
             System.out.println("Excepcio provocada!!!");
             System.out.println("Fes una ullada a Excepcions.dat per obtenir-ne mes informacio.");
             FileOutputStream errors = new FileOutputStream(ruta, true);
-            PrintWriter logWriter = new PrintWriter(errors);
+            PrintStream logWriter = new PrintStream(errors);
 
             logWriter.println(" Excepcio: " + e.getClass());
             logWriter.close();
@@ -419,6 +467,11 @@ public class Main {
         }
     }
 
+    /**
+     * Metode per arreglar els preus depenent del codi de barres que trobem a UpdateTextilPrices.dat
+     *
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
     public static void arreglarPreus() throws IOException {
 
         try {
@@ -458,23 +511,33 @@ public class Main {
         }
     }
 
-    public static void buscadorDeNoms() {
+    /**
+     * Buscar nom del producte introduint el codi de barres
+     * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
+     */
+    public static void buscadorDeNoms() throws IOException {
 
-        System.out.println("Introdueix el codi de barres per cercar el nom del producte!");
-        String codiDeBarres = scan.nextLine().trim();
+        if (!carrito.isEmpty()) {
 
-        // Buscar el producte per codi de barres utilitzant streams
-        List<String> producteTrobat = carrito.entrySet().stream()
+            System.out.println("El carrito esta buit, no trobaras res");
+            menu();
+        } else
+
+            System.out.print("Introdueix el codi de barres per cercar el nom del producte: ");
+            String codiDeBarres = scan.nextLine().trim();
+
+            // Buscar el producte per codi de barres utilitzant streams
+            List<String> producteTrobat = carrito.entrySet().stream()
                 .filter(entry -> entry.getKey().equals(codiDeBarres)) // Comparar claus
                 .map(Map.Entry::getValue) // Obtenir valor
                 .toList(); // Guardar resultat a la llista
 
-
         if (producteTrobat.isEmpty()) {
             System.out.println("No s'ha trobat cap producte amb aquest codi de barres.");
+            menu();
         } else {
             System.out.println("Producte trobat: " + producteTrobat.get(0));
+            menu();
         }
-
     }
 }

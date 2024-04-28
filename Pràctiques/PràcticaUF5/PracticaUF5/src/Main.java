@@ -1,36 +1,40 @@
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class Main {
 
     static Scanner scan = new Scanner(System.in);
     static ArrayList<Producte> productes = new ArrayList<>();
     static Map<String, String> carrito = new HashMap<>();
-    static Map<String, Float> caixa = new HashMap<>();
-    static ArrayList<String>codisBarresTextil = new ArrayList<>();
+    static Map<String, String> caixa = new HashMap<>();
+    static HashMap<String, String> doc = new HashMap<>();
+    static ArrayList<String> codisBarresTextil = new ArrayList<>();
     static int contadorProductes = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-
-        productes.add(new Electronica(1002, "Tv", "129567", 24));
-
+        productes.add(new Electronica(12, "Nom", "1234", 1));
+        carrito.put("1234", "Producte");
         menu();
 
     }
 
-    public static void menu() {
+    public static void menu() throws IOException {
 
         if (contadorProductes <= 100) {
 
-            String opcio;
+            String opcio = "0";
 
             System.out.println("----------------------------");
             System.out.println("-------- Benvingut! --------");
             System.out.println("----------------------------");
             System.out.println("1 - Introduir producte");
             System.out.println("2 - Passar per caixa");
-            System.out.println("3 - Mostrar carro: ");
+            System.out.println("3 - Mostrar carro");
+            System.out.println("4 - Buscar producte");
             System.out.println("0 - Sortir");
             System.out.print("Opcio: ");
             opcio = scan.nextLine();
@@ -42,10 +46,14 @@ public class Main {
                     afegirProducte();
                     break;
                 case "2":
+                    arreglarPreus();
                     cobrarCaixa();
                     break;
                 case "3":
                     mostrarCarro();
+                    break;
+                case "4":
+                    buscadorDeNoms();
                     break;
                 case "0":
                     System.exit(0);
@@ -63,7 +71,7 @@ public class Main {
     }
 
     // Metodes per afegir productes
-    public static void afegirProducte() {
+    public static void afegirProducte() throws IOException {
 
         String opcio;
 
@@ -98,12 +106,10 @@ public class Main {
                 afegirProducte();
                 break;
         }
-
     }
 
-    public static void afegirProducteAlimentacio() {
+    public static void afegirProducteAlimentacio() throws IOException {
         try {
-
 
             String nom;
             float preu;
@@ -145,29 +151,26 @@ public class Main {
 
             productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
             carrito.put(codiBarres, nom);
-            caixa.put(nom, preu);
+            caixa.put(nom, String.valueOf(preu));
+
 
         } catch (Exception e) {
 
-            System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
-            --contadorProductes;
-            afegirProducteAlimentacio();
+            exceptionsHandler(e);
 
         } finally {
             menu();
         }
-
-
     }
 
-    public static void afegirProducteElectronica() {
+    public static void afegirProducteElectronica() throws IOException {
 
         try {
 
-            String nom;
-            float preu;
-            String codiBarres;
-            int diesGarantia;
+            String nom = "";
+            float preu = 0;
+            String codiBarres = "";
+            int diesGarantia = 0;
 
             ++contadorProductes;
 
@@ -199,21 +202,17 @@ public class Main {
 
             productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
             carrito.put(codiBarres, nom);
-            caixa.put(nom, preu);
+            caixa.put(nom, String.valueOf(preu));
 
         } catch (Exception e) {
 
-            System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
-            --contadorProductes;
-            afegirProducteElectronica();
-
+            exceptionsHandler(e);
         } finally {
             menu();
         }
-
     }
 
-    public static void afegirProducteTextil() {
+    public static void afegirProducteTextil() throws IOException {
         try {
 
             String nom;
@@ -255,10 +254,10 @@ public class Main {
 
                 //TODO: Arreglar bug, cuan es mostra carro amb un producte textil torna a entrar a aquest metode.
 
-                if (codisBarresTextil.contains(codiBarres)){
+                if (codisBarresTextil.contains(codiBarres)) {
 
                     System.out.println("No pots tenir dos tipus productes de aquest tipus amb el mateix codi de barres! ");
-                    afegirProducteTextil();
+                    menu();
 
                 } else {
 
@@ -273,24 +272,19 @@ public class Main {
 
             productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
             carrito.put(codiBarres, nom);
-            caixa.put(nom, preu);
+            caixa.put(nom, String.valueOf(preu));
 
         } catch (Exception e) {
 
-            System.out.println("S'ha produit un error de enregistrament de dades, torna a provar");
-            --contadorProductes;
-            afegirProducteTextil();
+            exceptionsHandler(e);
 
         } finally {
-
             menu();
         }
-
-
     }
 
     // Metode per cobrar els productes que estan a la llista
-    public static void cobrarCaixa() {
+    public static void cobrarCaixa() throws FileNotFoundException {
 
         try {
 
@@ -348,8 +342,7 @@ public class Main {
 
         } catch (Exception e) {
 
-            System.out.println(e.getMessage());
-            System.out.println("S'ha produit un error, reexecutant");
+            exceptionsHandler(e);
             cobrarCaixa();
 
         }
@@ -358,37 +351,130 @@ public class Main {
     }
 
     // Metode per mostrar els productes del carro
-    public static void mostrarCarro() {
+    public static void mostrarCarro() throws IOException {
 
-        LinkedHashMap<Integer, String> codis = new LinkedHashMap<>();
-        for (int i = 0; i < productes.size(); ++i) {
+        try {
 
+            LinkedHashMap<Integer, String> codis = new LinkedHashMap<>();
 
-            int codidef;
+            if (!productes.isEmpty()) {
 
-            String nomP = productes.get(i).toString().split("\\*")[0];
-            String codi = productes.get(i).toString().split("\\*")[3];
-
-            codidef = Integer.parseInt(codi.substring(17).trim());
+                for (int i = 0; i < productes.size(); ++i) {
 
 
-            if (!codis.containsKey(codidef)) {
+                    int codidef;
 
-                //Si no existeix el registre, afegeix el primer amb quantitat 1
-                codis.put(codidef, nomP + "*1");
-                System.out.println();
+                    String nomP = productes.get(i).toString().split("\\*")[0];
+                    String codi = productes.get(i).toString().split("\\*")[3];
 
+                    codidef = Integer.parseInt(codi.substring(17).trim());
+
+
+                    if (!codis.containsKey(codidef)) {
+
+                        //Si no existeix el registre, afegeix el primer amb quantitat 1
+                        codis.put(codidef, nomP + "*1");
+                        System.out.println();
+
+                    } else {
+
+                        //Si existeix el codi s'afegeix 1 registre mes!
+                        codis.replace(codidef, nomP + "*" + (Integer.parseInt(codis.get(codidef).split("\\*")[1]) + 1));
+                    }
+
+                }
+                // utilitzem v.split en dos casos per treure el nom i separar la quantitat
+                codis.forEach((k, v) -> System.out.printf("%s %s %s \n", v.split("\\*")[0].substring(4).trim(), "-->", v.split("\\*")[1]));
             } else {
-
-                //Si existeix el codi s'afegeix 1 registre mes!
-                codis.replace(codidef, nomP + "*" + (Integer.parseInt(codis.get(codidef).split("\\*")[1]) + 1));
+                System.out.println("El carro esta buit!!!");
+                menu();
             }
+        } catch (Exception e) {
+
+            exceptionsHandler(e);
+            menu();
 
         }
-        // utilitzem v.split en dos casos per treure el nom i separar la quantitat
-        codis.forEach((k, v) -> System.out.printf("%s %s %s \n", v.split("\\*")[0].substring(4).trim(), "-->", v.split("\\*")[1]));
-
     }
 
 
+    public static void exceptionsHandler(Exception e) throws FileNotFoundException {
+
+        try {
+
+            String ruta = "./logs/Exceptions.dat";
+            System.out.println("Excepcio provocada!!!");
+            System.out.println("Fes una ullada a Excepcions.dat per obtenir-ne mes informacio.");
+            FileOutputStream errors = new FileOutputStream(ruta, true);
+            PrintWriter logWriter = new PrintWriter(errors);
+
+            logWriter.println(" Excepcio: " + e.getClass());
+            logWriter.close();
+            errors.close();
+
+        } catch (Exception x) {
+
+            System.out.println("Error al escriure al fitxer de logs");
+            exceptionsHandler(x);
+        }
+    }
+
+    public static void arreglarPreus() throws IOException {
+
+        try {
+
+            String ruta = "./updates/UpdateTextilPrices.dat";
+            File prices = new File(ruta);
+
+            FileReader fr = new FileReader(prices);
+            BufferedReader br = new BufferedReader(fr);
+
+            String brData;
+
+            while ((brData = br.readLine()) != null) {
+
+                String[] valors = brData.split(";");
+                doc.put(valors[0], valors[1]);
+
+            }
+
+            for (Map.Entry<String, String> doc : doc.entrySet()) {
+                String valorDoc = doc.getValue();
+
+                for (Map.Entry<String, String> carro : caixa.entrySet()) {
+                    String[] valuesCarro = new String[]{carro.getValue()};
+
+                    for (int i = 0; i < valuesCarro.length; i++) {
+                        if (!valuesCarro[i].equals(valorDoc)) {
+                            valuesCarro[i] = valorDoc;
+                            caixa.replace(carro.getKey(), Arrays.toString(valuesCarro));
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+
+            exceptionsHandler(e);
+        }
+    }
+
+    public static void buscadorDeNoms() {
+
+        System.out.println("Introdueix el codi de barres per cercar el nom del producte!");
+        String codiDeBarres = scan.nextLine().trim();
+
+        // Buscar el producte per codi de barres utilitzant streams
+        List<String> producteTrobat = carrito.entrySet().stream()
+                .filter(entry -> entry.getKey().equals(codiDeBarres)) // Comparar claus
+                .map(Map.Entry::getValue) // Obtenir valor
+                .toList(); // Guardar resultat a la llista
+
+
+        if (producteTrobat.isEmpty()) {
+            System.out.println("No s'ha trobat cap producte amb aquest codi de barres.");
+        } else {
+            System.out.println("Producte trobat: " + producteTrobat.get(0));
+        }
+
+    }
 }

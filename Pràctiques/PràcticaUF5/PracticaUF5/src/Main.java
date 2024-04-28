@@ -19,7 +19,7 @@ public class Main {
     static ArrayList<Producte> productes = new ArrayList<>();
     static Map<String, String> carrito = new HashMap<>();
     static Map<String, String> caixa = new HashMap<>();
-    static HashMap<String, String> doc = new HashMap<>();
+    static HashMap<String, String> doc = new HashMap<>(); //Guarda els valors del UpdateTextilPrices.dat
     static ArrayList<String> codisBarresTextil = new ArrayList<>();
     static int contadorProductes = 0;
 
@@ -443,6 +443,8 @@ public class Main {
             exceptionsHandler(e);
             menu();
 
+        } finally {
+            menu();
         }
     }
 
@@ -535,7 +537,7 @@ public class Main {
         } else
 
             System.out.print("Introdueix el codi de barres per cercar el nom del producte: ");
-            String codiDeBarres = scan.nextLine().trim();
+        String codiDeBarres = scan.nextLine().trim();
 
         // Buscar el producte per codi de barres utilitzant streams
         List<String> producteTrobat = carrito.entrySet().stream()

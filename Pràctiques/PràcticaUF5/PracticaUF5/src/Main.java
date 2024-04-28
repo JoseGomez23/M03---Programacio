@@ -162,9 +162,9 @@ public class Main {
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
-            if (preu > 100) {
+            if (preu > 100 || preu < 0) {
 
-                System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
+                System.out.println("Preu massa gran o petit per aquest tipus de producte, introdueix un coherent.");
                 afegirProducteAlimentacio();
                 --contadorProductes;
             }
@@ -223,9 +223,9 @@ public class Main {
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
-            if (preu > 1000000) {
+            if (preu > 1000000 || preu < 0) {
 
-                System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
+                System.out.println("Preu massa gran o petit per aquest tipus de producte, introdueix un coherent.");
                 afegirProducteAlimentacio();
                 --contadorProductes;
             }
@@ -281,9 +281,9 @@ public class Main {
             System.out.print("Preu: ");
             preu = scan.nextInt();
             scan.nextLine();
-            if (preu > 10000) {
+            if (preu > 10000 || preu < 0) {
 
-                System.out.println("Preu massa gran per aquest tipus de producte, introdueix un coherent.");
+                System.out.println("Preu massa gran o petit per aquest tipus de producte, introdueix un coherent.");
                 afegirProducteTextil();
                 --contadorProductes;
             }

@@ -147,6 +147,7 @@ public class Main {
 
             ++contadorProductes;
 
+            //Llegir dades introduides
             System.out.println("Introdueix les dades per un producte d'Alimentacio: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
@@ -177,6 +178,7 @@ public class Main {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             dataCaducitat = sdf.parse(dataCad);
 
+            //Afegir les dades introduides al array i hashmaps
             productes.add(new Alimentacio(preu, nom, codiBarres, dataCaducitat));
             carrito.put(codiBarres, nom);
             caixa.put(nom, String.valueOf(preu));
@@ -207,6 +209,7 @@ public class Main {
 
             ++contadorProductes;
 
+            //Introduir dades
             System.out.println("Introdueix les dades per un producte d'Electronica: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
@@ -233,6 +236,7 @@ public class Main {
             System.out.print("Dies de garantia: ");
             diesGarantia = scan.nextInt();
 
+            //Afegir les dades introduides pel teclat al array i hashmaps
             productes.add(new Electronica(preu, nom, codiBarres, diesGarantia));
             carrito.put(codiBarres, nom);
             caixa.put(nom, String.valueOf(preu));
@@ -263,6 +267,7 @@ public class Main {
 
             ++contadorProductes;
 
+            //Introduir dades per teclat
             System.out.println("Introdueix les dades per un producte d'Tèxtil: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
@@ -291,8 +296,6 @@ public class Main {
 
             do {
 
-                //TODO: Arreglar bug, cuan es mostra carro amb un producte textil torna a entrar a aquest metode.
-
                 if (codisBarresTextil.contains(codiBarres)) {
 
                     System.out.println("No pots tenir dos tipus productes de aquest tipus amb el mateix codi de barres! ");
@@ -309,6 +312,7 @@ public class Main {
             System.out.print("Composicio textil: ");
             composicioTextil = scan.nextLine();
 
+            //Afegir les dades introduides anteriorment al array i hashmaps
             productes.add(new Textil(preu, nom, codiBarres, composicioTextil));
             carrito.put(codiBarres, nom);
             caixa.put(nom, String.valueOf(preu));
@@ -330,6 +334,7 @@ public class Main {
 
         try {
 
+            //Condicional per comprovar si hi han productes
             if (productes.isEmpty()) {
 
                 System.out.println("No tens cap producte a la llista!");
@@ -362,7 +367,7 @@ public class Main {
 
                     float preuTmp;
 
-
+                    //Separar el nom i el preu de l'arraylist
                     String nomP = productes.get(i).toString().split("\\*")[0];
                     String preu = productes.get(i).toString().split("\\*")[1];
 
@@ -408,6 +413,7 @@ public class Main {
 
                     int codidef;
 
+                    //Separar el nom i codi del arraylist
                     String nomP = productes.get(i).toString().split("\\*")[0];
                     String codi = productes.get(i).toString().split("\\*")[3];
 
@@ -450,12 +456,14 @@ public class Main {
 
         try {
 
+            //definir variables i el buffered reader juntament amb el outputStream
             String ruta = "./logs/Exceptions.dat";
             System.out.println("Excepcio provocada!!!");
             System.out.println("Fes una ullada a Excepcions.dat per obtenir-ne mes informacio.");
             FileOutputStream errors = new FileOutputStream(ruta, true);
             PrintStream logWriter = new PrintStream(errors);
 
+            //Printar al document la excepcio provocada
             logWriter.println(" Excepcio: " + e.getClass());
             logWriter.close();
             errors.close();
@@ -482,25 +490,26 @@ public class Main {
             FileReader fr = new FileReader(prices);
             BufferedReader br = new BufferedReader(fr);
 
+            //Condicional del bucle
             String brData;
 
             while ((brData = br.readLine()) != null) {
 
-                String[] valors = brData.split(";");
+                String[] valors = brData.split(";"); //Per llegir separat el codi i el preu
                 doc.put(valors[0], valors[1]);
 
             }
 
             for (Map.Entry<String, String> doc : doc.entrySet()) {
-                String valorDoc = doc.getValue();
+                String valorDoc = doc.getValue();  //Aconseguir el codi de barres del document
 
                 for (Map.Entry<String, String> carro : caixa.entrySet()) {
-                    String[] valuesCarro = new String[]{carro.getValue()};
+                    String[] valuesCarro = new String[]{carro.getValue()}; //Guardar el codi de barres del document en un string[]
 
                     for (int i = 0; i < valuesCarro.length; i++) {
                         if (!valuesCarro[i].equals(valorDoc)) {
-                            valuesCarro[i] = valorDoc;
-                            caixa.replace(carro.getKey(), Arrays.toString(valuesCarro));
+                            valuesCarro[i] = valorDoc; //Substituir el valor del codi de barres actual per el del document
+                            caixa.replace(carro.getKey(), Arrays.toString(valuesCarro)); // Reemplaçar el codi de barres del document a l'array
                         }
                     }
                 }
@@ -513,6 +522,7 @@ public class Main {
 
     /**
      * Buscar nom del producte introduint el codi de barres
+     *
      * @throws IOException Excepcio que es llançara en cas de haver-hi un in/out incorrecte
      */
     public static void buscadorDeNoms() throws IOException {
@@ -527,11 +537,11 @@ public class Main {
             System.out.print("Introdueix el codi de barres per cercar el nom del producte: ");
             String codiDeBarres = scan.nextLine().trim();
 
-            // Buscar el producte per codi de barres utilitzant streams
-            List<String> producteTrobat = carrito.entrySet().stream()
-                .filter(entry -> entry.getKey().equals(codiDeBarres)) // Comparar claus
-                .map(Map.Entry::getValue) // Obtenir valor
-                .toList(); // Guardar resultat a la llista
+        // Buscar el producte per codi de barres utilitzant streams
+        List<String> producteTrobat = carrito.entrySet().stream()
+                .filter(entry -> entry.getKey().equals(codiDeBarres)) // Comparar les claus
+                .map(Map.Entry::getValue) // Obtenir valor de la entrada
+                .toList(); // Guardar resultat a la llista , "producteTrobat"
 
         if (producteTrobat.isEmpty()) {
             System.out.println("No s'ha trobat cap producte amb aquest codi de barres.");

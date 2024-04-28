@@ -517,10 +517,11 @@ public class Main {
      */
     public static void buscadorDeNoms() throws IOException {
 
-        if (!carrito.isEmpty()) {
+        if (carrito.isEmpty()) {
 
             System.out.println("El carrito esta buit, no trobaras res");
             menu();
+
         } else
 
             System.out.print("Introdueix el codi de barres per cercar el nom del producte: ");

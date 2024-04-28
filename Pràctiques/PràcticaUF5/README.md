@@ -22,6 +22,7 @@ Aquest mètode demana que introduim per teclat les següents variables:
 - Nom
 - Data de caducitat
 - Codi de barres
+
 Una vegada introduides creara un objece de la clase Alimentacio, i depenent de la data de caducitat que haguem introduit pujara o rebaixara el preu.
 ## afegirProduteTextil
 Aquest metode demana que introduim per teclat les següents variables:
@@ -29,6 +30,7 @@ Aquest metode demana que introduim per teclat les següents variables:
 - Nom
 - Composició textil
 - Codi de barres
+
 Una vegada introduides creara un objece de la clase Textil amb la seva caracteristica propia, composició textil.
 ## afegirProducteElectronica
 Aquest metode demana que introduim per teclat les següents variables:
@@ -36,5 +38,6 @@ Aquest metode demana que introduim per teclat les següents variables:
 - Nom
 - Dies de garantia
 - Codi de barres
+
 Una vegada introduides creara un objece de la clase Electronica amb la seva caracteristica propia, dies de garantia.
 

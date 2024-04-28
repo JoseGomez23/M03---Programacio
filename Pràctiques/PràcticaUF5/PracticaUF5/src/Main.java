@@ -322,6 +322,7 @@ public class Main {
             exceptionsHandler(e);
 
         } finally {
+
             menu();
         }
     }

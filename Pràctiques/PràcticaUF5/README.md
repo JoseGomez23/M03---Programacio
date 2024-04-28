@@ -26,7 +26,7 @@ Aquest mètode demana que introduim per teclat les següents variables:
 
 Una vegada introduides creara un objece de la clase Alimentacio, i depenent de la data de caducitat que haguem introduit pujara o rebaixara el preu.
 
-## afegirProduteTextil();
+## afegirProducteTextil();
 Aquest metode demana que introduim per teclat les següents variables:
 - Preu
 - Nom
@@ -61,5 +61,9 @@ Llegim el fitxer i guardem el codi de barres i el preu a un Hashmap, que seguida
 Metode per trobar un nom d'un producte arran del seu codi de barres, funciona de la següent manera:
 Introduim el codi de barres del producte del que en volem saber-ne el nom, seguidament el guarda a una variable i despres el compara amb HashMap on es guarden el codis de barres en aquest cas "carrito". Despres si trobem el codi de barres, guardem a una llista amb el nom de "productesTrobat" el nom del producte, on despres aquesta llista sera printada i mostrara si hi el producte esta o no.
 
-
-
+## Llibreries importades
+- import java.io.*;
+- import java.text.SimpleDateFormat;
+- import java.util.*;
+- import java.util.concurrent.ExecutionException;
+- import java.util.stream.Collectors;

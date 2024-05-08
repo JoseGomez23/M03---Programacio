@@ -1,16 +1,22 @@
-import controlador.Controlador.*;
-public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Intro with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-        System.out.printf("");
-        // Press Mayús+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-            // Press Mayús+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+public class Main {
+    
+    public static void main(String[] args) {
+    try {
+            Connection connection= DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/rrhh","perepi","pastanaga");
+            Statement statement= connection.createStatement();
+            ResultSet resultSet= statement.executeQuery("select * from empleats");
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("name"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

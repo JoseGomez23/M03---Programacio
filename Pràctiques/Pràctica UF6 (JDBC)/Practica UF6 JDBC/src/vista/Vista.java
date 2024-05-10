@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Vista {
-
     public static void mostrarMenu() {
         System.out.println("| ------------------------------ |");
         System.out.println("| ---------    MENU    --------- |");
@@ -21,7 +20,7 @@ public class Vista {
         System.out.println("| 9. Cambi de franquicia (Equip) |");
         System.out.println("| 0. Sortir <-- Default option   |");
         System.out.println("| ------------------------------ |");
-        System.out.println("Introdueix la opció: ");
+        System.out.println("Introdueix la opció:");
     }
 
 

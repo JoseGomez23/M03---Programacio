@@ -21,7 +21,6 @@ public class Model {
             ResultSet resultSet = stmt.executeQuery();
 
             Vista.imprimirJugadorsEquips(resultSet);
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

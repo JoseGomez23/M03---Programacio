@@ -9,7 +9,6 @@ public class Controlador {
     public static void menu() {
 
         Vista.mostrarMenu();
-
         String opcio = "0";
         opcio = scan.nextLine();
 

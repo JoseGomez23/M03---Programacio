@@ -1,6 +1,5 @@
 package model;
 import vista.Vista;
-
 import java.math.BigInteger;
 import java.util.Scanner;
 import java.sql.*;
@@ -13,15 +12,15 @@ public class Model {
         try {
 
             BigInteger equipId;
-            System.out.println("Introdueix el equip que vols llistar tots els jugadors");
+            System.out.print("Introdueix el equip que vols llistar tots els jugadors: ");
             equipId = BigInteger.valueOf(scan.nextInt());
 
             Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT nom, cognom FROM jugadors WHERE equip_id = " + equipId + ";");
+            PreparedStatement stmt = connection.prepareStatement("SELECT nom, cognom FROM jugadors WHERE equip_id = " + equipId + ";");
+
+            ResultSet resultSet = stmt.executeQuery();
 
             Vista.imprimirJugadorsEquips(resultSet);
-
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

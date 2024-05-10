@@ -1,13 +1,17 @@
 package controlador;
+import java.util.Scanner;
 
+import model.Model;
 
+import java.sql.SQLException;
 
 public class Controlador {
 
+    static Scanner scan =new Scanner(System.in);
 
-    public static void menu() {
+    public static void menu() throws SQLException {
 
-        String opcio = "0";
+        String opcio;
         System.out.println("| ------------------------------ |");
         System.out.println("| ---------    MENU    --------- |");
         System.out.println("| ------------------------------ |");
@@ -22,11 +26,12 @@ public class Controlador {
         System.out.println("| 9. Cambi de franquicia (Equip) |");
         System.out.println("| 0. Sortir <-- Default option   |");
         System.out.println("| ------------------------------ |");
+        System.out.print("Opcio: ");
+        opcio = scan.nextLine();
 
         switch (opcio) {
             case "1":
-
-                //Cridar a llistar un jugador
+                Model.consultarJugadorsEquip();
                 break;
             case "2":
                 //Cridr a calcular la mitjana
@@ -55,9 +60,10 @@ public class Controlador {
             case "0":
                 //Sortir del programa
                 break;
-
+            default:
+                System.out.println("Opcio inexistent, torna a introduir una de valida");
+                menu();
+                break;
         }
-
     }
-
 }

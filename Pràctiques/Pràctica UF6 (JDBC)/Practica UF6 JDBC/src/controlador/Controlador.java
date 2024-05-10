@@ -1,37 +1,22 @@
 package controlador;
+import vista.Vista;
 import java.util.Scanner;
-
-import model.Model;
-
-import java.sql.SQLException;
 
 public class Controlador {
 
     static Scanner scan =new Scanner(System.in);
 
-    public static void menu() throws SQLException {
+    public static void menu() {
 
-        String opcio;
-        System.out.println("| ------------------------------ |");
-        System.out.println("| ---------    MENU    --------- |");
-        System.out.println("| ------------------------------ |");
-        System.out.println("| 1. Llistar jugador a un equip  |");
-        System.out.println("| 2. Calcular mitjana (Punts)    |");
-        System.out.println("| 3. Llistar partits (Equip)     |");
-        System.out.println("| 4. Inserir jugador a un equip  |");
-        System.out.println("| 5. Trasspassar jugador d'equip |");
-        System.out.println("| 6. Actualitzar dades           |");
-        System.out.println("| 7. Modificar estadistiques     |");
-        System.out.println("| 8. Eliminar jugador            |");
-        System.out.println("| 9. Cambi de franquicia (Equip) |");
-        System.out.println("| 0. Sortir <-- Default option   |");
-        System.out.println("| ------------------------------ |");
-        System.out.print("Opcio: ");
+        Vista.mostrarMenu();
+
+        String opcio = "0";
         opcio = scan.nextLine();
 
         switch (opcio) {
             case "1":
-                Model.consultarJugadorsEquip();
+
+                //Cridar a llistar un jugador
                 break;
             case "2":
                 //Cridr a calcular la mitjana
@@ -60,10 +45,9 @@ public class Controlador {
             case "0":
                 //Sortir del programa
                 break;
-            default:
-                System.out.println("Opcio inexistent, torna a introduir una de valida");
-                menu();
-                break;
+
         }
+
     }
+
 }

@@ -25,7 +25,10 @@
   <groupId>com.mysql</groupId>
   <artifactId>@MYSQL_CJ_EXTENDED_PROD_NAME@</artifactId>
   <version>@MYSQL_CJ_VERSION@</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
+  <modules>
+    <module>demo</module>
+  </modules>
 
   <name>MySQL Connector/J</name>
   <description>JDBC Type 4 driver for MySQL.</description>

@@ -13,7 +13,7 @@ public class Main {
             ResultSet resultSet= statement.executeQuery("select * from empleats");
 
             while (resultSet.next()){
-                System.out.println(resultSet.getString("name"));
+                System.out.println(resultSet.getString("salari"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

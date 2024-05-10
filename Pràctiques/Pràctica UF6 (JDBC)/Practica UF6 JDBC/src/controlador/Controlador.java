@@ -25,6 +25,7 @@ public class Controlador {
 
         switch (opcio) {
             case "1":
+
                 //Cridar a llistar un jugador
                 break;
             case "2":

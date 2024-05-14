@@ -18,7 +18,7 @@ public class Controlador {
                 //Cridar a llistar un jugador
                 break;
             case "2":
-                //Cridr a calcular la mitjana
+                Model.consultarEstadistiquesJugadors();
                 break;
             case "3":
                 //Cridar a llistar els partits d'un equio

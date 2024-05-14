@@ -1,12 +1,15 @@
 package controlador;
 import vista.Vista;
+import model.Model;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Controlador {
 
     static Scanner scan =new Scanner(System.in);
 
-    public static void menu() {
+    public static void menu() throws SQLException {
 
         Vista.mostrarMenu();
         String opcio = "0";

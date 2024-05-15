@@ -17,8 +17,7 @@ public class Controlador {
 
         switch (opcio) {
             case "1":
-
-                //Cridar a llistar un jugador
+                Model.consultarJugadorsEquip();
                 break;
             case "2":
                 Model.consultarEstadistiquesJugadors();

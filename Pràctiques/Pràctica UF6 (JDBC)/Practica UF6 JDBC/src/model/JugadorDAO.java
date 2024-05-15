@@ -1,0 +1,95 @@
+package model;
+
+import java.util.Date;
+
+public class JugadorDAO {
+
+    int jugador_id, eqip_id;
+    String nom, cognom, dorsal, posicio;
+    double pes, alcada; //Alçcada;
+    Date data_naixement;
+
+    public JugadorDAO(int jugador_id, int eqip_id, String nom, String cognom, String dorsal, String posicio, double pes, double alcada, Date data_naixement) {
+        this.jugador_id = jugador_id;
+        this.eqip_id = eqip_id;
+        this.nom = nom;
+        this.cognom = cognom;
+        this.dorsal = dorsal;
+        this.posicio = posicio;
+        this.pes = pes;
+        this.alcada = alcada;
+        this.data_naixement = data_naixement;
+    }
+
+    public int getJugador_id() {
+        return jugador_id;
+    }
+
+    public int getEqip_id() {
+        return eqip_id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getCognom() {
+        return cognom;
+    }
+
+    public String getDorsal() {
+        return dorsal;
+    }
+
+    public String getPosicio() {
+        return posicio;
+    }
+
+    public double getPes() {
+        return pes;
+    }
+
+    public double getAlcada() {
+        return alcada;
+    }
+
+    public Date getData_naixement() {
+        return data_naixement;
+    }
+
+    public void setJugador_id(int jugador_id) {
+        this.jugador_id = jugador_id;
+    }
+
+    public void setEqip_id(int eqip_id) {
+        this.eqip_id = eqip_id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setCognom(String cognom) {
+        this.cognom = cognom;
+    }
+
+    public void setDorsal(String dorsal) {
+        this.dorsal = dorsal;
+    }
+
+    public void setPosicio(String posicio) {
+        this.posicio = posicio;
+    }
+
+    public void setPes(double pes) {
+        this.pes = pes;
+    }
+
+    public void setAlcada(double alcada) {
+        this.alcada = alcada;
+    }
+
+    public void setData_naixement(Date data_naixement) {
+        this.data_naixement = data_naixement;
+    }
+}

@@ -12,7 +12,7 @@ public class Controlador {
     public static void menu() throws SQLException {
 
         Vista.mostrarMenu();
-        String opcio = "0";
+        String opcio;
         opcio = scan.nextLine();
 
         switch (opcio) {

@@ -1,29 +1,78 @@
 package model;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import static model.JugadorDAO.con;
 
 public class EquipDAO implements DAO<Equip>{
 
     @Override
-    public boolean delete(Equip equip) {
+    public boolean delete(Equip e) {
+        PreparedStatement ps = null;
+        try {
+            if (ps == null) {
+                ps = con.prepareStatement(
+                        "SELECT * FROM equips WHERE equip_id =  ?");
+                ps.setInt(1, 1);
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         return false;
     }
 
     @Override
-    public boolean update(Equip equip) {
+    public boolean update(Equip e) {
+        PreparedStatement ps = null;
+        try {
+            if (ps == null) {
+                ps = con.prepareStatement(
+                        "UPDATE equips " +
+                                "SET nom = ?" +
+                                "WHERE equip_id = ?");
+                ps.setString(1,"Caramba" );
+                ps.setInt(2, 1);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return false;
     }
 
 
     @Override
-    public boolean exists(Equip equip) {
+    public boolean exists(Equip e) {
         return false;
     }
 
     @Override
-    public boolean create(Equip equip) {
+    public boolean create(Equip e) {
+        PreparedStatement ps = null;
+        try {
+            if (ps == null) {
+                ps = con.prepareStatement(
+                        "INSERT INTO equips (equip_id, ciutat, nom, acronim, divisio, guanyades, perdudes)" +
+                                "VALUES (?,?)");
+                ps.setInt(1, e.getEquip_id());
+                ps.setString(2, e.getCiutat());
+                ps.setString(3, e.getNom());
+                ps.setString(4, e.getAcronim());
+                ps.setString(5, e.getDivisio());
+                ps.setInt(6, e.getGuanyades());
+                ps.setInt(7, e.getPerdudes());
+                ps.executeUpdate();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         return false;
     }
+
 
     @Override
     public boolean read(Equip equip) {

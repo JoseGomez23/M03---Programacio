@@ -1,4 +1,6 @@
 package controlador;
+import model.Jugador;
+import model.JugadorDAO;
 import vista.Vista;
 import model.Model;
 
@@ -26,7 +28,7 @@ public class Controlador {
                 //Cridar a llistar els partits d'un equio
                 break;
             case "4":
-                //Cridar a inserir un jugador
+                Jugador j = new Jugador(34567,1,"1","1","1","1",1,1, null);
                 break;
             case "5":
                 //Cridar a Trasspassar jugaror d'equip
@@ -44,8 +46,11 @@ public class Controlador {
                 //Cridar a cambi de franquicia d'un eequip
                 break;
             case "0":
-                //Sortir del programa
+                System.exit(0);
                 break;
+            default:
+                Vista.missatgeError();
+                menu();
 
         }
 

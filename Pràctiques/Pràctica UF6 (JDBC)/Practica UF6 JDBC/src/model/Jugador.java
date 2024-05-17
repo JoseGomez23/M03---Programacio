@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Jugador {
 
-    int jugador_id, eqip_id;
+    int jugador_id, equip_id;
     String nom, cognom, dorsal, posicio;
     double pes, alcada; //Alçcada;
     Date data_naixement;
 
-    public Jugador(int jugador_id, int eqip_id, String nom, String cognom, String dorsal, String posicio, double pes, double alcada, Date data_naixement) {
+    public Jugador(int jugador_id, int equip_id, String nom, String cognom, String dorsal, String posicio, double pes, double alcada, Date data_naixement) {
         this.jugador_id = jugador_id;
-        this.eqip_id = eqip_id;
+        this.equip_id = equip_id;
         this.nom = nom;
         this.cognom = cognom;
         this.dorsal = dorsal;
@@ -25,8 +25,8 @@ public class Jugador {
         return jugador_id;
     }
 
-    public int getEqip_id() {
-        return eqip_id;
+    public int getEquip_id() {
+        return equip_id;
     }
 
     public String getNom() {
@@ -53,16 +53,16 @@ public class Jugador {
         return alcada;
     }
 
-    public Date getData_naixement() {
-        return data_naixement;
+    public java.sql.Date getData_naixement() {
+        return (java.sql.Date) data_naixement;
     }
 
     public void setJugador_id(int jugador_id) {
         this.jugador_id = jugador_id;
     }
 
-    public void setEqip_id(int eqip_id) {
-        this.eqip_id = eqip_id;
+    public void setEquip_id(int equip_id) {
+        this.equip_id = equip_id;
     }
 
     public void setNom(String nom) {
@@ -81,7 +81,7 @@ public class Jugador {
         this.posicio = posicio;
     }
 
-    public void setPes(double pes) {
+    public void setPes(Float pes) {
         this.pes = pes;
     }
 

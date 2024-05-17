@@ -45,4 +45,8 @@ public class Vista {
 
     }
 
+    public static void missatgeError() {
+        System.out.println("Hi ha hagut un error, torna a introduir la teva opció");
+    }
+
 }

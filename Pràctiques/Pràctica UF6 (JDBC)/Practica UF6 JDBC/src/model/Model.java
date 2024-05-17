@@ -8,6 +8,15 @@ import java.sql.*;
 public class Model {
     static Scanner scan = new Scanner(System.in);
 
+    static {
+        try {
+           Connection con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static void consultarJugadorsEquip() throws SQLException {
 
         try {

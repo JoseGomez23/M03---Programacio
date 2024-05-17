@@ -1,14 +1,26 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+
 public class JugadorDAO implements DAO<Jugador> {
 
-    @Override
-    public boolean insert(Jugador jugador) {
-        return false;
+    static Connection con;
+
+    static {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     @Override
     public boolean delete(Jugador jugador) {
@@ -21,7 +33,7 @@ public class JugadorDAO implements DAO<Jugador> {
     }
 
     @Override
-    public boolean select(Jugador jugador) {
+    public boolean read(Jugador jugador) {
         return false;
     }
 
@@ -32,11 +44,22 @@ public class JugadorDAO implements DAO<Jugador> {
 
     @Override
     public boolean create(Jugador jugador) {
+        PreparedStatement ps = null;
+        try {
+
+            if (ps == null) {
+                ps = con.prepareStatement(
+                        "INSERT INTO jugadors (jugador_id, nom, cognom) VALUES (?,?,?)");
+                ps.setInt(1, 1);
+                ps.setString(2, "Hulio");
+                ps.setString(3, "Sacnchez");
+            }
+        } catch (Exception e) {
+
+        }
+
+
         return false;
     }
 
-    @Override
-    public ArrayList<Jugador> read(Jugador jugador) {
-        return null;
-    }
 }

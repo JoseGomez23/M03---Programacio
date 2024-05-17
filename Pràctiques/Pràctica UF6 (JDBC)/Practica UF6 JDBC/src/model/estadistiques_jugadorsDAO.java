@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
 
-    @Override
-    public boolean insert(estadistiques_jugadors estadistiquesJugadors) {
-        return false;
-    }
 
     @Override
     public boolean delete(estadistiques_jugadors estadistiquesJugadors) {
@@ -19,10 +15,6 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
         return false;
     }
 
-    @Override
-    public boolean select(estadistiques_jugadors estadistiquesJugadors) {
-        return false;
-    }
 
     @Override
     public boolean exists(estadistiques_jugadors estadistiquesJugadors) {
@@ -35,7 +27,7 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
     }
 
     @Override
-    public ArrayList<estadistiques_jugadors> read(estadistiques_jugadors estadistiquesJugadors) {
-        return null;
+    public boolean read(estadistiques_jugadors estadistiquesJugadors) {
+        return false;
     }
 }

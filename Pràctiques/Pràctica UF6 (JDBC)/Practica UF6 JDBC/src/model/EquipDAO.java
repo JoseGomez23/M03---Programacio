@@ -3,10 +3,6 @@ package model;
 import java.util.ArrayList;
 
 public class EquipDAO implements DAO<Equip>{
-    @Override
-    public boolean insert(Equip equip) {
-        return false;
-    }
 
     @Override
     public boolean delete(Equip equip) {
@@ -18,10 +14,6 @@ public class EquipDAO implements DAO<Equip>{
         return false;
     }
 
-    @Override
-    public boolean select(Equip equip) {
-        return false;
-    }
 
     @Override
     public boolean exists(Equip equip) {
@@ -34,7 +26,7 @@ public class EquipDAO implements DAO<Equip>{
     }
 
     @Override
-    public ArrayList<Equip> read(Equip equip) {
-        return null;
+    public boolean read(Equip equip) {
+        return false;
     }
 }

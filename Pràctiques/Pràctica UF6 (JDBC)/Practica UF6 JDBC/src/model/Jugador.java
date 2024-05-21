@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Jugador {
 
-    int jugador_id, equip_id;
-    String nom, cognom, dorsal, posicio;
+    int jugador_id, equip_id, dorsal;
+    String nom, cognom, posicio;
     double pes, alcada; //Alçcada;
     Date data_naixement;
 
-    public Jugador(int jugador_id, int equip_id, String nom, String cognom, String dorsal, String posicio, double pes, double alcada, Date data_naixement) {
+    public Jugador(int jugador_id, int equip_id, String nom, String cognom, int dorsal, String posicio, double pes, double alcada, Date data_naixement) {
         this.jugador_id = jugador_id;
         this.equip_id = equip_id;
         this.nom = nom;
@@ -37,7 +37,7 @@ public class Jugador {
         return cognom;
     }
 
-    public String getDorsal() {
+    public int getDorsal() {
         return dorsal;
     }
 
@@ -73,7 +73,7 @@ public class Jugador {
         this.cognom = cognom;
     }
 
-    public void setDorsal(String dorsal) {
+    public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
 

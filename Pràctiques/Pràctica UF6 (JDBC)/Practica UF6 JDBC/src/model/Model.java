@@ -14,8 +14,7 @@ public class Model {
     static Scanner scan = new Scanner(System.in);
 
     static {
-        try {
-           Connection con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        try {con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -25,6 +24,8 @@ public class Model {
     public static void consultarJugadorsEquip() throws SQLException {
 
         try {
+
+
 
             BigInteger equipId;
             System.out.print("Introdueix el equip que vols llistar tots els jugadors: ");
@@ -127,17 +128,6 @@ public class Model {
 
             if (resultsetv2.isBlank()){
 
-                PreparedStatement insertStmt = connection.prepareStatement("INSERT INTO jugadors VALUES ("+ jugadorId +"," +
-                        "\"" + nom + "\"," +
-                        "\"" + cognom + "\"," +
-                        "\"" + dataNaix + "\"," +
-                               pes+"," +
-                               alcada+"," +
-                               dorsal+"," +
-                        "\"" + posicio + "\"," +
-                               equipId+");");
-
-                insertStmt.executeUpdate();
                 System.out.println("Jugador inserit a la BD.");
 
             } else {

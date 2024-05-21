@@ -1,12 +1,7 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
-
 
 
 public class JugadorDAO implements DAO<Jugador> {
@@ -19,6 +14,10 @@ public class JugadorDAO implements DAO<Jugador> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public JugadorDAO(Connection con) {
+        this.con = con;
     }
 
 
@@ -52,7 +51,7 @@ public class JugadorDAO implements DAO<Jugador> {
                 ps.setDate(3, j.getData_naixement());
                 ps.setDouble(4, j.getPes());
                 ps.setDouble(5, j.getAlcada());
-                ps.setString(6, j.getDorsal());
+                ps.setInt(6, j.getDorsal());
                 ps.setString(7, j.getPosicio());
                 ps.setInt(8, j.getEquip_id());
                 ps.setInt(2, j.getJugador_id());
@@ -65,7 +64,12 @@ public class JugadorDAO implements DAO<Jugador> {
     }
 
     @Override
-    public boolean read(Jugador jugador) {
+    public boolean exists(Jugador jugador) {
+        return false;
+    }
+
+    @Override
+    public boolean read(Jugador j) {
         PreparedStatement ps = null;
         try {
             if (ps == null) {
@@ -101,7 +105,7 @@ public class JugadorDAO implements DAO<Jugador> {
                 ps.setDate(4, j.getData_naixement());
                 ps.setDouble(5, j.getPes());
                 ps.setDouble(6, j.getAlcada());
-                ps.setString(7, j.getDorsal());
+                ps.setInt(7, j.getDorsal());
                 ps.setString(8, j.getPosicio());
                 ps.setInt(9, j.getEquip_id());
                 ps.executeUpdate();

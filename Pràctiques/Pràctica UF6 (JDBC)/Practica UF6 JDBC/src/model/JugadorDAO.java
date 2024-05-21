@@ -45,9 +45,16 @@ public class JugadorDAO implements DAO<Jugador> {
             if (ps == null) {
                 ps = con.prepareStatement(
                         "UPDATE jugadors " +
-                            "SET nom = ?" +
+                            "SET nom = ?, cognom = ?, Data_naixement = ?, pes = ?, alcada = ?, dorsal = ?, posicio = ?, equipId = ?" +
                             "WHERE jugador_id = ?");
                 ps.setString(1,j.getNom() );
+                ps.setString(2, j.getNom());
+                ps.setDate(3, j.getData_naixement());
+                ps.setDouble(4, j.getPes());
+                ps.setDouble(5, j.getAlcada());
+                ps.setString(6, j.getDorsal());
+                ps.setString(7, j.getPosicio());
+                ps.setInt(8, j.getEquip_id());
                 ps.setInt(2, j.getJugador_id());
             }
 

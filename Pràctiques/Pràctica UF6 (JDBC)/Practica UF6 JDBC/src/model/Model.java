@@ -12,7 +12,7 @@ import java.util.spi.AbstractResourceBundleProvider;
 
 public class Model {
     static Scanner scan = new Scanner(System.in);
-
+    static Connection con;
     static {
         try {con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
         } catch (SQLException e) {

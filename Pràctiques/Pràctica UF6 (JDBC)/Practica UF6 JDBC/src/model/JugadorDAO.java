@@ -86,10 +86,6 @@ public class JugadorDAO implements DAO<Jugador> {
         return false;
     }
 
-    @Override
-    public boolean exists(Jugador jugador) {
-        return false;
-    }
 
     @Override
     public boolean create(Jugador j) {

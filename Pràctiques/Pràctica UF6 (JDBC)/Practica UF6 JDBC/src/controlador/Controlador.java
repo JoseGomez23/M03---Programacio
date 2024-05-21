@@ -28,7 +28,7 @@ public class Controlador {
                 //Cridar a llistar els partits d'un equio
                 break;
             case "4":
-                Jugador j = new Jugador(34567,1,"1","1","1","1",1,1, null);
+                Model.inserirJugador();
                 break;
             case "5":
                 //Cridar a Trasspassar jugaror d'equip

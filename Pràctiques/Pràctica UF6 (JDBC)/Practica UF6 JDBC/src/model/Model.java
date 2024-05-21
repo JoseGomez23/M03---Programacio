@@ -3,6 +3,7 @@ import com.mysql.cj.x.protobuf.MysqlxCrud;
 import controlador.Controlador;
 import vista.Vista;
 
+import javax.sound.midi.Soundbank;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.Scanner;
@@ -136,6 +137,9 @@ public class Model {
                         "\"" + posicio + "\"," +
                                equipId+");");
 
+                insertStmt.executeUpdate();
+                System.out.println("Jugador inserit a la BD.");
+
             } else {
 
                 int nouEquip;
@@ -145,13 +149,10 @@ public class Model {
                 scan.nextLine();
                 if (bool == 1){
 
-                    System.out.println("A quin equip el vols canviar?: ");
+                    System.out.print("A quin equip el vols canviar?: ");
                     nouEquip = scan.nextInt();
                     scan.nextLine();
 
-                    PreparedStatement updateStmt = connection.prepareStatement("UPDATE jugadors\n" +
-                            "\tSET equip_id = "+ nouEquip+"\n" +
-                            "    WHERE jugador_id = " + jugadorId + ";");
 
                 } else {
 
@@ -167,6 +168,14 @@ public class Model {
 
             Controlador.menu();
         }
+    }
+
+    public static void canviarJugadorEquip(int equipId, int jugadorId) throws SQLException {
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        PreparedStatement stmt = connection.prepareStatement("UPDATE jugadors SET equip_id = "+equipId+ " WHERE jugador_id = "+jugadorId+";" );
+
+
     }
 
 }

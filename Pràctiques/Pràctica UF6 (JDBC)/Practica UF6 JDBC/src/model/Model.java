@@ -176,6 +176,7 @@ public class Model {
         PreparedStatement stmt = connection.prepareStatement("UPDATE jugadors SET equip_id = "+equipId+ " WHERE jugador_id = "+jugadorId+";" );
 
 
+
     }
 
 }

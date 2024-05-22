@@ -1,5 +1,7 @@
 package model;
 
+import vista.Vista;
+
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import static model.JugadorDAO.con;
@@ -80,7 +82,7 @@ public class EquipDAO implements DAO<Equip>{
     public boolean read(Equip e) {
         PreparedStatement ps = null;
         try {
-            ps = Model.con.prepareStatement(
+            ps = con.prepareStatement(
                     "SELECT * FROM equips" +
                             "WHERE equip_id = ?"
             );
@@ -88,9 +90,23 @@ public class EquipDAO implements DAO<Equip>{
 
 
         } catch (Exception ex) {
-
+            Vista.missatgeError();
         }
 
+        return true;
+    }
+
+    public boolean readByNom(Equip e) {
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "SELECT * FROM equips WHERE nom = ?"
+            );
+            ps.setString(1, e.getNom());
+
+        } catch (Exception ex) {
+            Vista.missatgeError();
+        }
         return true;
     }
 }

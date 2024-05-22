@@ -9,11 +9,17 @@ import java.sql.*;
 
 public class Model {
 
-    public static Jugador j1 = new Jugador(0,0,null,null,0,null,0,0,null);
+    public static Jugador j1 = new Jugador(0, 0, null, null, 0, null, 0, 0, null);
     static Scanner scan = new Scanner(System.in);
     static Connection con;
+    public static int nouEquipId;
+    public static String nomChangeEquip;
+    public static String cognomChangeEquip;
+
+
     static {
-        try {con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -23,7 +29,6 @@ public class Model {
     public static void consultarJugadorsEquip() throws SQLException {
 
         try {
-
 
 
             BigInteger equipId;
@@ -68,7 +73,7 @@ public class Model {
 
             Vista.imprimirEstadisticsJugador(resultSet);
 
-        } catch  (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
 
@@ -77,8 +82,7 @@ public class Model {
 
     }
 
-    public static void mostrarEstadistiquesPartits(){
-
+    public static void mostrarEstadistiquesPartits() {
 
 
     }
@@ -97,9 +101,8 @@ public class Model {
             JugadorDAO daojug = new JugadorDAO(con);
 
 
-
             Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugadorId +";" );
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugadorId + ";");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -107,7 +110,7 @@ public class Model {
                 resultsetv2 = resultSet.getString("jugador_id");
             }
 
-            if (resultsetv2.isBlank()){
+            if (resultsetv2.isBlank()) {
 
                 daojug.create(j1);
                 System.out.println("Jugador inserit a la BD.");
@@ -119,11 +122,9 @@ public class Model {
                 System.out.print("Aquest jugador ja existeix a la BD, vols canviar-lo d'equip?:(1=Si,0=No) ");
                 bool = scan.nextInt();
                 scan.nextLine();
-                if (bool == 1){
+                if (bool == 1) {
 
-                   canviarJugadorEquip(nouEquip,jugadorId);
-
-
+                    canviarJugadorEquip();
 
                 } else {
 
@@ -133,7 +134,7 @@ public class Model {
 
             }
 
-        } catch  (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
 
@@ -141,33 +142,42 @@ public class Model {
         }
     }
 
-    public static void canviarJugadorEquip(int equipId, int jugadorId) throws SQLException {
+    public static void canviarJugadorEquip() throws SQLException {
+
+        int jugadorId = 0;
+        String nom = "";
+        String cognom = "";
+        Date data_naix = Date.valueOf("");
+        float alcada = 0;
+        float pes = 0;
+        int dorsal = 0;
+        String posicio = "";
+        int equipId = 0;
+
+
+        Controlador.cambiarEquip();
 
         Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        PreparedStatement stmt = connection.prepareStatement("UPDATE jugadors SET equip_id = "+equipId+ " WHERE jugador_id = "+jugadorId+";" );
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomChangeEquip + "\" AND cognom = \"" + cognomChangeEquip + "\";");
 
-        if(equipId == 0){
+        ResultSet resultSet = stmt.executeQuery();
 
-            String nom;
-            String cognom;
-            int equipId2;
+        while (resultSet.next()) {
+            jugadorId = resultSet.getInt("jugador_id");
+            nom = resultSet.getString("nom");
+            cognom = resultSet.getString("cognom");
+            data_naix = Date.valueOf(resultSet.getString("data_naixement"));
+            alcada = resultSet.getInt("alcada");
+            pes = resultSet.getInt("pes");
+            dorsal = resultSet.getInt("dorsal");
+            posicio = resultSet.getString("posicio");
+            equipId = resultSet.getInt("equip_id");
+        }
 
-            System.out.print("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
-            System.out.print("Nom");
-            nom = scan.nextLine();
-            System.out.print("Cognom;");
-            cognom = scan.nextLine();
+        Jugador j2 = new Jugador(jugadorId,nouEquipId,nom,cognom,dorsal,posicio,pes,alcada,data_naix);
+        JugadorDAO daojug = new JugadorDAO(con);
 
-            /*PreparedStatement stmt2 = connection.prepareStatement("SELECT * FROM jugadors" +
-                                                                            "WHERE nom = " + nom + "AND cognom = " + cognom + ";");
-*/
-
-
-
-
-        } else {
-
+        daojug.update(j2);
 
     }
-
 }

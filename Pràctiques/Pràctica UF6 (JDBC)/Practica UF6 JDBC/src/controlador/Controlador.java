@@ -32,7 +32,7 @@ public class Controlador {
                 Model.inserirJugador();
                 break;
             case "5":
-                //Cridar a Trasspassar jugaror d'equip
+                Model.canviarJugadorEquip();
                 break;
             case "6":
                 //Cridar a actualitzar dades
@@ -98,4 +98,22 @@ public class Controlador {
         return Model.j1;
     }
 
+    public static void cambiarEquip (){
+        String nom;
+        String cognom;
+        int equipId;
+
+        System.out.print("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
+        System.out.print("Nom: ");
+        nom = scan.nextLine();
+        System.out.print("Cognom: ");
+        cognom = scan.nextLine();
+        System.out.println("EquipId: ");
+        equipId = scan.nextInt();
+        scan.nextLine();
+
+        Model.nouEquipId = equipId;
+        Model.nomChangeEquip = nom;
+        Model.cognomChangeEquip = cognom;
+    }
 }

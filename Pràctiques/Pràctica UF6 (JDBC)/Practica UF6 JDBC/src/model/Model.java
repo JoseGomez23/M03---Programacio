@@ -1,16 +1,15 @@
 package model;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import controlador.Controlador;
 import vista.Vista;
 
-import javax.sound.midi.Soundbank;
-import java.io.OutputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.*;
-import java.util.spi.AbstractResourceBundleProvider;
 
 public class Model {
+
+    public static Jugador j1 = new Jugador(0,0,null,null,0,null,0,0,null);
     static Scanner scan = new Scanner(System.in);
     static Connection con;
     static {
@@ -48,9 +47,13 @@ public class Model {
     public static void consultarEstadistiquesJugadors() throws SQLException {
 
         try {
+            String jugadorCognom;
             String jugadorNom;
-            System.out.print("Introdueix el jugador(nom) del que vols trobar les dades:  ");
+            System.out.print("Introdueix el jugador del que vols trobar les dades");
+            System.out.print("Nom: ");
             jugadorNom = scan.nextLine();
+            System.out.print("Cognom: ");
+            jugadorCognom = scan.nextLine();
 
             Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
             PreparedStatement stmt = connection.prepareStatement("SELECT j.jugador_id, j.nom , avg(ej.punts) AS \"Punts promig\", \n" +
@@ -58,7 +61,7 @@ public class Model {
                     "\t\t\t\t\t\t\t avg(ej.assistencies) AS \"Assistencies promig\"\n" +
                     "\tFROM estadistiques_jugadors ej\n" +
                     "INNER JOIN jugadors j ON j.jugador_id = ej.jugador_id\n" +
-                    "WHERE j.nom = \"" + jugadorNom + "\"" +
+                    "WHERE j.nom = \"" + jugadorNom + "\" AND j.cognom = \"" + jugadorCognom +
                     "GROUP BY ej.jugador_id;");
 
             ResultSet resultSet = stmt.executeQuery();
@@ -83,40 +86,14 @@ public class Model {
     public static void inserirJugador() throws SQLException {
 
         try {
-            int jugadorId;
-            String nom;
-            String cognom;
-            Date dataNaix;
-            float alcada;
-            float pes;
-            int dorsal;
-            String posicio;
-            int equipId;
-
             String resultsetv2 = "";
 
-            System.out.print("Jugador Id: ");
-            jugadorId = scan.nextInt();
-            scan.nextLine();
-            System.out.print("Nom: ");
-            nom = scan.nextLine();
-            System.out.print("Cognom: ");
-            cognom = scan.nextLine();
-            System.out.print("Data naixement: ");
-            dataNaix = Date.valueOf(scan.nextLine());
-            System.out.print("Alçada: ");
-            alcada = scan.nextFloat();
-            System.out.print("Pes: ");
-            pes = scan.nextFloat();
-            System.out.print("Dorsal: ");
-            dorsal = scan.nextInt();
-            scan.nextLine();
-            System.out.print("Posicio: ");
-            posicio = scan.nextLine();
-            System.out.print("Equip Id: ");
-            equipId = scan.nextInt();
+            Controlador.inserirDades();
 
-            Jugador j1 = new Jugador(jugadorId,equipId,nom,cognom,dorsal,posicio,pes,alcada,dataNaix);
+            int jugadorId;
+
+            jugadorId = j1.getJugador_id();
+
             JugadorDAO daojug = new JugadorDAO(con);
 
 
@@ -170,6 +147,22 @@ public class Model {
         PreparedStatement stmt = connection.prepareStatement("UPDATE jugadors SET equip_id = "+equipId+ " WHERE jugador_id = "+jugadorId+";" );
 
         if(equipId == 0){
+
+            String nom;
+            String cognom;
+            int equipId2;
+
+            System.out.print("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
+            System.out.print("Nom");
+            nom = scan.nextLine();
+            System.out.print("Cognom;");
+            cognom = scan.nextLine();
+
+            /*PreparedStatement stmt2 = connection.prepareStatement("SELECT * FROM jugadors" +
+                                                                            "WHERE nom = " + nom + "AND cognom = " + cognom + ";");
+*/
+
+
 
 
         } else {

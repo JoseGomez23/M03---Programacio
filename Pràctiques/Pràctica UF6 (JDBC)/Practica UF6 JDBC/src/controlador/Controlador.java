@@ -4,6 +4,7 @@ import model.JugadorDAO;
 import vista.Vista;
 import model.Model;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -54,6 +55,47 @@ public class Controlador {
 
         }
 
+    }
+
+    public static Jugador inserirDades(){
+
+        int jugadorId;
+        String nom;
+        String cognom;
+        Date dataNaix;
+        float alcada;
+        float pes;
+        int dorsal;
+        String posicio;
+        int equipId;
+
+        System.out.print("Jugador Id: ");
+        jugadorId = scan.nextInt();
+        scan.nextLine();
+        System.out.print("Nom: ");
+        nom = scan.nextLine();
+        System.out.print("Cognom: ");
+        cognom = scan.nextLine();
+        System.out.print("Data naixement: ");
+        dataNaix = Date.valueOf(scan.nextLine());
+        System.out.print("Alçada: ");
+        alcada = scan.nextFloat();
+        System.out.print("Pes: ");
+        pes = scan.nextFloat();
+        System.out.print("Dorsal: ");
+        dorsal = scan.nextInt();
+        scan.nextLine();
+        System.out.print("Posicio: ");
+        posicio = scan.nextLine();
+        System.out.print("Equip Id: ");
+        equipId = scan.nextInt();
+        scan.nextLine();
+
+        Jugador j2 = new Jugador(jugadorId,equipId,nom,cognom,dorsal,posicio,pes,alcada,dataNaix);
+
+        Model.j1 = j2;
+
+        return Model.j1;
     }
 
 }

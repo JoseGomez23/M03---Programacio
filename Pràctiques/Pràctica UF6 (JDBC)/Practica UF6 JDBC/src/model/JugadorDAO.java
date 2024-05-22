@@ -93,8 +93,8 @@ public class JugadorDAO implements DAO<Jugador> {
         try {
             if (ps == null) {
                 ps = con.prepareStatement(
-                        "INSERT INTO jugadors (jugador_id, nom, cognom, Data_naixement, pes, alcada, dorsal, posicio, equipId)" +
-                                "VALUES (?,?,?,?,?,?,?,?,?)");
+                        "INSERT INTO jugadors (jugador_id, nom, cognom, data_naixement, pes, alcada, dorsal, posicio, equip_id)" +
+                                "VALUES (?,?,?,?,?,?,?,?,?);");
                 ps.setInt(1, j.getJugador_id());
                 ps.setString(2, j.getNom());
                 ps.setString(3, j.getCognom());
@@ -105,6 +105,8 @@ public class JugadorDAO implements DAO<Jugador> {
                 ps.setString(8, j.getPosicio());
                 ps.setInt(9, j.getEquip_id());
                 ps.executeUpdate();
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();

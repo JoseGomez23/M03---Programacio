@@ -118,7 +118,7 @@ public class Model {
 
             Jugador j1 = new Jugador(jugadorId,equipId,nom,cognom,dorsal,posicio,pes,alcada,dataNaix);
             JugadorDAO daojug = new JugadorDAO(con);
-            daojug.create(j1);
+
 
 
             Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
@@ -132,6 +132,7 @@ public class Model {
 
             if (resultsetv2.isBlank()){
 
+                daojug.create(j1);
                 System.out.println("Jugador inserit a la BD.");
 
             } else {
@@ -144,6 +145,7 @@ public class Model {
                 if (bool == 1){
 
                    canviarJugadorEquip(nouEquip,jugadorId);
+
 
 
                 } else {

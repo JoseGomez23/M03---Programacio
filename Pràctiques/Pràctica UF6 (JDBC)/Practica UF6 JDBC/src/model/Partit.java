@@ -1,6 +1,5 @@
 package model;
-
-import java.util.Date;
+import java.sql.Date;
 
 public class Partit {
 
@@ -26,7 +25,7 @@ public class Partit {
         return equip_id;
     }
 
-    public Date getData_partit() {
+    public java.sql.Date getData_partit() {
         return data_partit;
     }
 

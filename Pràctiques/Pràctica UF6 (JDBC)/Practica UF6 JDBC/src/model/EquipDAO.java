@@ -14,6 +14,7 @@ public class EquipDAO implements DAO<Equip>{
                 ps = con.prepareStatement(
                         "SELECT * FROM equips WHERE equip_id =  ?");
                 ps.setInt(1, 1);
+                ps.executeUpdate();
             }
 
 
@@ -35,6 +36,7 @@ public class EquipDAO implements DAO<Equip>{
                                 "WHERE equip_id = ?");
                 ps.setString(1,"Caramba" );
                 ps.setInt(2, 1);
+                ps.executeUpdate();
             }
 
         } catch (Exception ex) {
@@ -46,7 +48,7 @@ public class EquipDAO implements DAO<Equip>{
 
     @Override
     public boolean exists(Equip e) {
-        return false;
+        return true;
     }
 
     @Override
@@ -75,7 +77,20 @@ public class EquipDAO implements DAO<Equip>{
 
 
     @Override
-    public boolean read(Equip equip) {
-        return false;
+    public boolean read(Equip e) {
+        PreparedStatement ps = null;
+        try {
+            ps = Model.con.prepareStatement(
+                    "SELECT * FROM equips" +
+                            "WHERE equip_id = ?"
+            );
+            ps.setInt(1, e.getEquip_id());
+
+
+        } catch (Exception ex) {
+
+        }
+
+        return true;
     }
 }

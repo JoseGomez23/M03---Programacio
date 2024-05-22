@@ -116,11 +116,15 @@ public class Model {
             System.out.print("Equip Id: ");
             equipId = scan.nextInt();
 
+            Jugador j1 = new Jugador(jugadorId,equipId,nom,cognom,dorsal,posicio,pes,alcada,dataNaix);
+            JugadorDAO daojug = new JugadorDAO(con);
+            daojug.create(j1);
+
+
             Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugadorId +";" );
 
             ResultSet resultSet = stmt.executeQuery();
-
 
             while (resultSet.next()) {
                 resultsetv2 = resultSet.getString("jugador_id");
@@ -132,16 +136,14 @@ public class Model {
 
             } else {
 
-                int nouEquip;
+                int nouEquip = 0;
                 int bool;
                 System.out.print("Aquest jugador ja existeix a la BD, vols canviar-lo d'equip?:(1=Si,0=No) ");
                 bool = scan.nextInt();
                 scan.nextLine();
                 if (bool == 1){
 
-                    System.out.print("A quin equip el vols canviar?: ");
-                    nouEquip = scan.nextInt();
-                    scan.nextLine();
+                   canviarJugadorEquip(nouEquip,jugadorId);
 
 
                 } else {
@@ -165,7 +167,13 @@ public class Model {
         Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
         PreparedStatement stmt = connection.prepareStatement("UPDATE jugadors SET equip_id = "+equipId+ " WHERE jugador_id = "+jugadorId+";" );
 
+        if(equipId == 0){
 
+
+        } else {
+
+
+        }
 
     }
 

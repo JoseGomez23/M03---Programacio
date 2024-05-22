@@ -103,7 +103,7 @@ public class Controlador {
         String cognom;
         int equipId;
 
-        System.out.print("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
+        System.out.println("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
         System.out.print("Nom: ");
         nom = scan.nextLine();
         System.out.print("Cognom: ");

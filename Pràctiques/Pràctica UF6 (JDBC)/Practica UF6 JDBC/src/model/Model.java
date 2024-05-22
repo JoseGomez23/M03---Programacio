@@ -147,7 +147,7 @@ public class Model {
         int jugadorId = 0;
         String nom = "";
         String cognom = "";
-        Date data_naix = Date.valueOf("");
+        Date data_naix = Date.valueOf("1990-01-10");
         float alcada = 0;
         float pes = 0;
         int dorsal = 0;
@@ -173,6 +173,8 @@ public class Model {
             posicio = resultSet.getString("posicio");
             equipId = resultSet.getInt("equip_id");
         }
+
+        System.out.println(jugadorId);
 
         Jugador j2 = new Jugador(jugadorId,nouEquipId,nom,cognom,dorsal,posicio,pes,alcada,data_naix);
         JugadorDAO daojug = new JugadorDAO(con);

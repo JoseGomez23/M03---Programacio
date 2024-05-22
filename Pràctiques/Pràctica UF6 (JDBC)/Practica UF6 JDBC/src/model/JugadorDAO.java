@@ -45,17 +45,17 @@ public class JugadorDAO implements DAO<Jugador> {
         try {
             ps = con.prepareStatement(
                     "UPDATE jugadors " +
-                        "SET nom = ?, cognom = ?, Data_naixement = ?, pes = ?, alcada = ?, dorsal = ?, posicio = ?, equipId = ?" +
-                        "WHERE jugador_id = ?");
+                            "SET nom = ?, cognom = ?, data_naixement = ?, pes = ?, alcada = ?, dorsal = ?, posicio = ?, equip_id = ?" +
+                        " WHERE jugador_id = ?;");
             ps.setString(1,j.getNom() );
-            ps.setString(2, j.getNom());
+            ps.setString(2, j.getCognom());
             ps.setDate(3, j.getData_naixement());
             ps.setDouble(4, j.getPes());
             ps.setDouble(5, j.getAlcada());
             ps.setInt(6, j.getDorsal());
             ps.setString(7, j.getPosicio());
             ps.setInt(8, j.getEquip_id());
-            ps.setInt(2, j.getJugador_id());
+            ps.setInt(9, j.getJugador_id());
             ps.executeUpdate();
 
         } catch (Exception e) {

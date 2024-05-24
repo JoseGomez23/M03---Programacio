@@ -32,7 +32,7 @@ public class Controlador {
                 Model.inserirJugador();
                 break;
             case "5":
-                Model.canviarJugadorEquip();
+                canviarEquip();
                 break;
             case "6":
                 //Cridar a actualitzar dades
@@ -98,7 +98,7 @@ public class Controlador {
         return Model.j1;
     }
 
-    public static void cambiarEquip (){
+    public static void canviarEquip () throws SQLException {
         String nom;
         String cognom;
         int equipId;
@@ -112,18 +112,16 @@ public class Controlador {
         equipId = scan.nextInt();
         scan.nextLine();
 
-        Model.nouEquipId = equipId;
-        Model.nomTemp = nom;
-        Model.cognomTemp = cognom;
+        Model.canviarJugadorEquip(nom, cognom,equipId);
     }
 
-    public static void modificarEstadistiques(){
+    public static void modificarEstadistiques() throws SQLException {
 
         String nom;
         String cognom;
 
 
-        System.out.println("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
+        System.out.println("A quin jugador vols modificar-li les estadistiques: ");
         System.out.print("Nom: ");
         nom = scan.nextLine();
         System.out.print("Cognom: ");
@@ -133,9 +131,13 @@ public class Controlador {
         Model.nomTemp = nom;
         Model.cognomTemp = cognom;
 
+        Model.modificarEstadistiques(nom,cognom);
+
     }
 
     public static void introduirDades(){
+
+        System.out.println("");
 
 
     }

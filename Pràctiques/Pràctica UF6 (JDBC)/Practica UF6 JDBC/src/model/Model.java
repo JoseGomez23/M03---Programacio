@@ -126,7 +126,7 @@ public class Model {
                 scan.nextLine();
                 if (bool == 1) {
 
-                    canviarJugadorEquip();
+                    Controlador.canviarEquip();
 
                 } else {
 
@@ -144,7 +144,7 @@ public class Model {
         }
     }
 
-    public static void canviarJugadorEquip() throws SQLException {
+    public static void canviarJugadorEquip(String nom1, String cognom2, int equipId) throws SQLException {
 
         int jugadorId = 0;
         String nom = "";
@@ -154,10 +154,10 @@ public class Model {
         float pes = 0;
         int dorsal = 0;
         String posicio = "";
-        int equipId = 0;
 
 
-        Controlador.cambiarEquip();
+
+        Controlador.canviarEquip();
 
         Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomTemp + "\" AND cognom = \"" + cognomTemp + "\";");
@@ -173,7 +173,7 @@ public class Model {
             pes = resultSet.getInt("pes");
             dorsal = resultSet.getInt("dorsal");
             posicio = resultSet.getString("posicio");
-            equipId = resultSet.getInt("equip_id");
+
         }
 
         Jugador j2 = new Jugador(jugadorId,nouEquipId,nom,cognom,dorsal,posicio,pes,alcada,data_naix);
@@ -183,7 +183,7 @@ public class Model {
 
     }
 
-    public static void modificarEstadistiques() throws SQLException {
+    public static void modificarEstadistiques(String nom, String cognom) throws SQLException {
 
         int jugadorId = 0;
 
@@ -191,7 +191,7 @@ public class Model {
         Controlador.modificarEstadistiques();
 
         Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomTemp + "\" AND cognom = \"" + cognomTemp + "\";");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
 

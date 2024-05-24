@@ -13,8 +13,10 @@ public class Model {
     static Scanner scan = new Scanner(System.in);
     static Connection con;
     public static int nouEquipId;
-    public static String nomChangeEquip;
-    public static String cognomChangeEquip;
+    public static String nomTemp;
+    public static String cognomTemp;
+    public static int [] statsTemp = new int[13];
+    public static double tempsTemp;
 
 
     static {
@@ -158,7 +160,7 @@ public class Model {
         Controlador.cambiarEquip();
 
         Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomChangeEquip + "\" AND cognom = \"" + cognomChangeEquip + "\";");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomTemp + "\" AND cognom = \"" + cognomTemp + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
 
@@ -174,12 +176,46 @@ public class Model {
             equipId = resultSet.getInt("equip_id");
         }
 
-        System.out.println(jugadorId);
-
         Jugador j2 = new Jugador(jugadorId,nouEquipId,nom,cognom,dorsal,posicio,pes,alcada,data_naix);
         JugadorDAO daojug = new JugadorDAO(con);
 
         daojug.update(j2);
 
+    }
+
+    public static void modificarEstadistiques() throws SQLException {
+
+        int jugadorId = 0;
+
+
+        Controlador.modificarEstadistiques();
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomTemp + "\" AND cognom = \"" + cognomTemp + "\";");
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()) {
+
+            jugadorId = resultSet.getInt("jugador_id");
+        }
+
+        Controlador.introduirDades();
+
+        estadistiques_jugadors e1 = new estadistiques_jugadors(statsTemp[0],
+                                                               statsTemp[1],
+                                                               statsTemp[2],
+                                                               statsTemp[3],
+                                                               statsTemp[4],
+                                                               statsTemp[5],
+                                                               statsTemp[6],
+                                                               statsTemp[7],
+                                                               statsTemp[8],
+                                                               statsTemp[9],
+                                                               statsTemp[10],
+                                                               statsTemp[11],
+                                                               statsTemp[12],
+                                                               statsTemp[13],
+                                                               tempsTemp);
     }
 }

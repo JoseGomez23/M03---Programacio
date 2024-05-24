@@ -113,7 +113,30 @@ public class Controlador {
         scan.nextLine();
 
         Model.nouEquipId = equipId;
-        Model.nomChangeEquip = nom;
-        Model.cognomChangeEquip = cognom;
+        Model.nomTemp = nom;
+        Model.cognomTemp = cognom;
+    }
+
+    public static void modificarEstadistiques(){
+
+        String nom;
+        String cognom;
+
+
+        System.out.println("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
+        System.out.print("Nom: ");
+        nom = scan.nextLine();
+        System.out.print("Cognom: ");
+        cognom = scan.nextLine();
+
+        scan.nextLine();
+        Model.nomTemp = nom;
+        Model.cognomTemp = cognom;
+
+    }
+
+    public static void introduirDades(){
+
+
     }
 }

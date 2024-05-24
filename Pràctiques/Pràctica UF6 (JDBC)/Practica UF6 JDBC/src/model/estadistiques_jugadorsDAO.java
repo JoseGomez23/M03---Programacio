@@ -58,7 +58,7 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
         try {
             ps = con.prepareStatement(
                     "INSERT INTO estadistiques_jugadors (jugador_id, partit_id, minuts_jugats, punts, tirs_anotats, tirs_tirats," +
-                            " tirs_triples_anotats, tris_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius," +
+                            " tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius," +
                             " rebots_defensius, assistencies, robades, bloqueigs)" +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, e.getJugador_id());

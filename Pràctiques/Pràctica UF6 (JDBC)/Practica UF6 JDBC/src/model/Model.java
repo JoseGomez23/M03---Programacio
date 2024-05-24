@@ -1,4 +1,5 @@
 package model;
+
 import controlador.Controlador;
 import vista.Vista;
 
@@ -15,7 +16,7 @@ public class Model {
     public static int nouEquipId;
     public static String nomTemp;
     public static String cognomTemp;
-    public static int [] statsTemp = new int[13];
+    public static int[] statsTemp = new int[14];
     public static double tempsTemp;
 
 
@@ -154,7 +155,7 @@ public class Model {
         float pes = 0;
         int dorsal = 0;
         String posicio = "";
-
+        String bool= "";
 
 
         Controlador.canviarEquip();
@@ -176,46 +177,61 @@ public class Model {
 
         }
 
-        Jugador j2 = new Jugador(jugadorId,nouEquipId,nom,cognom,dorsal,posicio,pes,alcada,data_naix);
-        JugadorDAO daojug = new JugadorDAO(con);
+        if (bool.isBlank()){
+            System.out.println("Jugador inexistent!");
+        } else {
 
-        daojug.update(j2);
+            Jugador j2 = new Jugador(jugadorId, nouEquipId, nom, cognom, dorsal, posicio, pes, alcada, data_naix);
+            JugadorDAO daojug = new JugadorDAO(con);
+            System.out.println("Canviant al jugador d'equip...");
+            daojug.update(j2);
+        }
 
     }
 
-    public static void modificarEstadistiques(String nom, String cognom) throws SQLException {
+    // Meterselo en el readme (explicar el procedimiento que sigue)
+    public static void modEstadistiques(String nom, String cognom) throws SQLException {
 
         int jugadorId = 0;
+        String bool = "";
 
-
-        Controlador.modificarEstadistiques();
 
         Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+        PreparedStatement stmt = connection.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
 
         while (resultSet.next()) {
 
             jugadorId = resultSet.getInt("jugador_id");
+            bool = resultSet.getString("jugador_id");
         }
 
-        Controlador.introduirDades();
+        if (bool.isBlank()) {
+            System.out.println("Jugador inexistent!");
+            Controlador.menu();
+        } else {
+            Controlador.introduirDades(jugadorId);
 
-        estadistiques_jugadors e1 = new estadistiques_jugadors(statsTemp[0],
-                                                               statsTemp[1],
-                                                               statsTemp[2],
-                                                               statsTemp[3],
-                                                               statsTemp[4],
-                                                               statsTemp[5],
-                                                               statsTemp[6],
-                                                               statsTemp[7],
-                                                               statsTemp[8],
-                                                               statsTemp[9],
-                                                               statsTemp[10],
-                                                               statsTemp[11],
-                                                               statsTemp[12],
-                                                               statsTemp[13],
-                                                               tempsTemp);
+            estadistiques_jugadors e1 = new estadistiques_jugadors(statsTemp[0],
+                    statsTemp[1],
+                    statsTemp[2],
+                    statsTemp[3],
+                    statsTemp[4],
+                    statsTemp[5],
+                    statsTemp[6],
+                    statsTemp[7],
+                    statsTemp[8],
+                    statsTemp[9],
+                    statsTemp[10],
+                    statsTemp[11],
+                    statsTemp[12],
+                    statsTemp[13],
+                    tempsTemp);
+
+            estadistiques_jugadorsDAO estatsjug = new estadistiques_jugadorsDAO();
+
+            estatsjug.create(e1);
+        }
     }
 }

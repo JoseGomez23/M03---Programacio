@@ -38,7 +38,7 @@ public class Controlador {
                 //Cridar a actualitzar dades
                 break;
             case "7":
-                //Cridar a modificar estadistiques
+                modificarEstadistiques();
                 break;
             case "8":
                 //Cridar a eliminar jugador
@@ -120,25 +120,35 @@ public class Controlador {
         String nom;
         String cognom;
 
-
         System.out.println("A quin jugador vols modificar-li les estadistiques: ");
         System.out.print("Nom: ");
         nom = scan.nextLine();
         System.out.print("Cognom: ");
         cognom = scan.nextLine();
 
-        scan.nextLine();
-        Model.nomTemp = nom;
-        Model.cognomTemp = cognom;
-
-        Model.modificarEstadistiques(nom,cognom);
+        Model.modEstadistiques(nom,cognom);
 
     }
 
-    public static void introduirDades(){
+    public static void introduirDades(int jugador_id){
 
-        System.out.println("");
+        Model.statsTemp[0] = jugador_id;
+        System.out.println("Introdueix l'id del partit que ha jugat el jugador");
+        Model.statsTemp[1] = scan.nextInt();
+        System.out.println("Auogenerant dades aleatories...");
+        Model.statsTemp[2] = (int)(Math.random()*73+1);
+        Model.statsTemp[3] = (int)(Math.random()*25+1);
+        Model.statsTemp[4] = (int)(Math.random()*47+1);
+        Model.statsTemp[5] = (int)(Math.random()*12+1);
+        Model.statsTemp[6] = (int)(Math.random()*32+1);
+        Model.statsTemp[7] = (int)(Math.random()*24+1);
+        Model.statsTemp[8] = (int)(Math.random()*32+1);
+        Model.statsTemp[9] = (int)(Math.random()*15+1);
+        Model.statsTemp[10] = (int)(Math.random()*20+1);
+        Model.statsTemp[11] = (int)(Math.random()*23+1);
+        Model.statsTemp[12] = (int)(Math.random()*7+1);
+        Model.statsTemp[13] = (int)(Math.random()*10+1);
 
-
+        Model.tempsTemp = (Math.random()*48+1);
     }
 }

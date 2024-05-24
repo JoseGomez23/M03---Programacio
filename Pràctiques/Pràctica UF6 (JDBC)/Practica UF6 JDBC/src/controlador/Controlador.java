@@ -41,7 +41,7 @@ public class Controlador {
                 modificarEstadistiques();
                 break;
             case "8":
-                //Cridar a eliminar jugador
+                moureAHistoric();
                 break;
             case "9":
                 //Cridar a cambi de franquicia d'un eequip
@@ -150,5 +150,17 @@ public class Controlador {
         Model.statsTemp[13] = (int)(Math.random()*10+1);
 
         Model.tempsTemp = (Math.random()*48+1);
+    }
+
+    public static void moureAHistoric() throws SQLException {
+        String nom, cognom;
+        System.out.println("Quin jugador vols cambiar a la taula històric? ");
+        System.out.println("Nom: ");
+        nom = scan.nextLine();
+        System.out.println("cognom: ");
+        cognom = scan.nextLine();
+
+        Model.moureJugadorHistoric(nom, cognom);
+
     }
 }

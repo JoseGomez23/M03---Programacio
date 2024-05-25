@@ -20,7 +20,7 @@ public class Controlador {
 
         switch (opcio) {
             case "1":
-                Model.consultarJugadorsEquip();
+                buscarEquipJugadors();
                 break;
             case "2":
                 Model.consultarEstadistiquesJugadors();
@@ -57,9 +57,13 @@ public class Controlador {
 
     }
 
-    public static void buscarEquipJugadors(){
+    public static void buscarEquipJugadors() throws SQLException {
 
-
+        String nom;
+        System.out.print("Introdueix el nom del equip que vols llistar tots els jugadors: ");
+        nom = scan.nextLine();
+        System.out.println("Buscant equip a la bd...");
+        Model.consultarJugadorsEquip(nom);
 
     }
 

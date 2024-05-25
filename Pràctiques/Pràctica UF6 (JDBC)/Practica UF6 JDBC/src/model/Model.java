@@ -29,21 +29,36 @@ public class Model {
     }
 
 
-    public static void consultarJugadorsEquip() throws SQLException {
+    public static void consultarJugadorsEquip(String nomEquip) throws SQLException {
 
         try {
 
-
-            BigInteger equipId;
-            System.out.print("Introdueix el equip que vols llistar tots els jugadors: ");
-            equipId = BigInteger.valueOf(scan.nextInt());
+            String bool = "";
 
             Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT nom, cognom FROM jugadors WHERE equip_id = " + equipId + ";");
+            PreparedStatement stmt = connection.prepareStatement("SELECT equip_id FROM equips WHERE nom = \"" + nomEquip + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
 
-            Vista.imprimirJugadorsEquips(resultSet);
+            while (resultSet.next()){
+
+                bool = resultSet.getString("equip_id");
+            }
+
+            if (bool.isBlank()){
+
+                System.out.println("Equip inexistent!");
+            } else {
+
+                System.out.println("Equip trobat, llistant jugadors...");
+                PreparedStatement stmt2 = connection.prepareStatement("SELECT * FROM jugadors WHERE equip_id = " + bool );
+
+                ResultSet resultSet2 = stmt2.executeQuery();
+
+                Vista.imprimirJugadorsEquips(resultSet2);
+            }
+
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

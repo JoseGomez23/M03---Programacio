@@ -44,7 +44,7 @@ public class Controlador {
                 //Cridar a eliminar jugador
                 break;
             case "9":
-                //Cridar a cambi de franquicia d'un eequip
+                preguntarEquip();
                 break;
             case "0":
                 System.exit(0);
@@ -54,6 +54,12 @@ public class Controlador {
                 menu();
 
         }
+
+    }
+
+    public static void buscarEquipJugadors(){
+
+
 
     }
 
@@ -150,5 +156,19 @@ public class Controlador {
         Model.statsTemp[13] = (int)(Math.random()*10+1);
 
         Model.tempsTemp = (Math.random()*48+1);
+    }
+
+    public static void preguntarEquip() throws SQLException {
+
+        String nomEquip;
+        String nouNomEquip;
+
+        System.out.print("Introdueix el nom de l'equip que vols canviar: ");
+        nomEquip = scan.nextLine();
+        System.out.print("Nom que substituira a l'equip: ");
+        nouNomEquip = scan.nextLine();
+        System.out.println("Buscant l'equip a la bd...");
+        Model.canviarFranquicia(nomEquip, nouNomEquip);
+
     }
 }

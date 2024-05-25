@@ -1,8 +1,10 @@
 package model;
 
+import controlador.Controlador;
 import vista.Vista;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import static model.JugadorDAO.con;
 
@@ -34,10 +36,21 @@ public class EquipDAO implements DAO<Equip>{
             if (ps == null) {
                 ps = con.prepareStatement(
                         "UPDATE equips " +
-                                "SET nom = ?" +
-                                "WHERE equip_id = ?");
-                ps.setString(1,"Caramba" );
-                ps.setInt(2, 1);
+                                "SET ciutat = ?, " +
+                                "nom = ?, " +
+                                "acronim = ?, " +
+                                "divisio = ?, " +
+                                "guanyades = ?, " +
+                                "perdudes = ? " +
+                                "WHERE equip_id = ?;");
+
+                ps.setString(1, e.getCiutat());
+                ps.setString(2, e.getNom());
+                ps.setString(3, e.getAcronim());
+                ps.setString(4, e.getDivisio());
+                ps.setInt(5, e.getGuanyades());
+                ps.setInt(6, e.getPerdudes());
+                ps.setInt(7, e.getEquip_id());
                 ps.executeUpdate();
             }
 

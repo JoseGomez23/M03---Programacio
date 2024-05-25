@@ -14,6 +14,8 @@ public class Controlador {
 
     public static void menu() throws SQLException {
 
+
+
         Vista.mostrarMenu();
         String opcio;
         opcio = scan.nextLine();
@@ -23,7 +25,7 @@ public class Controlador {
                 buscarEquipJugadors();
                 break;
             case "2":
-                Model.consultarEstadistiquesJugadors();
+                buscarStatsJugador();
                 break;
             case "3":
                 //Cridar a llistar els partits d'un equio
@@ -66,6 +68,23 @@ public class Controlador {
         Model.consultarJugadorsEquip(nom);
 
     }
+
+    public static void buscarStatsJugador() throws SQLException {
+
+        String jugadorCognom;
+        String jugadorNom;
+        System.out.println("Introdueix el jugador del que vols trobar les estadistiques");
+        System.out.print("Nom: ");
+        jugadorNom = scan.nextLine();
+        System.out.print("Cognom: ");
+        jugadorCognom = scan.nextLine();
+
+        System.out.println("Buscant jugador a la bd...");
+        Model.consultarEstadistiquesJugadors(jugadorNom,jugadorCognom);
+
+    }
+
+
 
     public static Jugador inserirDades(){
 
@@ -136,6 +155,7 @@ public class Controlador {
         System.out.print("Cognom: ");
         cognom = scan.nextLine();
 
+        System.out.println("Buscant jugador a la bd...");
         Model.modEstadistiques(nom,cognom);
 
     }
@@ -143,7 +163,7 @@ public class Controlador {
     public static void introduirDades(int jugador_id){
 
         Model.statsTemp[0] = jugador_id;
-        System.out.println("Introdueix l'id del partit que ha jugat el jugador");
+        System.out.print("Introdueix l'id del partit que ha jugat el jugador: ");
         Model.statsTemp[1] = scan.nextInt();
         System.out.println("Auogenerant dades aleatories...");
         Model.statsTemp[2] = (int)(Math.random()*73+1);

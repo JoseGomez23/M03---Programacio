@@ -117,7 +117,19 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
         return false;
     }
 
-    public boolean readEstadistiques() {
+    public boolean readEstadistiquesAvg(estadistiques_jugadors e) {
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "SELECT * FROM estadistiques_jugadors WHERE jugador_id =  ?");
+            ps.setInt(1, e.getJugador_id());
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Vista.missatgeError();
+        }
+
         return false;
     }
 }

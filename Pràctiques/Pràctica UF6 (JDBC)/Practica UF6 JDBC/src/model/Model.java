@@ -234,4 +234,47 @@ public class Model {
             estatsjug.create(e1);
         }
     }
+    public static void canviarFranquicia(String nom, String nouNomEquip) throws SQLException {
+
+        int equip_id = 0;
+        int perdudes = 0;
+        int guanyades = 0;
+        String ciutat = "";
+        String acronim = "";
+        String divisio = "";
+
+        String bool = "";
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM equips WHERE nom = \"" + nom + "\"");
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()) {
+
+            equip_id = resultSet.getInt("equip_id");
+            guanyades = resultSet.getInt("guanyades");
+            perdudes = resultSet.getInt("perdudes");
+            ciutat = resultSet.getString("ciutat");
+            acronim = resultSet.getString("acronim");
+            divisio = resultSet.getString("divisio");
+
+            bool = resultSet.getString("equip_id");
+        }
+
+        if (bool.isBlank()) {
+            System.out.println("Equip inexistent!");
+            Controlador.menu();
+        } else {
+            System.out.println("Equip trobat canviant nom...");
+            EquipDAO equipsFranc = new EquipDAO();
+            Equip e1 = new Equip(equip_id,guanyades,perdudes,ciutat,nouNomEquip,divisio,acronim);
+
+            equipsFranc.update(e1);
+        }
+
+
+
+
+    }
 }

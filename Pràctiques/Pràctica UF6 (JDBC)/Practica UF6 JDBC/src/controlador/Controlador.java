@@ -44,7 +44,7 @@ public class Controlador {
                 modificarEstadistiques();
                 break;
             case "8":
-                //Cridar a eliminar jugador
+                moureAHistoric();
                 break;
             case "9":
                 preguntarEquip();
@@ -200,11 +200,11 @@ public class Controlador {
     public static void moureAHistoric() throws SQLException {
         String nom, cognom;
         System.out.println("Quin jugador vols cambiar a la taula històric? ");
-        System.out.println("Nom: ");
+        System.out.print("Nom: ");
         nom = scan.nextLine();
-        System.out.println("cognom: ");
+        System.out.print("Cognom: ");
         cognom = scan.nextLine();
-
+        System.out.println("Buscant jugador a la bd...");
         Model.moureJugadorHistoric(nom, cognom);
         Model.eliminarJugadorEstadistiques(nom, cognom);
 

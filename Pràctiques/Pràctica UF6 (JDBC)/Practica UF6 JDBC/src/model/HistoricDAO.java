@@ -51,12 +51,12 @@ public class HistoricDAO implements DAO<Historic>{
             ps.setInt(5, h.getTirs_anotats());
             ps.setInt(6, h.getTirs_tirats());
             ps.setInt(7, h.getTirs_triples_anotats());
-           // ps.setInt(8, h.getTirs_triples_tirats());
+            ps.setInt(8, h.getTris_triples_tirats());
             ps.setInt(9, h.getTirs_lliures_anotats());
             ps.setInt(10, h.getTirs_lliures_tirats());
             ps.setInt(11, h.getRebots_ofensius());
             ps.setInt(12, h.getRebots_defensius());
-            //ps.setInt(13, h.getAsistencies());
+            ps.setInt(13, h.getAssistencies());
             ps.setInt(14, h.getRobades());
             ps.setInt(15, h.getBloqueigs());
             ps.executeUpdate();

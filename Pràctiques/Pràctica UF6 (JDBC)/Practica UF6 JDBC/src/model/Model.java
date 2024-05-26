@@ -335,19 +335,19 @@ public class Model {
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
                 "jugador_id INT NOT NULL PRIMARY KEY," +
-                "partit_id INT," +
-                "minuts_jugats DECIMAL," +
-                "punts TINYINT" +
-                "tirs_anotats TINYINT" +
-                "tirs_tirats TINYINT" +
-                "tris_triples_anotats TINYINT" +
-                "tris_triples_anotats TINYINT" +
-                "tirs_lliures_anotats TINYINT" +
-                "tirs_lliures_tirats TINYINT" +
-                "rebots_ofensius TINYINT" +
-                "rebots_defensius TINYINT" +
-                "assistencies TINYINT" +
-                "robades TINYINT" +
+                "partit_id INT, " +
+                "minuts_jugats DECIMAL, " +
+                "punts TINYINT, " +
+                "tirs_anotats TINYINT, " +
+                "tirs_tirats TINYINT, " +
+                "tris_triples_anotats TINYINT, " +
+                "tris_triples_tirats TINYINT, " +
+                "tirs_lliures_anotats TINYINT, " +
+                "tirs_lliures_tirats TINYINT, " +
+                "rebots_ofensius TINYINT, " +
+                "rebots_defensius TINYINT, " +
+                "assistencies TINYINT, " +
+                "robades TINYINT, " +
                 "bloqueigs TINYINT);"
         );
         ps.executeUpdate();
@@ -390,6 +390,8 @@ public class Model {
             System.out.println("Jugador inexistent!");
         } else {
 
+            System.out.println("Jugador trobat, retirant-lo de estadistiques...");
+
             PreparedStatement stmt2 = con.prepareStatement("SELECT * FROM estadistiques_jugadors WHERE jugador_id = " + jugador_id +";");
             ResultSet resultSet2 = stmt2.executeQuery();
 
@@ -397,7 +399,7 @@ public class Model {
 
                 partit_id = resultSet2.getInt("partit_id");
                 minuts_jugats = resultSet2.getFloat("minuts_jugats");
-                punts = resultSet2.getInt("puts");
+                punts = resultSet2.getInt("punts");
                 tirs_anotats = resultSet2.getInt("tirs_anotats");
                 tirs_tirats = resultSet2.getInt("tirs_tirats");
                 tirs_triples_anotats = resultSet2.getInt("tirs_triples_anotats");

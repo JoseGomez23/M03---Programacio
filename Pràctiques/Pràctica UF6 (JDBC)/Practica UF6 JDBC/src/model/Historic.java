@@ -4,11 +4,10 @@ public class Historic {
 
     int jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tris_triples_tirats;
     int tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs;
+    double minuts_jugats;
 
-    String nom, cognom;
 
-
-    public Historic(int jugador_id, int partit_id, int punts, int tirs_anotats, int tirs_tirats, int tirs_triples_anotats, int tris_triples_tirats, int tirs_lliures_anotats, int tirs_lliures_tirats, int rebots_ofensius, int rebots_defensius, int assistencies, int robades, int bloqueigs, String nom, String cognom) {
+    public Historic(int jugador_id, int partit_id, int punts, int tirs_anotats, int tirs_tirats, int tirs_triples_anotats, int tris_triples_tirats, int tirs_lliures_anotats, int tirs_lliures_tirats, int rebots_ofensius, int rebots_defensius, int assistencies, int robades, int bloqueigs, double minuts_jugats) {
         this.jugador_id = jugador_id;
         this.partit_id = partit_id;
         this.punts = punts;
@@ -23,8 +22,7 @@ public class Historic {
         this.assistencies = assistencies;
         this.robades = robades;
         this.bloqueigs = bloqueigs;
-        this.nom = nom;
-        this.cognom = cognom;
+        this.minuts_jugats = minuts_jugats;
     }
 
     public int getJugador_id() {
@@ -139,20 +137,12 @@ public class Historic {
         this.bloqueigs = bloqueigs;
     }
 
-    public String getNom() {
-        return nom;
+    public double getMinuts_jugats() {
+        return minuts_jugats;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getCognom() {
-        return cognom;
-    }
-
-    public void setCognom(String cognom) {
-        this.cognom = cognom;
+    public void setMinuts_jugats(double minuts_jugats) {
+        this.minuts_jugats = minuts_jugats;
     }
 }
 

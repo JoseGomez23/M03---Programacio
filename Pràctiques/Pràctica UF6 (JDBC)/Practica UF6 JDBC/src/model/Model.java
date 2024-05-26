@@ -3,6 +3,7 @@ package model;
 import controlador.Controlador;
 import vista.Vista;
 
+import javax.xml.transform.Result;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -351,6 +352,71 @@ public class Model {
         );
         ps.executeUpdate();
         ps.close();
+
+    }
+
+    public static void eliminarJugadorEstadistiques(String nom, String cognom) throws SQLException {
+
+        int jugador_id = 0;
+        int partit_id = 0;
+        float minuts_jugats = 0;
+        int punts = 0;
+        int tirs_anotats = 0;
+        int tirs_tirats = 0;
+        int tirs_lliures_anotats = 0;
+        int tirs_triples_anotats = 0;
+        int tirs_triples_tirats = 0;
+        int tirs_lliures_tirats = 0;
+        int rebots_ofensius = 0;
+        int rebots_defensius = 0;
+        int assistencies = 0;
+        int robades = 0;
+        int bloqueigs = 0;
+
+        String bool = "";
+
+        PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()){
+
+            jugador_id = resultSet.getInt("jugador_id");
+            bool = resultSet.getString("jugador_id");
+        }
+
+        if (bool.isBlank()){
+
+            System.out.println("Jugador inexistent!");
+        } else {
+
+            PreparedStatement stmt2 = con.prepareStatement("SELECT * FROM estadistiques_jugadors WHERE jugador_id = " + jugador_id +";");
+            ResultSet resultSet2 = stmt2.executeQuery();
+
+            while (resultSet2.next()){
+
+                partit_id = resultSet2.getInt("partit_id");
+                minuts_jugats = resultSet2.getFloat("minuts_jugats");
+                punts = resultSet2.getInt("puts");
+                tirs_anotats = resultSet2.getInt("tirs_anotats");
+                tirs_tirats = resultSet2.getInt("tirs_tirats");
+                tirs_triples_anotats = resultSet2.getInt("tirs_triples_anotats");
+                tirs_triples_tirats = resultSet2.getInt("tirs_triples_tirats");
+                tirs_lliures_anotats = resultSet2.getInt("tirs_lliures_anotats");
+                tirs_lliures_tirats = resultSet2.getInt("tirs_lliures_anotats");
+                rebots_ofensius = resultSet2.getInt("rebots_ofensius");
+                rebots_defensius = resultSet2.getInt("rebots_defensius");
+                assistencies = resultSet2.getInt("assistencies");
+                robades = resultSet2.getInt("robades");
+                bloqueigs = resultSet2.getInt("bloqueigs");
+            }
+
+            estadistiques_jugadorsDAO ejeliminar = new estadistiques_jugadorsDAO();
+            estadistiques_jugadors ej1 = new estadistiques_jugadors(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
+
+            ejeliminar.delete(ej1);
+
+        }
 
     }
 }

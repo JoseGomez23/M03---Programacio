@@ -18,6 +18,7 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
                     "DELETE FROM estadistiques_jugadors WHERE jugador_id = ?"
             );
             ps.setInt(1, e.getJugador_id());
+            ps.executeUpdate();
 
         } catch (Exception ex) {
             Vista.missatgeError();

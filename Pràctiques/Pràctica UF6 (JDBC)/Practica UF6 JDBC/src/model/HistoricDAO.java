@@ -19,7 +19,7 @@ public class HistoricDAO implements DAO<Historic>{
             ps = con.prepareStatement(
                     "UPDATE historic" +
                             "SET partit_id = ?, minuts_jugats = ?, punts = ?, tirs_anotats = ?, tirs_tirats = ?, tirs_triples_anotats = ?," +
-                            " tris_triples_tirats = ?, tirs_lliures_anotats = ?, tirs_lliures_tirats = ?, rebots_ofensius = ?," +
+                            " tirs_triples_tirats = ?, tirs_lliures_anotats = ?, tirs_lliures_tirats = ?, rebots_ofensius = ?," +
                             " rebots_defensius = ?, assistencies = ?, robades = ?, bloqueigs = ?" +
                             "WHERE nom = ? AND cognom = ?"
             );
@@ -41,12 +41,12 @@ public class HistoricDAO implements DAO<Historic>{
         try {
             ps = con.prepareStatement(
                     "INSERT INTO estadistiques_jugadors (jugador_id, partit_id, minuts_jugats, punts, tirs_anotats, tirs_tirats," +
-                            " tirs_triples_anotats, tris_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius," +
+                            " tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius," +
                             " rebots_defensius, assistencies, robades, bloqueigs)" +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, h.getJugador_id());
             ps.setInt(2, h.getPartit_id());
-            //ps.setDouble(3, h.getMinuts_jugats());
+            ps.setDouble(3, h.getMinuts_jugats());
             ps.setInt(4, h.getPunts());
             ps.setInt(5, h.getTirs_anotats());
             ps.setInt(6, h.getTirs_tirats());

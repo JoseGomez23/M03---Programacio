@@ -1,6 +1,7 @@
 package controlador;
 import model.Jugador;
 import model.JugadorDAO;
+import model.estadistiques_jugadors;
 import vista.Vista;
 import model.Model;
 
@@ -205,6 +206,7 @@ public class Controlador {
         cognom = scan.nextLine();
 
         Model.moureJugadorHistoric(nom, cognom);
+        Model.eliminarJugadorEstadistiques(nom, cognom);
 
     }
 }

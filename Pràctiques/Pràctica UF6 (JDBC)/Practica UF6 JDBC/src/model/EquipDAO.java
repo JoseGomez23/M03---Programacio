@@ -104,6 +104,7 @@ public class EquipDAO implements DAO<Equip>{
 
         } catch (Exception ex) {
             Vista.missatgeError();
+
         }
 
         return true;

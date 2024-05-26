@@ -195,4 +195,16 @@ public class Controlador {
         Model.canviarFranquicia(nomEquip, nouNomEquip);
 
     }
+
+    public static void moureAHistoric() throws SQLException {
+        String nom, cognom;
+        System.out.println("Quin jugador vols cambiar a la taula històric? ");
+        System.out.println("Nom: ");
+        nom = scan.nextLine();
+        System.out.println("cognom: ");
+        cognom = scan.nextLine();
+
+        Model.moureJugadorHistoric(nom, cognom);
+
+    }
 }

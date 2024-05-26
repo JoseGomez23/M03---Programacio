@@ -330,4 +330,29 @@ public class Model {
             Controlador.menu();
         }
     }
+    public static void moureJugadorHistoric(String nom, String cognom) throws SQLException {
+
+        PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
+                "jugador_id INT NOT NULL PRIMARY KEY," +
+                "nom VARCHAR(30)," +
+                "cognom VARCHAR(30)" +
+                "partit_id INT," +
+                "minuts_jugats DECIMAL," +
+                "punts TINYINT" +
+                "tirs_anotats TINYINT" +
+                "tirs_tirats TINYINT" +
+                "tris_triples_anotats TINYINT" +
+                "tris_triples_anotats TINYINT" +
+                "tirs_lliures_anotats TINYINT" +
+                "tirs_lliures_tirats TINYINT" +
+                "rebots_ofensius TINYINT" +
+                "rebots_defensius TINYINT" +
+                "assistencies TINYINT" +
+                "robades TINYINT" +
+                "bloqueigs TINYINT);"
+        );
+        ps.executeUpdate();
+        ps.close();
+
+    }
 }

@@ -334,8 +334,6 @@ public class Model {
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
                 "jugador_id INT NOT NULL PRIMARY KEY," +
-                "nom VARCHAR(30)," +
-                "cognom VARCHAR(30)" +
                 "partit_id INT," +
                 "minuts_jugats DECIMAL," +
                 "punts TINYINT" +

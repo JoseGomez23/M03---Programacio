@@ -28,11 +28,11 @@ public class JugadorDAO implements DAO<Jugador> {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement("DELETE FROM jugadors" +
-                    "WHERE jugador_id = ?");
+                    " WHERE jugador_id = ?;");
             ps.setInt(1, j.getJugador_id());
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             Vista.missatgeError();
         }

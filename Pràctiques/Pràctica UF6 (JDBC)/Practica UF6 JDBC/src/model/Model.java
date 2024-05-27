@@ -313,7 +313,7 @@ public class Model {
                 System.out.println("Equip inexistent!");
                 Controlador.menu();
             } else {
-                System.out.println("Equip trobat, canviant nom...");
+                System.out.println("Equip trobat, canviant franquicia...");
                 EquipDAO equipsFranc = new EquipDAO();
                 Equip e1 = new Equip(equip_id, guanyades, perdudes, nouNomCiutat, nom, divisio, acronim);
 
@@ -327,7 +327,7 @@ public class Model {
             Controlador.menu();
         }
     }
-    public static void moureEstadistiquesJugadorHistoric(String nom, String cognom) throws SQLException {
+    public static void moureEstadistiquesJugadorHistoric() throws SQLException {
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
                 "jugador_id INT NOT NULL PRIMARY KEY," +
@@ -407,6 +407,12 @@ public class Model {
                 robades = resultSet2.getInt("robades");
                 bloqueigs = resultSet2.getInt("bloqueigs");
             }
+
+            HistoricDAO hdaomove = new HistoricDAO();
+            Historic h1 = new Historic(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
+
+
+            hdaomove.create(h1);
 
             estadistiques_jugadorsDAO ejeliminar = new estadistiques_jugadorsDAO();
             estadistiques_jugadors ej1 = new estadistiques_jugadors(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);

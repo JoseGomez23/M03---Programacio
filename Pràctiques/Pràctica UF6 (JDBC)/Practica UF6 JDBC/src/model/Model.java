@@ -3,9 +3,6 @@ package model;
 import controlador.Controlador;
 import vista.Vista;
 
-import javax.xml.transform.Result;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -283,14 +280,13 @@ public class Model {
         }
     }
 
-    public static void canviarFranquicia(String nom, String nouNomEquip) throws SQLException {
+    public static void canviarFranquicia(String nom, String nouNomCiutat) throws SQLException {
 
         try {
 
             int equip_id = 0;
             int perdudes = 0;
             int guanyades = 0;
-            String ciutat = "";
             String acronim = "";
             String divisio = "";
 
@@ -306,8 +302,8 @@ public class Model {
                 equip_id = resultSet.getInt("equip_id");
                 guanyades = resultSet.getInt("guanyades");
                 perdudes = resultSet.getInt("perdudes");
-                ciutat = resultSet.getString("ciutat");
                 acronim = resultSet.getString("acronim");
+                nom = resultSet.getString("nom");
                 divisio = resultSet.getString("divisio");
 
                 bool = resultSet.getString("equip_id");
@@ -319,7 +315,7 @@ public class Model {
             } else {
                 System.out.println("Equip trobat, canviant nom...");
                 EquipDAO equipsFranc = new EquipDAO();
-                Equip e1 = new Equip(equip_id, guanyades, perdudes, ciutat, nouNomEquip, divisio, acronim);
+                Equip e1 = new Equip(equip_id, guanyades, perdudes, nouNomCiutat, nom, divisio, acronim);
 
                 equipsFranc.update(e1);
             }
@@ -331,7 +327,7 @@ public class Model {
             Controlador.menu();
         }
     }
-    public static void moureJugadorHistoric(String nom, String cognom) throws SQLException {
+    public static void moureEstadistiquesJugadorHistoric(String nom, String cognom) throws SQLException {
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
                 "jugador_id INT NOT NULL PRIMARY KEY," +
@@ -372,7 +368,6 @@ public class Model {
         int assistencies = 0;
         int robades = 0;
         int bloqueigs = 0;
-
         String bool = "";
 
         PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
@@ -415,10 +410,91 @@ public class Model {
 
             estadistiques_jugadorsDAO ejeliminar = new estadistiques_jugadorsDAO();
             estadistiques_jugadors ej1 = new estadistiques_jugadors(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
-
             ejeliminar.delete(ej1);
 
         }
+
+    }
+
+    public static void moureJugadorHistoric(String nom, String cognom) throws SQLException {
+
+
+        int jugador_id = 0;
+        int equip_id = 0;
+        int dorsal = 0;
+        String posicio = "";
+        double pes = 0;
+        double alcada = 0;
+        Date data_naixement;
+
+        PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS jugadorHistoric(" +
+                "jugador_id INT NOT NULL PRIMARY KEY," +
+                "equip_id INT" +
+                "dorsal INT" +
+                "nom VARCHAR(150)" +
+                "cognom VARCHAR(150)" +
+                "posicio VARCHAR(25)" +
+                "pes DECIMAL" +
+                "alcada DECIMAL" +
+                "data_naixement DATE);"
+        );
+
+
+        PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+
+    }
+
+    public static void eliminarJugador(String nom, String cognom) throws SQLException {
+
+        int jugador_id = 0;
+        int equip_id = 0;
+        int dorsal = 0;
+        String posicio = "";
+        double pes = 0;
+        double alcada = 0;
+        Date data_naixement = Date.valueOf("1990-01-10");;
+        String bool = "";
+
+        PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()){
+
+            jugador_id = resultSet.getInt("jugador_id");
+            bool = resultSet.getString("jugador_id");
+        }
+
+        if (bool.isBlank()){
+
+            System.out.println("Jugador inexistent!");
+        } else {
+
+            System.out.println("Jugador trobat, retirant-lo de la taula jugadors...");
+
+            PreparedStatement stmt2 = con.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugador_id +";");
+            ResultSet resultSet2 = stmt2.executeQuery();
+
+            while (resultSet2.next()){
+
+                jugador_id = resultSet2.getInt("jugador_id");
+                equip_id = resultSet2.getInt("equip_id");
+                dorsal = resultSet2.getInt("dorsal");
+                posicio = resultSet2.getString("posicio");
+                pes = resultSet2.getFloat("pes");
+                alcada = resultSet2.getFloat("alcada");
+                data_naixement = resultSet2.getDate("data_naixement");
+
+            }
+
+            JugadorDAO jeliminar = new JugadorDAO(con);
+            Jugador j1 = new Jugador(jugador_id, equip_id, nom, cognom, dorsal, posicio, pes, alcada, data_naixement);
+            jeliminar.delete(j1);
+
+        }
+
+
+
 
     }
 }

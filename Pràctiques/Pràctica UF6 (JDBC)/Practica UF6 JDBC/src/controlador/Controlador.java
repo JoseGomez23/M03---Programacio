@@ -1,7 +1,5 @@
 package controlador;
 import model.Jugador;
-import model.JugadorDAO;
-import model.estadistiques_jugadors;
 import vista.Vista;
 import model.Model;
 
@@ -186,14 +184,14 @@ public class Controlador {
     public static void preguntarEquip() throws SQLException {
 
         String nomEquip;
-        String nouNomEquip;
+        String nouNomCiutat;
 
         System.out.print("Introdueix el nom de l'equip que vols canviar: ");
         nomEquip = scan.nextLine();
         System.out.print("Nom que substituira a l'equip: ");
-        nouNomEquip = scan.nextLine();
+        nouNomCiutat = scan.nextLine();
         System.out.println("Buscant l'equip a la bd...");
-        Model.canviarFranquicia(nomEquip, nouNomEquip);
+        Model.canviarFranquicia(nomEquip, nouNomCiutat);
 
     }
 
@@ -205,8 +203,10 @@ public class Controlador {
         System.out.print("Cognom: ");
         cognom = scan.nextLine();
         System.out.println("Buscant jugador a la bd...");
-        Model.moureJugadorHistoric(nom, cognom);
+        Model.moureEstadistiquesJugadorHistoric(nom, cognom);
         Model.eliminarJugadorEstadistiques(nom, cognom);
+        Model.moureJugadorHistoric(nom, cognom);
+        Model.eliminarJugador(nom, cognom);
 
     }
 }

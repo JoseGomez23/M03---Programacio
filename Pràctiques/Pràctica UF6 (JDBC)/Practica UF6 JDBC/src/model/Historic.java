@@ -73,11 +73,11 @@ public class Historic {
         this.tirs_triples_anotats = tirs_triples_anotats;
     }
 
-    public int getTris_triples_tirats() {
+    public int getTirs_triples_tirats() {
         return tris_triples_tirats;
     }
 
-    public void setTris_triples_tirats(int tris_triples_tirats) {
+    public void setTirs_triples_tirats(int tris_triples_tirats) {
         this.tris_triples_tirats = tris_triples_tirats;
     }
 

@@ -64,6 +64,7 @@ public class Model {
             Controlador.menu();
         }
     }
+    /*************************** EX 2 ***************************/
 
     public static void consultarEstadistiquesJugadors(String nomJugador, String cognomJugador) throws SQLException {
 
@@ -111,6 +112,7 @@ public class Model {
 
     }
 
+    /*************************** EX 3 ***************************/
     public static void mostrarEstadistiquesPartits(String nomEquip) throws SQLException {
 
         String bool = "";
@@ -159,12 +161,11 @@ public class Model {
         Vista.imprimirPartits(resultSet,resultSet2);
 
     }
-
+    /*************************** EX 4 ***************************/
     public static void inserirJugador(Jugador j1) throws SQLException {
 
         try {
             String resultsetv2 = "";
-
 
             int jugadorId;
 
@@ -214,6 +215,7 @@ public class Model {
         }
     }
 
+    /*************************** EX 5 ***************************/
     public static void canviarJugadorEquip(String nom1, String cognom2, int equipId) throws SQLException {
 
         try {
@@ -264,6 +266,7 @@ public class Model {
         }
     }
 
+    /*************************** EX 6 ***************************/
     public static void actualitzarDadesEstadistiques() {
 
         File arxiuDades = new File("./Pràctiques/Pràctica UF6 (JDBC)/Practica UF6 JDBC/src/arxiusDades/actualitzarDades.csv");
@@ -321,7 +324,7 @@ public class Model {
         }
     }
 
-    // Meterselo en el readme (explicar el procedimiento que sigue)
+    /*************************** EX 7 ***************************/
     public static void modEstadistiques(String nom, String cognom) throws SQLException {
 
         try {
@@ -376,6 +379,7 @@ public class Model {
         }
     }
 
+    /*************************** EX 9 ***************************/
     public static void canviarFranquicia(String nom, String nouNomCiutat) throws SQLException {
 
         try {
@@ -422,6 +426,8 @@ public class Model {
             Controlador.menu();
         }
     }
+
+    /*************************** EX 8 ***************************/
     public static void crearTaulaHistoric() throws SQLException {
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +

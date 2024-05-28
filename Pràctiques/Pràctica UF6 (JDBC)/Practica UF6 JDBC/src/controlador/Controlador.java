@@ -171,8 +171,7 @@ public class Controlador {
 
         Vista.mostrarMissatgesFitxers();
         Model.actualitzarDadesEstadistiques();
-        //TODO: El alvaro es una puta maquina
-
+        //TODO: El alvaro es una maquina
 
     }
 

@@ -5,11 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Vista {
+
     public static void mostrarMenu() {
         System.out.println("| ------------------------------ |");
         System.out.println("| ---------    MENU    --------- |");
         System.out.println("| ------------------------------ |");
-        System.out.println("| 1. Llistar jugador a un equip  |");
+        System.out.println("| 1. Llistar jugadors d'un equip |");
         System.out.println("| 2. Calcular mitjana (Punts)    |");
         System.out.println("| 3. Llistar partits (Equip)     |");
         System.out.println("| 4. Inserir jugador a un equip  |");
@@ -49,8 +50,6 @@ public class Vista {
 
     public static void imprimirPartits(ResultSet resultSet, ResultSet resultSet2) throws SQLException {
 
-
-
         while (resultSet.next()){
 
             System.out.println("Ciutat|Equip|Resultat|VS|Resultat|Ciutat|Equip");
@@ -77,12 +76,9 @@ public class Vista {
         }
     }
 
-    public static void imprimirmecagoentodo(){
-
-
-    }
 
     public static void mostrarMissatgesFitxers() {
+
         System.out.println("S'actualitzaran les dades del jugador_id = 200768 i partit_id = 22300003");
         System.out.println("i també s'actualitzaran les dades del jugadoor_id = 201142 i partit_id = 22300236");
         System.out.println("a la taula de estadistiues_jugadors");

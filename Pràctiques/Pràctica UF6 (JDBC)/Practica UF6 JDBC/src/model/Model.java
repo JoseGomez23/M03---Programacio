@@ -3,21 +3,22 @@ package model;
 import controlador.Controlador;
 import vista.Vista;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.sql.*;
 
 public class Model {
 
-    public static Jugador j1 = new Jugador(0, 0, null, null, 0, null, 0, 0, null);
+    //Definir variables globals
     static Scanner scan = new Scanner(System.in);
     static Connection con;
-    public static int nouEquipId;
-    public static String nomTemp;
-    public static String cognomTemp;
     public static int[] statsTemp = new int[14];
     public static double tempsTemp;
 
 
+    //Conexió a la base de dades
     static {
         try {
             con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
@@ -33,8 +34,7 @@ public class Model {
 
             String bool = "";
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT equip_id FROM equips WHERE nom = \"" + nomEquip + "\"");
+            PreparedStatement stmt = con.prepareStatement("SELECT equip_id FROM equips WHERE nom = \"" + nomEquip + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -49,7 +49,7 @@ public class Model {
             } else {
 
                 System.out.println("Equip trobat, llistant jugadors...");
-                PreparedStatement stmt2 = connection.prepareStatement("SELECT * FROM jugadors WHERE equip_id = " + bool);
+                PreparedStatement stmt2 = con.prepareStatement("SELECT * FROM jugadors WHERE equip_id = " + bool);
 
                 ResultSet resultSet2 = stmt2.executeQuery();
 
@@ -71,8 +71,7 @@ public class Model {
 
             String bool = "";
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nomJugador + "\" AND cognom = \"" + cognomJugador + "\"");
+            PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nomJugador + "\" AND cognom = \"" + cognomJugador + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -89,7 +88,7 @@ public class Model {
 
                 System.out.println("Jugador trobat, consultant estadistiques...");
 
-                PreparedStatement stmt2 = connection.prepareStatement("SELECT j.jugador_id, j.nom , avg(ej.punts) AS \"Punts promig\", \n" +
+                PreparedStatement stmt2 = con.prepareStatement("SELECT j.jugador_id, j.nom , avg(ej.punts) AS \"Punts promig\", \n" +
                         "\t\t\t\t\t\t\t avg(ej.rebots_ofensius + ej.rebots_defensius) AS \"Rebots promig\",\n" +
                         "\t\t\t\t\t\t\t avg(ej.assistencies) AS \"Assistencies promig\"\n" +
                         "\tFROM estadistiques_jugadors ej\n" +
@@ -117,8 +116,7 @@ public class Model {
         String bool = "";
         String acronim = "";
 
-        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        PreparedStatement stmt = connection.prepareStatement("SELECT equip_id, acronim FROM equips WHERE nom = \"" + nomEquip + "\";");
+        PreparedStatement stmt = con.prepareStatement("SELECT equip_id, acronim FROM equips WHERE nom = \"" + nomEquip + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
 
@@ -132,47 +130,41 @@ public class Model {
 
             System.out.println("Equip inexistent!");
         } else{
+
             System.out.println("Equip trobat, buscant partits...");
             mostrarPartitsEquipsPart2(acronim);
-
         }
     }
 
     public static void mostrarPartitsEquipsPart2(String acronim) throws SQLException {
 
-        String [] query1 = new String[4];
-        String [] query2 = new String[3];
 
-        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        PreparedStatement stmt = connection.prepareStatement("SELECT e.ciutat, e.nom, p.resultat, p.matx\n" +
-                "FROM partits p\n" +
-                "INNER JOIN equips e ON p.equip_id = e.equip_id\n" +
-                "WHERE p.matx LIKE \""+ acronim +"%\";");
+        PreparedStatement stmt = con.prepareStatement("SELECT e.ciutat, e.nom, p.resultat, p.matx\n" +
+                " FROM partits p\n" +
+                " INNER JOIN equips e ON p.equip_id = e.equip_id\n" +
+                " WHERE p.matx LIKE \""+ acronim +"%\"" +
+                " ORDER BY partit_id;");
 
 
-        PreparedStatement stmt2 = connection.prepareStatement("SELECT e.ciutat, e.nom, p.resultat, p.matx\n" +
+        PreparedStatement stmt2 = con.prepareStatement("SELECT e.ciutat, e.nom, p.resultat, p.matx\n" +
                 "FROM partits p\n" +
                 " INNER JOIN equips e ON p.equip_id = e.equip_id\n" +
-                " WHERE p.matx LIKE \"%"+ acronim +"\";");
+                " WHERE p.matx LIKE \"%"+ acronim +"\"" +
+                " ORDER BY partit_id;");
 
 
         ResultSet resultSet = stmt.executeQuery();
         ResultSet resultSet2 = stmt2.executeQuery();
 
-
         Vista.imprimirPartits(resultSet,resultSet2);
-
-
-
 
     }
 
-    public static void inserirJugador() throws SQLException {
+    public static void inserirJugador(Jugador j1) throws SQLException {
 
         try {
             String resultsetv2 = "";
 
-            Controlador.inserirDades();
 
             int jugadorId;
 
@@ -181,8 +173,7 @@ public class Model {
             JugadorDAO daojug = new JugadorDAO(con);
 
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugadorId + ";");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugadorId + ";");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -226,6 +217,7 @@ public class Model {
     public static void canviarJugadorEquip(String nom1, String cognom2, int equipId) throws SQLException {
 
         try {
+
             int jugadorId = 0;
             String nom = "";
             String cognom = "";
@@ -236,11 +228,7 @@ public class Model {
             String posicio = "";
             String bool = "";
 
-
-            Controlador.canviarEquip();
-
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nomTemp + "\" AND cognom = \"" + cognomTemp + "\";");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nom1 + "\" AND cognom = \"" + cognom2 + "\";");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -254,13 +242,15 @@ public class Model {
                 dorsal = resultSet.getInt("dorsal");
                 posicio = resultSet.getString("posicio");
 
+                bool = resultSet.getString("jugador_id");
+
             }
 
             if (bool.isBlank()) {
                 System.out.println("Jugador inexistent!");
             } else {
 
-                Jugador j2 = new Jugador(jugadorId, nouEquipId, nom, cognom, dorsal, posicio, pes, alcada, data_naix);
+                Jugador j2 = new Jugador(jugadorId, equipId, nom, cognom, dorsal, posicio, pes, alcada, data_naix);
                 JugadorDAO daojug = new JugadorDAO(con);
                 System.out.println("Canviant al jugador d'equip...");
                 daojug.update(j2);
@@ -274,6 +264,63 @@ public class Model {
         }
     }
 
+    public static void actualitzarDadesEstadistiques() {
+
+        File arxiuDades = new File("./Pràctiques/Pràctica UF6 (JDBC)/Practica UF6 JDBC/src/arxiusDades/actualitzarDades.csv");
+        int jugador_id = 0;
+        int partit_id = 0;
+        float minuts_jugats = 0;
+        int punts = 0;
+        int tirs_anotats =0;
+        int tirs_tirats = 0;
+        int tirs_triples_anotats = 0;
+        int tirs_triples_tirats = 0;
+        int tirs_lliures_anotats = 0;
+        int tirs_lliures_tirats = 0;
+        int rebots_ofensius = 0;
+        int rebots_defensius = 0;
+        int assistencies = 0;
+        int robades = 0;
+        int bloqueigs = 0;
+
+
+        try {
+            FileReader fr = new FileReader(arxiuDades);
+            BufferedReader br = new BufferedReader(fr);
+            String linia = "";
+
+            while ((linia = br.readLine()) != null) {
+                String [] camps = linia.split(";");
+
+                jugador_id = Integer.parseInt(camps[0]);
+                partit_id = Integer.parseInt(camps[1]);
+                minuts_jugats = Float.parseFloat(camps[2]);
+                punts = Integer.parseInt(camps[3]);
+                tirs_anotats = Integer.parseInt(camps[4]);
+                tirs_tirats = Integer.parseInt(camps[5]);
+                tirs_triples_anotats = Integer.parseInt(camps[6]);
+                tirs_triples_tirats = Integer.parseInt(camps[7]);
+                tirs_lliures_anotats = Integer.parseInt(camps[8]);
+                tirs_lliures_tirats = Integer.parseInt(camps[9]);
+                rebots_ofensius = Integer.parseInt(camps[10]);
+                rebots_defensius = Integer.parseInt(camps[11]);
+                assistencies = Integer.parseInt(camps[12]);
+                robades = Integer.parseInt(camps[13]);
+                bloqueigs = Integer.parseInt(camps[14]);
+
+                estadistiques_jugadors ej = new estadistiques_jugadors(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
+                estadistiques_jugadorsDAO ejupdate = new estadistiques_jugadorsDAO();
+                ejupdate.update(ej);
+
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Meterselo en el readme (explicar el procedimiento que sigue)
     public static void modEstadistiques(String nom, String cognom) throws SQLException {
 
@@ -283,8 +330,7 @@ public class Model {
             String bool = "";
 
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+            PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -320,7 +366,7 @@ public class Model {
 
                 estadistiques_jugadorsDAO estatsjug = new estadistiques_jugadorsDAO();
 
-                estatsjug.create(e1);
+                estatsjug.update(e1);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -342,8 +388,7 @@ public class Model {
 
             String bool = "";
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM equips WHERE nom = \"" + nom + "\"");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM equips WHERE nom = \"" + nom + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
 

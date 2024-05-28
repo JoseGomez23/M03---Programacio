@@ -1,25 +1,16 @@
 package model;
-
 import vista.Vista;
-
 import java.sql.*;
+import static model.Model.con;
+
 
 
 public class JugadorDAO implements DAO<Jugador> {
 
-    public static Connection con;
 
-    static {
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        }
-    }
 
     public JugadorDAO(Connection con) {
-        JugadorDAO.con = con;
+        con = con;
     }
 
 
@@ -93,7 +84,7 @@ public class JugadorDAO implements DAO<Jugador> {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(
-                    "INSERT INTO jugadors (jugador_id, nom, cognom, Data_naixement, pes, alcada, dorsal, posicio, equipId)" +
+                    "INSERT INTO jugadors (jugador_id, nom, cognom, Data_naixement, pes, alcada, dorsal, posicio, equip_id)" +
                             "VALUES (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, j.getJugador_id());
             ps.setString(2, j.getNom());
@@ -117,12 +108,9 @@ public class JugadorDAO implements DAO<Jugador> {
     public boolean readByNom(Jugador j) {
         PreparedStatement ps = null;
         try {
-            if (ps == null) {
-                ps = con.prepareStatement(
-                        "SELECT * FROM jugadors WHERE nom =  ? AND cognom = ?");
-                ps.setInt(1, 1);
-            }
-
+            ps = con.prepareStatement(
+                    "SELECT * FROM jugadors WHERE nom =  ? AND cognom = ?");
+            ps.setInt(1, 1);
 
         } catch (Exception e) {
             e.printStackTrace();

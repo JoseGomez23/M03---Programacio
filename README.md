@@ -56,3 +56,6 @@ Quan s'hagi transferit, es borraran les estadistiques i el perfil del jugador.
 # Excercici 9
 Demana el nom d'un equip (Nuggets) i canvia la ciutat/franquicia. (Denver Nuggets --> Blanes Nuggets)
 
+# JAR
+El jar es troba a la carpeta out, artifacts i després Practica UF6 JDBC 
+

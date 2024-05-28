@@ -45,6 +45,47 @@ public class Vista {
 
     }
 
+
+
+    public static void imprimirPartits(ResultSet resultSet, ResultSet resultSet2) throws SQLException {
+
+
+
+        while (resultSet.next()){
+
+
+            System.out.print(resultSet.getString("ciutat"));
+            System.out.print("");
+            System.out.print(resultSet.getString("nom"));
+            System.out.print("");
+            System.out.print(resultSet.getString("resultat"));
+            System.out.print("");
+            System.out.print(resultSet.getString("matx"));
+            System.out.print("");
+
+            while (resultSet2.next()) {
+                System.out.print(resultSet2.getString("resultat"));
+                System.out.print("");
+                System.out.print(resultSet2.getString("ciutat"));
+                System.out.print("");
+                System.out.print(resultSet2.getString("nom"));
+                System.out.println();
+                break;
+            }
+        }
+    }
+
+    public static void imprimirmecagoentodo(){
+
+
+    }
+
+    public static void mostrarMissatgesFitxers() {
+        System.out.println("S'actualitzaran les dades del jugador_id = 200768 i partit_id = 22300003");
+        System.out.println("i també s'actualitzaran les dades del jugadoor_id = 201142 i partit_id = 22300236");
+        System.out.println("a la taula de estadistiues_jugadors");
+    }
+
     public static void missatgeError() {
         System.out.println("Hi ha hagut un error, torna a introduir la teva opció");
     }

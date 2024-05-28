@@ -29,7 +29,7 @@ public class Controlador {
                 buscarStatsJugador();
                 break;
             case "3":
-                //Cridar a llistar els partits d'un equio
+                buscarPartitsEquip();
                 break;
             case "4":
                 Model.inserirJugador();
@@ -82,6 +82,18 @@ public class Controlador {
 
         System.out.println("Buscant jugador a la bd...");
         Model.consultarEstadistiquesJugadors(jugadorNom,jugadorCognom);
+
+    }
+
+    public static void buscarPartitsEquip() throws SQLException {
+
+        String nomEquip;
+        System.out.println("A quin equips vols llistar els partits?: ");
+        System.out.println("Introdueix el nom de l'equip(ex. Bulls): ");
+        nomEquip = scan.nextLine();
+
+        System.out.println("Buscant equip a la bd...");
+        Model.mostrarEstadistiquesPartits(nomEquip);
 
     }
 

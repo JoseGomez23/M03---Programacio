@@ -112,7 +112,57 @@ public class Model {
 
     }
 
-    public static void mostrarEstadistiquesPartits() {
+    public static void mostrarEstadistiquesPartits(String nomEquip) throws SQLException {
+
+        String bool = "";
+        String acronim = "";
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        PreparedStatement stmt = connection.prepareStatement("SELECT equip_id, acronim FROM equips WHERE nom = \"" + nomEquip + "\";");
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()){
+
+            bool = resultSet.getString("equip_id");
+            acronim = resultSet.getString("acronim");
+        }
+
+        if (bool.isBlank()){
+
+            System.out.println("Equip inexistent!");
+        } else{
+            System.out.println("Equip trobat, buscant partits...");
+            mostrarPartitsEquipsPart2(acronim);
+
+        }
+    }
+
+    public static void mostrarPartitsEquipsPart2(String acronim) throws SQLException {
+
+        String [] query1 = new String[4];
+        String [] query2 = new String[3];
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.103:3306/nba", "perepi", "pastanaga");
+        PreparedStatement stmt = connection.prepareStatement("SELECT e.ciutat, e.nom, p.resultat, p.matx\n" +
+                "FROM partits p\n" +
+                "INNER JOIN equips e ON p.equip_id = e.equip_id\n" +
+                "WHERE p.matx LIKE \""+ acronim +"%\";");
+
+
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT e.ciutat, e.nom, p.resultat, p.matx\n" +
+                "FROM partits p\n" +
+                " INNER JOIN equips e ON p.equip_id = e.equip_id\n" +
+                " WHERE p.matx LIKE \"%"+ acronim +"\";");
+
+
+        ResultSet resultSet = stmt.executeQuery();
+        ResultSet resultSet2 = stmt2.executeQuery();
+
+
+        Vista.imprimirPartits(resultSet,resultSet2);
+
+
 
 
     }

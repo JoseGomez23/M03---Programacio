@@ -35,10 +35,10 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
         try {
             ps = con.prepareStatement(
                     "UPDATE estadistiques_jugadors" +
-                            "SET partit_id = ?, minuts_jugats = ?, punts = ?, tirs_anotats = ?, tirs_tirats = ?, tirs_triples_anotats = ?," +
-                            " tris_triples_tirats = ?, tirs_lliures_anotats = ?, tirs_lliures_tirats = ?, rebots_ofensius = ?," +
+                            " SET minuts_jugats = ?, punts = ?, tirs_anotats = ?, tirs_tirats = ?, tirs_triples_anotats = ?," +
+                            " tirs_triples_tirats = ?, tirs_lliures_anotats = ?, tirs_lliures_tirats = ?, rebots_ofensius = ?," +
                             " rebots_defensius = ?, assistencies = ?, robades = ?, bloqueigs = ?" +
-                            "WHERE jugador_id = ?"
+                            " WHERE jugador_id = ? AND partit_id = ?"
             );
             ps.setInt(1, e.getPartit_id());
             ps.setDouble(2, e.getMinuts_jugats());
@@ -57,7 +57,8 @@ public class estadistiques_jugadorsDAO implements DAO<estadistiques_jugadors> {
             ps.setInt(15, e.getJugador_id());
             ps.executeUpdate();
         } catch (Exception ex) {
-            ex.getStackTrace();
+
+            ex.printStackTrace();
             Vista.missatgeError();
         }
         return false;

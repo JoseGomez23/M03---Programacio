@@ -2,7 +2,6 @@ package model;
 
 import controlador.Controlador;
 import vista.Vista;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -55,10 +54,10 @@ public class Model {
 
                 Vista.imprimirJugadorsEquips(resultSet2);
             }
-
-
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Hi ha hagut en error amb la base de dades");
+        } catch (Exception e) {
+            Vista.missatgeError();
         } finally {
 
             Controlador.menu();
@@ -101,10 +100,10 @@ public class Model {
 
                 Vista.imprimirEstadisticsJugador(resultSet2);
             }
-
-
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Hi ha hagut en error amb la base de dades");
+        } catch (Exception e) {
+            Vista.missatgeError();
         } finally {
 
             Controlador.menu();
@@ -153,8 +152,6 @@ public class Model {
                 " INNER JOIN equips e ON p.equip_id = e.equip_id\n" +
                 " WHERE p.matx LIKE \"%"+ acronim +"\"" +
                 " ORDER BY partit_id;");
-
-
         ResultSet resultSet = stmt.executeQuery();
         ResultSet resultSet2 = stmt2.executeQuery();
 

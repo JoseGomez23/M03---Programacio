@@ -2,19 +2,19 @@ package model;
 
 public class Historic {
 
-    int jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tris_triples_tirats;
+    int jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats;
     int tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs;
     double minuts_jugats;
 
 
-    public Historic(int jugador_id, int partit_id, int punts, int tirs_anotats, int tirs_tirats, int tirs_triples_anotats, int tris_triples_tirats, int tirs_lliures_anotats, int tirs_lliures_tirats, int rebots_ofensius, int rebots_defensius, int assistencies, int robades, int bloqueigs, double minuts_jugats) {
+    public Historic(int jugador_id, int partit_id, int punts, int tirs_anotats, int tirs_tirats, int tirs_triples_anotats, int tirs_triples_tirats, int tirs_lliures_anotats, int tirs_lliures_tirats, int rebots_ofensius, int rebots_defensius, int assistencies, int robades, int bloqueigs, double minuts_jugats) {
         this.jugador_id = jugador_id;
         this.partit_id = partit_id;
         this.punts = punts;
         this.tirs_anotats = tirs_anotats;
         this.tirs_tirats = tirs_tirats;
         this.tirs_triples_anotats = tirs_triples_anotats;
-        this.tris_triples_tirats = tris_triples_tirats;
+        this.tirs_triples_tirats = tirs_triples_tirats;
         this.tirs_lliures_anotats = tirs_lliures_anotats;
         this.tirs_lliures_tirats = tirs_lliures_tirats;
         this.rebots_ofensius = rebots_ofensius;
@@ -74,11 +74,11 @@ public class Historic {
     }
 
     public int getTirs_triples_tirats() {
-        return tris_triples_tirats;
+        return tirs_triples_tirats;
     }
 
-    public void setTirs_triples_tirats(int tris_triples_tirats) {
-        this.tris_triples_tirats = tris_triples_tirats;
+    public void setTirs_triples_tirats(int tirs_triples_tirats) {
+        this.tirs_triples_tirats = tirs_triples_tirats;
     }
 
     public int getTirs_lliures_anotats() {

@@ -56,7 +56,7 @@ public class JugadorHistoricDAO implements DAO<JugadorHistoric>{
     }
 
     @Override
-    public boolean create(JugadorHistoric jh) {
+    public boolean read(JugadorHistoric jh) {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(
@@ -73,11 +73,11 @@ public class JugadorHistoricDAO implements DAO<JugadorHistoric>{
     }
 
     @Override
-    public boolean read(JugadorHistoric jh) {
+    public boolean create(JugadorHistoric jh) {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(
-                    "INSERT INTO jugadors (jugador_id, nom, cognom, Data_naixement, pes, alcada, dorsal, posicio, equipId)" +
+                    "INSERT INTO jugadorHistoric (jugador_id, nom, cognom, data_naixement, pes, alcada, dorsal, posicio, equip_id)" +
                             "VALUES (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, jh.getJugador_id());
             ps.setString(2, jh.getNom());

@@ -3,6 +3,7 @@ package model;
 import vista.Vista;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import static model.JugadorDAO.con;
 
@@ -40,7 +41,7 @@ public class HistoricDAO implements DAO<Historic>{
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(
-                    "INSERT INTO estadistiques_jugadors (jugador_id, partit_id, minuts_jugats, punts, tirs_anotats, tirs_tirats," +
+                    "INSERT INTO historic (jugador_id, partit_id, minuts_jugats, punts, tirs_anotats, tirs_tirats," +
                             " tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius," +
                             " rebots_defensius, assistencies, robades, bloqueigs)" +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -59,12 +60,23 @@ public class HistoricDAO implements DAO<Historic>{
             ps.setInt(13, h.getAssistencies());
             ps.setInt(14, h.getRobades());
             ps.setInt(15, h.getBloqueigs());
+
             ps.executeUpdate();
-        } catch (Exception ex) {
+            return true; // Retornar true si la inserción es exitosa
+        } catch (SQLException ex) {
             ex.printStackTrace();
             Vista.missatgeError();
+        } finally {
+            // Asegurarse de cerrar el PreparedStatement
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return false;
+        return false; // Retornar false si hay un error
     }
 
     @Override

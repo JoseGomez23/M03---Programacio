@@ -327,17 +327,17 @@ public class Model {
             Controlador.menu();
         }
     }
-    public static void moureEstadistiquesJugadorHistoric() throws SQLException {
+    public static void crearTaulaHistoric() throws SQLException {
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
-                "jugador_id INT NOT NULL PRIMARY KEY," +
-                "partit_id INT, " +
+                "jugador_id INT UNSIGNED," +
+                "partit_id INT UNSIGNED, " +
                 "minuts_jugats DECIMAL, " +
                 "punts TINYINT, " +
                 "tirs_anotats TINYINT, " +
                 "tirs_tirats TINYINT, " +
-                "tris_triples_anotats TINYINT, " +
-                "tris_triples_tirats TINYINT, " +
+                "tirs_triples_anotats TINYINT, " +
+                "tirs_triples_tirats TINYINT, " +
                 "tirs_lliures_anotats TINYINT, " +
                 "tirs_lliures_tirats TINYINT, " +
                 "rebots_ofensius TINYINT, " +
@@ -390,6 +390,8 @@ public class Model {
             PreparedStatement stmt2 = con.prepareStatement("SELECT * FROM estadistiques_jugadors WHERE jugador_id = " + jugador_id +";");
             ResultSet resultSet2 = stmt2.executeQuery();
 
+            HistoricDAO hdaomove = new HistoricDAO();
+
             while (resultSet2.next()){
 
                 partit_id = resultSet2.getInt("partit_id");
@@ -406,13 +408,10 @@ public class Model {
                 assistencies = resultSet2.getInt("assistencies");
                 robades = resultSet2.getInt("robades");
                 bloqueigs = resultSet2.getInt("bloqueigs");
+
+                Historic h1 = new Historic(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
+                hdaomove.create(h1);
             }
-
-            HistoricDAO hdaomove = new HistoricDAO();
-            Historic h1 = new Historic(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
-
-
-            hdaomove.create(h1);
 
             estadistiques_jugadorsDAO ejeliminar = new estadistiques_jugadorsDAO();
             estadistiques_jugadors ej1 = new estadistiques_jugadors(jugador_id, partit_id, punts, tirs_anotats, tirs_tirats, tirs_triples_anotats, tirs_triples_tirats, tirs_lliures_anotats, tirs_lliures_tirats, rebots_ofensius, rebots_defensius, assistencies, robades, bloqueigs, minuts_jugats);
@@ -431,22 +430,41 @@ public class Model {
         String posicio = "";
         double pes = 0;
         double alcada = 0;
-        Date data_naixement;
+        Date data_naixement = Date.valueOf("1990-10-10");;
 
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS jugadorHistoric(" +
-                "jugador_id INT NOT NULL PRIMARY KEY," +
-                "equip_id INT" +
-                "dorsal INT" +
-                "nom VARCHAR(150)" +
-                "cognom VARCHAR(150)" +
-                "posicio VARCHAR(25)" +
-                "pes DECIMAL" +
-                "alcada DECIMAL" +
-                "data_naixement DATE);"
+                " jugador_id INT," +
+                " equip_id INT," +
+                " dorsal INT," +
+                " nom VARCHAR(150)," +
+                " cognom VARCHAR(150)," +
+                " posicio VARCHAR(25)," +
+                " pes DECIMAL," +
+                " alcada DECIMAL," +
+                " data_naixement DATE);"
         );
+        ps.executeUpdate();
+        ps.close();
 
 
-        PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()){
+
+            jugador_id = resultSet.getInt("jugador_id");
+            data_naixement = resultSet.getDate("data_naixement");
+            alcada = resultSet.getInt("alcada");
+            pes = resultSet.getInt("pes");
+            dorsal = resultSet.getInt("dorsal");
+            posicio = resultSet.getString("posicio");
+
+        }
+
+        JugadorHistoricDAO daojughistoric = new JugadorHistoricDAO();
+
+        JugadorHistoric j1 = new JugadorHistoric(jugador_id,equip_id,dorsal,nom,cognom,posicio,pes,alcada,data_naixement);
+        daojughistoric.create(j1);
 
     }
 

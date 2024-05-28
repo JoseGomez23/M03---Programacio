@@ -206,7 +206,7 @@ public class Controlador {
         cognom = scan.nextLine();
         System.out.println("Buscant jugador a la bd...");
 
-        Model.moureEstadistiquesJugadorHistoric();
+        Model.crearTaulaHistoric();
         Model.moureJugadorHistoric(nom, cognom);
         Model.eliminarJugadorEstadistiques(nom, cognom);
         Model.eliminarJugador(nom, cognom);

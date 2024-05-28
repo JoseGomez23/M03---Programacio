@@ -3,16 +3,18 @@ package model;
 import vista.Vista;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class JugadorHistoricDAO implements DAO<JugadorHistoric>{
 
-    public static Connection con;
+
     @Override
     public boolean delete(JugadorHistoric jh) {
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement("DELETE FROM jugadorsHistoric" +
+            ps = Model.con.prepareStatement("DELETE FROM jugadorsHistoric" +
                     "WHERE jugador_id = ?");
             ps.setInt(1, jh.getJugador_id());
             ps.executeUpdate();
@@ -28,7 +30,7 @@ public class JugadorHistoricDAO implements DAO<JugadorHistoric>{
     public boolean update(JugadorHistoric jh) {
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = Model.con.prepareStatement(
                     "UPDATE jugadorsHistoric " +
                             "SET nom = ?, cognom = ?, data_naixement = ?, pes = ?, alcada = ?, dorsal = ?, posicio = ?, equip_id = ?" +
                             " WHERE jugador_id = ?;");
@@ -59,7 +61,7 @@ public class JugadorHistoricDAO implements DAO<JugadorHistoric>{
     public boolean read(JugadorHistoric jh) {
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = Model.con.prepareStatement(
                     "SELECT * FROM jugadorsHistoric WHERE jugador_id = ?");
             ps.setInt(1, jh.getJugador_id());
             ps.executeUpdate();
@@ -76,7 +78,7 @@ public class JugadorHistoricDAO implements DAO<JugadorHistoric>{
     public boolean create(JugadorHistoric jh) {
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(
+            ps = Model.con.prepareStatement(
                     "INSERT INTO jugadorHistoric (jugador_id, nom, cognom, data_naixement, pes, alcada, dorsal, posicio, equip_id)" +
                             "VALUES (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, jh.getJugador_id());

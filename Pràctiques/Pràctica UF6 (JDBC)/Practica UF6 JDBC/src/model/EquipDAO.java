@@ -1,12 +1,7 @@
 package model;
-
-import controlador.Controlador;
 import vista.Vista;
-
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import static model.JugadorDAO.con;
+import static model.Model.con;
 
 public class EquipDAO implements DAO<Equip>{
 
@@ -71,7 +66,7 @@ public class EquipDAO implements DAO<Equip>{
         PreparedStatement ps = null;
         try {
             if (ps == null) {
-                ps = con.prepareStatement(
+                ps = Model.con.prepareStatement(
                         "INSERT INTO equips (equip_id, ciutat, nom, acronim, divisio, guanyades, perdudes)" +
                                 "VALUES (?,?)");
                 ps.setInt(1, e.getEquip_id());

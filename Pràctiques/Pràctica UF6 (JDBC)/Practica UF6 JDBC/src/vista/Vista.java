@@ -53,21 +53,23 @@ public class Vista {
 
         while (resultSet.next()){
 
+            System.out.println("Ciutat|Equip|Resultat|VS|Resultat|Ciutat|Equip");
 
             System.out.print(resultSet.getString("ciutat"));
-            System.out.print("");
+            System.out.print(" ");
             System.out.print(resultSet.getString("nom"));
-            System.out.print("");
+            System.out.print(" ");
             System.out.print(resultSet.getString("resultat"));
-            System.out.print("");
+            System.out.print(" ");
             System.out.print(resultSet.getString("matx"));
-            System.out.print("");
+            System.out.print(" ");
 
             while (resultSet2.next()) {
+
                 System.out.print(resultSet2.getString("resultat"));
-                System.out.print("");
+                System.out.print(" ");
                 System.out.print(resultSet2.getString("ciutat"));
-                System.out.print("");
+                System.out.print(" ");
                 System.out.print(resultSet2.getString("nom"));
                 System.out.println();
                 break;

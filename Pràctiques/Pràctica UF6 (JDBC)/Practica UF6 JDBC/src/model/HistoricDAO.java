@@ -5,7 +5,7 @@ import vista.Vista;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static model.JugadorDAO.con;
+import static model.Model.con;
 
 public class HistoricDAO implements DAO<Historic>{
     @Override

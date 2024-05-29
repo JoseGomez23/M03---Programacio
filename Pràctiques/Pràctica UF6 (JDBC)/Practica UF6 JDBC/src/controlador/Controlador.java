@@ -81,6 +81,7 @@ public class Controlador {
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
             Vista.missatgeError();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -95,7 +96,6 @@ public class Controlador {
             jugadorNom = scan.nextLine();
             System.out.print("Cognom: ");
             jugadorCognom = scan.nextLine();
-
             System.out.println("Buscant jugador a la bd...");
             Model.consultarEstadistiquesJugadors(jugadorNom, jugadorCognom);
         } catch (SQLException e){
@@ -113,9 +113,9 @@ public class Controlador {
             System.out.println("A quin equips vols llistar els partits?: ");
             System.out.println("Introdueix el nom de l'equip(ex. Bulls): ");
             nomEquip = scan.nextLine();
-
             System.out.println("Buscant equip a la bd...");
             Model.mostrarEstadistiquesPartits(nomEquip);
+
         } catch (SQLException e){
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
@@ -144,27 +144,58 @@ public class Controlador {
             scan.nextLine();
             System.out.print("Nom: ");
             nom = scan.nextLine();
+            if (nom.isBlank()) {
+                System.out.println("No pots introduir un jugador en blanc");
+                menu();
+            }
             System.out.print("Cognom: ");
             cognom = scan.nextLine();
+            if (cognom.isBlank()) {
+                System.out.println("No pots introduir un jugador en blanc");
+                menu();
+            }
             System.out.print("Data naixement: ");
             dataNaix = Date.valueOf(scan.nextLine());
             System.out.print("Alçada: ");
             alcada = scan.nextFloat();
+            scan.nextLine();
+            if(alcada < 1){
+                System.out.println("Un jugador no pot tenir alçada negativa");
+                menu();
+            }
             System.out.print("Pes: ");
             pes = scan.nextFloat();
+            scan.nextLine();
+            if(pes < 1){
+                System.out.println("Un jugador no pot tenir pes negatiu");
+                menu();
+            }
             System.out.print("Dorsal: ");
             dorsal = scan.nextInt();
             scan.nextLine();
+            if(dorsal > 99 || dorsal < 0){
+                System.out.println("El limit per el numero del dorsal es 99 i 0");
+                menu();
+            }
             System.out.print("Posicio: ");
             posicio = scan.nextLine();
+            if (posicio.isBlank()) {
+                System.out.println("No pots introduir un jugador sense posicio");
+                menu();
+            }
             System.out.print("Equip Id: ");
             equipId = scan.nextInt();
             scan.nextLine();
+            if(equipId < 1){
+                System.out.println("L'id de l'equip no pot ser mes petit que 1");
+                menu();
+            }
 
             Jugador j2 = new Jugador(jugadorId, equipId, nom, cognom, dorsal, posicio, pes, alcada, dataNaix);
 
             System.out.println("Inserint jugador...");
             Model.inserirJugador(j2);
+
         } catch (SQLException e){
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
@@ -189,8 +220,8 @@ public class Controlador {
             equipId = scan.nextInt();
             scan.nextLine();
             System.out.println("Buscant el jugador a la bd...");
-
             Model.canviarJugadorEquip(nom, cognom, equipId);
+
         } catch (SQLException e){
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
@@ -199,11 +230,17 @@ public class Controlador {
     }
 
     /******************** Excercici 6 *********************/
-    public static void actualitzarDadesFitxer() {
+    public static void actualitzarDadesFitxer() throws SQLException {
 
-        Vista.mostrarMissatgesFitxers();
-        Model.actualitzarDadesEstadistiques();
-        //TODO: El alvaro es una maquina
+        try {
+            Vista.mostrarMissatgesFitxers();
+            Model.actualitzarDadesEstadistiques();
+        } catch (SQLException e) {
+            System.out.println("Hi ha hagut un problema amb la base de dades, torna a introduir opció");
+        } catch (Exception e) {
+            Vista.missatgeError();
+        }
+
 
     }
 
@@ -312,7 +349,7 @@ public class Controlador {
         } catch (Exception e) {
             Vista.missatgeError();
         }
-    }
 
+    }
 
 }

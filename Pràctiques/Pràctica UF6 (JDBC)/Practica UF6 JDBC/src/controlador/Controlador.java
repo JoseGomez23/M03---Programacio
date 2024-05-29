@@ -144,22 +144,52 @@ public class Controlador {
             scan.nextLine();
             System.out.print("Nom: ");
             nom = scan.nextLine();
+            if (nom.isBlank()) {
+                System.out.println("No pots introduir un jugador en blanc");
+                menu();
+            }
             System.out.print("Cognom: ");
             cognom = scan.nextLine();
+            if (cognom.isBlank()) {
+                System.out.println("No pots introduir un jugador en blanc");
+                menu();
+            }
             System.out.print("Data naixement: ");
             dataNaix = Date.valueOf(scan.nextLine());
             System.out.print("Alçada: ");
             alcada = scan.nextFloat();
+            scan.nextLine();
+            if(alcada < 1){
+                System.out.println("Un jugador no pot tenir alçada negativa");
+                menu();
+            }
             System.out.print("Pes: ");
             pes = scan.nextFloat();
+            scan.nextLine();
+            if(pes < 1){
+                System.out.println("Un jugador no pot tenir pes negatiu");
+                menu();
+            }
             System.out.print("Dorsal: ");
             dorsal = scan.nextInt();
             scan.nextLine();
+            if(dorsal > 99 || dorsal < 0){
+                System.out.println("El limit per el numero del dorsal es 99 i 0");
+                menu();
+            }
             System.out.print("Posicio: ");
             posicio = scan.nextLine();
+            if (posicio.isBlank()) {
+                System.out.println("No pots introduir un jugador sense posicio");
+                menu();
+            }
             System.out.print("Equip Id: ");
             equipId = scan.nextInt();
             scan.nextLine();
+            if(equipId < 1){
+                System.out.println("L'id de l'equip no pot ser mes petit que 1");
+                menu();
+            }
 
             Jugador j2 = new Jugador(jugadorId, equipId, nom, cognom, dorsal, posicio, pes, alcada, dataNaix);
 
@@ -312,7 +342,7 @@ public class Controlador {
         } catch (Exception e) {
             Vista.missatgeError();
         }
-    }
 
+    }
 
 }

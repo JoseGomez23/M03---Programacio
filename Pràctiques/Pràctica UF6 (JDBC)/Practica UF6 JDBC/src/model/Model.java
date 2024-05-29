@@ -5,6 +5,7 @@ import vista.Vista;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -106,11 +107,13 @@ public class Model {
             }
         } catch (SQLException e) {
             System.out.println("Hi ha hagut en error amb la base de dades");
+            Controlador.menu();
         } catch (Exception e) {
             Vista.missatgeError();
+            Controlador.menu();
         } finally {
 
-            Controlador.menu();
+
         }
 
     }
@@ -275,7 +278,7 @@ public class Model {
     }
 
     /*************************** EX 6 ***************************/
-    public static void actualitzarDadesEstadistiques() {
+    public static void actualitzarDadesEstadistiques() throws SQLException {
 
         File arxiuDades = new File("./Pràctiques/Pràctica UF6 (JDBC)/Practica UF6 JDBC/src/arxiusDades/actualitzarDades.csv");
         int jugador_id = 0;
@@ -325,11 +328,12 @@ public class Model {
                 ejupdate.update(ej);
 
             }
-
-
-
+        } catch (IOException e) {
+            System.out.println("Hi ha hagut en error buscant el fitxer");
         } catch (Exception e) {
-            e.printStackTrace();
+            Vista.missatgeError();
+        } finally {
+            Controlador.menu();
         }
     }
 

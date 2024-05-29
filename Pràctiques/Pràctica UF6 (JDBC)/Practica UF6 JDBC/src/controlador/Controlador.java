@@ -81,6 +81,7 @@ public class Controlador {
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
             Vista.missatgeError();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -95,7 +96,6 @@ public class Controlador {
             jugadorNom = scan.nextLine();
             System.out.print("Cognom: ");
             jugadorCognom = scan.nextLine();
-
             System.out.println("Buscant jugador a la bd...");
             Model.consultarEstadistiquesJugadors(jugadorNom, jugadorCognom);
         } catch (SQLException e){
@@ -113,9 +113,9 @@ public class Controlador {
             System.out.println("A quin equips vols llistar els partits?: ");
             System.out.println("Introdueix el nom de l'equip(ex. Bulls): ");
             nomEquip = scan.nextLine();
-
             System.out.println("Buscant equip a la bd...");
             Model.mostrarEstadistiquesPartits(nomEquip);
+
         } catch (SQLException e){
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
@@ -195,6 +195,7 @@ public class Controlador {
 
             System.out.println("Inserint jugador...");
             Model.inserirJugador(j2);
+
         } catch (SQLException e){
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
@@ -219,8 +220,8 @@ public class Controlador {
             equipId = scan.nextInt();
             scan.nextLine();
             System.out.println("Buscant el jugador a la bd...");
-
             Model.canviarJugadorEquip(nom, cognom, equipId);
+
         } catch (SQLException e){
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
@@ -229,11 +230,17 @@ public class Controlador {
     }
 
     /******************** Excercici 6 *********************/
-    public static void actualitzarDadesFitxer() {
+    public static void actualitzarDadesFitxer() throws SQLException {
 
-        Vista.mostrarMissatgesFitxers();
-        Model.actualitzarDadesEstadistiques();
-        //TODO: El alvaro es una maquina
+        try {
+            Vista.mostrarMissatgesFitxers();
+            Model.actualitzarDadesEstadistiques();
+        } catch (SQLException e) {
+            System.out.println("Hi ha hagut un problema amb la base de dades, torna a introduir opció");
+        } catch (Exception e) {
+            Vista.missatgeError();
+        }
+
 
     }
 

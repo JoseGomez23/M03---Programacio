@@ -426,7 +426,7 @@ public class Model {
 
     /*************************** EX 8 ***************************/
     public static void crearTaulaHistoric() throws SQLException {
-
+        //Creacio de la taula per poder fer l'exercici de retirar jugadors a historic
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
                 "jugador_id INT UNSIGNED," +
                 "partit_id INT UNSIGNED, " +

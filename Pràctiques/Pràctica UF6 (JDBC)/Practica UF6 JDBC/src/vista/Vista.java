@@ -88,7 +88,4 @@ public class Vista {
         System.out.println("Hi ha hagut un error, torna a introduir la teva opció");
     }
 
-    public static void arxiuCSV() {
-        System.out.println("Arxiu CSV generat correctament.");
-    }
 }

@@ -33,6 +33,7 @@ public class Model {
 
             String bool = "";
 
+            //Agafa el equip_id donat el nom del equip
             PreparedStatement stmt = con.prepareStatement("SELECT equip_id FROM equips WHERE nom = \"" + nomEquip + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
@@ -42,6 +43,7 @@ public class Model {
                 bool = resultSet.getString("equip_id");
             }
 
+            //Si troba el equip, mostrara els jugadors que té aquest equip
             if (bool.isBlank()) {
 
                 System.out.println("Equip inexistent!");
@@ -71,6 +73,7 @@ public class Model {
 
             String bool = "";
 
+            //Agafa el jugador_id amb el nom i el cognom
             PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nomJugador + "\" AND cognom = \"" + cognomJugador + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
@@ -80,6 +83,7 @@ public class Model {
                 bool = resultSet.getString("jugador_id");
             }
 
+            //Si el jugador existeix, dona la mitjana de les seves estadistiques
             if (bool.isBlank()) {
 
                 System.out.println("Jugador inexistent!");
@@ -117,6 +121,7 @@ public class Model {
         String bool = "";
         String acronim = "";
 
+        //Selecciona el equip_id i el seu acronim donat el nom del equip
         PreparedStatement stmt = con.prepareStatement("SELECT equip_id, acronim FROM equips WHERE nom = \"" + nomEquip + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
@@ -127,6 +132,8 @@ public class Model {
             acronim = resultSet.getString("acronim");
         }
 
+
+        //Si el troba, dona els registres dels partits que ha jugat l'equip
         if (bool.isBlank()){
 
             System.out.println("Equip inexistent!");
@@ -170,11 +177,13 @@ public class Model {
 
             JugadorDAO daojug = new JugadorDAO(con);
 
-
+            //Agafa els registres del jugador id que li donem
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM jugadors WHERE jugador_id = " + jugadorId + ";");
 
             ResultSet resultSet = stmt.executeQuery();
 
+
+            //Si el jugador no existeix l'inserirà a la bd, si no, l'usuari pot escollir si traspassar a l'usuari d'equip
             while (resultSet.next()) {
                 resultsetv2 = resultSet.getString("jugador_id");
             }
@@ -227,6 +236,7 @@ public class Model {
             String posicio = "";
             String bool = "";
 
+            //Agafa tots els camps del jugador corresponent
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nom1 + "\" AND cognom = \"" + cognom2 + "\";");
 
             ResultSet resultSet = stmt.executeQuery();
@@ -245,6 +255,7 @@ public class Model {
 
             }
 
+            //Si el jugador no existeix no canvia res, si el troba, demana un nou equip_id i el traspassa
             if (bool.isBlank()) {
                 System.out.println("Jugador inexistent!");
             } else {
@@ -289,6 +300,7 @@ public class Model {
             BufferedReader br = new BufferedReader(fr);
             String linia = "";
 
+            //Agafa els camps del CVS i els insereix al ej
             while ((linia = br.readLine()) != null) {
                 String [] camps = linia.split(";");
 
@@ -330,6 +342,7 @@ public class Model {
             String bool = "";
 
 
+            //Agafa el jugador_id donat un nom i cognom
             PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
 
             ResultSet resultSet = stmt.executeQuery();
@@ -340,6 +353,7 @@ public class Model {
                 bool = resultSet.getString("jugador_id");
             }
 
+            //Si existeix, demana les noves estadistiques del partit
             if (bool.isBlank()) {
                 System.out.println("Jugador inexistent!");
                 Controlador.menu();
@@ -389,6 +403,8 @@ public class Model {
 
             String bool = "";
 
+
+            //Donat un nom, selecciona tots els camps del equip
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM equips WHERE nom = \"" + nom + "\"");
 
             ResultSet resultSet = stmt.executeQuery();
@@ -405,6 +421,7 @@ public class Model {
                 bool = resultSet.getString("equip_id");
             }
 
+            //Si troba l'equip, demana el nom de la nova franquicia
             if (bool.isBlank()) {
                 System.out.println("Equip inexistent!");
                 Controlador.menu();
@@ -426,7 +443,7 @@ public class Model {
 
     /*************************** EX 8 ***************************/
     public static void crearTaulaHistoric() throws SQLException {
-
+        //Creacio de la taula per poder fer l'exercici de retirar jugadors a historic
         PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS historic(" +
                 "jugador_id INT UNSIGNED," +
                 "partit_id INT UNSIGNED, " +
@@ -468,6 +485,7 @@ public class Model {
         int bloqueigs = 0;
         String bool = "";
 
+        //Agafem el jugador_id amb el nom i el cognom donats
         PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
@@ -478,6 +496,7 @@ public class Model {
             bool = resultSet.getString("jugador_id");
         }
 
+        //Si no troba al jugador no fa res, si el troba l'elimina de la taula i el posa a historic
         if (bool.isBlank()){
 
             System.out.println("Jugador inexistent!");
@@ -544,10 +563,12 @@ public class Model {
         ps.executeUpdate();
         ps.close();
 
-
+        //Agafa jugador_id donats el nom i el cognom
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
         ResultSet resultSet = stmt.executeQuery();
 
+
+        //Carrega el jugador a jugadorHistoric
         while (resultSet.next()){
 
             jugador_id = resultSet.getInt("jugador_id");
@@ -577,6 +598,8 @@ public class Model {
         Date data_naixement = Date.valueOf("1990-01-10");;
         String bool = "";
 
+
+        //Troba el jugadr_id donat un nom i un cognom
         PreparedStatement stmt = con.prepareStatement("SELECT jugador_id FROM jugadors WHERE nom = \"" + nom + "\" AND cognom = \"" + cognom + "\";");
 
         ResultSet resultSet = stmt.executeQuery();
@@ -587,6 +610,8 @@ public class Model {
             bool = resultSet.getString("jugador_id");
         }
 
+
+        //Si no troba al jugador no fa res, si el troba l'elimina de la taula
         if (bool.isBlank()){
 
             System.out.println("Jugador inexistent!");

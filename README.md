@@ -1,4 +1,11 @@
 # PRÀCTICA UF6
+
+# Conexió
+Per fer les proves, s'ha de cambiar la conexió que hi ha a la classe Model. Esta definit com a variable estàtica al principi de tot.
+
+# JAR
+El jar es troba a la carpeta out, artifacts i després Practica UF6 JDBC 
+
 ## Carpetes
 El projecte té un total de 4 carpetes: 
 arxiusDades: Conté el fitxer necessari per fer l'apartat 6.
@@ -55,7 +62,4 @@ Quan s'hagi transferit, es borraran les estadistiques i el perfil del jugador.
 
 # Excercici 9
 Demana el nom d'un equip (Nuggets) i canvia la ciutat/franquicia. (Denver Nuggets --> Blanes Nuggets)
-
-# JAR
-El jar es troba a la carpeta out, artifacts i després Practica UF6 JDBC 
 

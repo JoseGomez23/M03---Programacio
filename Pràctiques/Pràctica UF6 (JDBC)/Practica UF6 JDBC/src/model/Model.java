@@ -107,13 +107,13 @@ public class Model {
             }
         } catch (SQLException e) {
             System.out.println("Hi ha hagut en error amb la base de dades");
-            Controlador.menu();
+
         } catch (Exception e) {
             Vista.missatgeError();
-            Controlador.menu();
+
         } finally {
 
-
+            Controlador.menu();
         }
 
     }
@@ -643,9 +643,6 @@ public class Model {
             jeliminar.delete(j1);
 
         }
-
-
-
 
     }
 }

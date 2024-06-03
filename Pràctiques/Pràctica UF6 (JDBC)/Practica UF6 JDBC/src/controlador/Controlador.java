@@ -73,7 +73,7 @@ public class Controlador {
 
         try {
             String nom;
-            System.out.print("Introdueix el nom del equip que vols llistar tots els jugadors: ");
+            System.out.print("Introdueix el nom del equip que vols llistar tots els jugadors(ex. Bulls): ");
             nom = scan.nextLine();
             System.out.println("Buscant equip a la bd...");
             Model.consultarJugadorsEquip(nom);
@@ -211,7 +211,7 @@ public class Controlador {
             String cognom;
             int equipId;
 
-            System.out.println("Quin jugador vols canviar de equip, introdueix nom i cognom: ");
+            System.out.println("Quin jugador vols canviar de equip, introdueix nom: ");
             System.out.print("Nom: ");
             nom = scan.nextLine();
             System.out.print("Cognom: ");

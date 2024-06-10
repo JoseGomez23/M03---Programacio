@@ -200,6 +200,8 @@ public class Controlador {
             System.out.println("Error al conectar a la base de dades");
         } catch (Exception e) {
             Vista.missatgeError();
+        } finally {
+            menu();
         }
     }
 

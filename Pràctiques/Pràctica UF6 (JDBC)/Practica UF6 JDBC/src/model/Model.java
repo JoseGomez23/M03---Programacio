@@ -643,6 +643,6 @@ public class Model {
             jeliminar.delete(j1);
 
         }
-
+        Controlador.menu();
     }
 }

@@ -50,9 +50,8 @@ public class Vista {
 
     public static void imprimirPartits(ResultSet resultSet, ResultSet resultSet2) throws SQLException {
 
+        System.out.println("Ciutat|Equip|Resultat|VS|Resultat|Ciutat|Equip");
         while (resultSet.next()){
-
-            System.out.println("Ciutat|Equip|Resultat|VS|Resultat|Ciutat|Equip");
 
             System.out.print(resultSet.getString("ciutat"));
             System.out.print(" ");

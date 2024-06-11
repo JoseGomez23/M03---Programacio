@@ -166,7 +166,6 @@ public class Model {
         ResultSet resultSet2 = stmt2.executeQuery();
 
         Vista.imprimirPartits(resultSet,resultSet2);
-
     }
     /*************************** EX 4 ***************************/
     public static void inserirJugador(Jugador j1) throws SQLException {
